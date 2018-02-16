@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MongoConfiguration">
+    <option name="serverConfigurations">
+      <list>
+        <ServerConfiguration>
+          <option name="label" value="测试环境(智宝付)192.168.32.9" />
+          <option name="serverUrls">
+            <list>
+              <option value="192.168.32.9:27017" />
+            </list>
+          </option>
+          <option name="sshTunnelingConfiguration">
+            <SshTunnelingConfiguration />
+          </option>
+          <option name="userDatabase" value="dinpay" />
+        </ServerConfiguration>
+        <ServerConfiguration>
+          <option name="label" value="测试环境(中鼎融)192.168.45.10" />
+          <option name="serverUrls">
+            <list>
+              <option value="192.168.45.10:27017" />
+            </list>
+          </option>
+          <option name="sshTunnelingConfiguration">
+            <SshTunnelingConfiguration />
+          </option>
+          <option name="userDatabase" value="dinpay" />
+        </ServerConfiguration>
+        <ServerConfiguration>
+          <option name="label" value="测试环境(多得宝)192.168.5.116" />
+          <option name="serverUrls">
+            <list>
+              <option value="192.168.5.116:27017" />
+            </list>
+          </option>
+          <option name="sshTunnelingConfiguration">
+            <SshTunnelingConfiguration />
+          </option>
+          <option name="userDatabase" value="dinpay" />
+        </ServerConfiguration>
+      </list>
+    </option>
+  </component>
+</project>
