@@ -17,7 +17,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.SwingConstants;
 
-public class OnTopPage extends JFrame {
+public class OnTop extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel jContentPane = null;
@@ -35,8 +35,9 @@ public class OnTopPage extends JFrame {
     private JPanel getJPanel(int num) {
         if (jPanel == null) {
             jPanel = new JPanel();
-            jPanel.setLayout(new GridLayout(num, 1));
+            //jPanel.setLayout(new GridLayout(num, 1));
             jPanel.setPreferredSize(new Dimension(100, 0));
+
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
             for (int i = 0; i < num; i++) {
                 jPanel.add(getJButton(i), null);
@@ -52,8 +53,9 @@ public class OnTopPage extends JFrame {
      */
     private JButton getJButton(int i) {
         jButton = new JButton();
-        jButton.setBounds(new Rectangle(5, 11, 83, 27));
-        jButton.setPreferredSize(new Dimension(83, 27));
+        //jButton.setBounds(new Rectangle(0, 0, 90, 30));
+        jButton.setPreferredSize(new Dimension(90, 30));
+        //jButton.setSize(100, 15);
         jButton.setForeground(Color.red);
         jButton.setText("Panel " + i);
         jButton.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +89,7 @@ public class OnTopPage extends JFrame {
             jLabel.setForeground(new Color(255, 51, 51));
             jLabel.setText("Panel " + i);
             panel = new JPanel();
+            panel.setBackground(Color.red);
             panel.setLayout(null);
             panel.add(jLabel, null);
             panelMap.put(i, panel);
@@ -103,7 +106,7 @@ public class OnTopPage extends JFrame {
         // TODO Auto-generated method stub
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                OnTopPage thisClass = new OnTopPage();
+                OnTop thisClass = new OnTop();
                 thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 thisClass.setVisible(true);
             }
@@ -114,7 +117,7 @@ public class OnTopPage extends JFrame {
      * This is the default constructor
      */
 
-    public OnTopPage() {
+    public OnTop() {
         super();
         initialize();
     }
@@ -136,7 +139,7 @@ public class OnTopPage extends JFrame {
      *
      * @return javax.swing.JPanel
      */
-    private JPanel getJContentPane() {
+    public JPanel getJContentPane() {
         if (jContentPane == null) {
             jContentPane = new JPanel();
             jContentPane.setLayout(new BorderLayout());

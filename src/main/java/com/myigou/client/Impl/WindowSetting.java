@@ -1,6 +1,7 @@
 package com.myigou.client.Impl;
 
 import com.myigou.client.FunctionInter;
+import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
 import com.myigou.view.WindowView;
 
@@ -83,9 +84,9 @@ public class WindowSetting implements FunctionInter{
 
             jPanel1.add(showMain,BorderLayout.NORTH);
 
+         OnTop onTop=new OnTop();
 
-
-            jPanel1.add(new JLabel("我记雅芬姑家嘎是减肥"),BorderLayout.CENTER);
+            jPanel1.add(onTop.getJContentPane(),BorderLayout.CENTER);
 
 
             jPanel.add(jPanel1,BorderLayout.CENTER);

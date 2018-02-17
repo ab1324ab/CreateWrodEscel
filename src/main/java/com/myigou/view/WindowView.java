@@ -20,7 +20,7 @@ import java.util.Map;
 public class WindowView extends JFrame implements Runnable{
 
     public static final String  VERSION_THIS="V1.0.13";
-    public  String  SHOW_MAIN="fun_1";
+    public  String  SHOW_MAIN="set_1";
     private MuenBar muenBar=new MuenBar();
     private JPanel clientPanel=new JPanel();
     private JPanel titlePanel=new JPanel();

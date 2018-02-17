@@ -5,7 +5,7 @@
       <options enabled="true" />
     </properties>
     <root id="archive" name="enterEscel.jar">
-      <element id="module-output" name="enterEscel" />
+      <element id="module-output" name="CreateWrodEscel" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.properties" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/template.xlsx" />
       <element id="extracted-dir" path="D:/repositoryMy/repository/com/github/virtuald/curvesapi/1.04/curvesapi-1.04.jar" path-in-jar="/" />
