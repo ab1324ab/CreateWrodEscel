@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="CreateWrodEscel" />
         <module name="enterEscel" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="CreateWrodEscel" target="1.8" />
       <module name="enterEscel" target="1.8" />
     </bytecodeTargetLevel>
   </component>
