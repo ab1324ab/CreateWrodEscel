@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.Set;
 import javax.swing.SwingConstants;
 
 public class OnTop extends JFrame {
@@ -24,7 +25,7 @@ public class OnTop extends JFrame {
     private JPanel jPanel = null;
     private JButton jButton = null;
     private JLabel jLabel = null;
-    private Map<Integer, JPanel> panelMap = new HashMap<Integer, JPanel>();
+    private Map<String, JPanel> panelMap = new HashMap<String, JPanel>();
 
     /**
      * This method initializes jPanel
@@ -32,7 +33,7 @@ public class OnTop extends JFrame {
      * @return javax.swing.JPanel
      */
 
-    private JPanel getJPanel(int num) {
+    private JPanel getJPanel(int num,Map<String,Map<String,JPanel>> jPanelMap) {
         if (jPanel == null) {
             jPanel = new JPanel();
             //jPanel.setLayout(new GridLayout(num, 1));
@@ -40,7 +41,7 @@ public class OnTop extends JFrame {
 
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
             for (int i = 0; i < num; i++) {
-                jPanel.add(getJButton(i), null);
+                jPanel.add(getJButton(jPanelMap.get(String.valueOf(i))), null);
             }
         }
         return jPanel;
@@ -51,18 +52,23 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JButton
      */
-    private JButton getJButton(int i) {
+    private JButton getJButton(Map<String,JPanel> parameMap) {
         jButton = new JButton();
         //jButton.setBounds(new Rectangle(0, 0, 90, 30));
         jButton.setPreferredSize(new Dimension(90, 30));
         //jButton.setSize(100, 15);
         jButton.setForeground(Color.red);
-        jButton.setText("Panel " + i);
+        String mapKey="";
+        for (String key : parameMap.keySet()) {
+            mapKey=key;
+        }
+        jButton.setText(mapKey);
+        String finalMapKey = mapKey;
         jButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 jContentPane.remove(((BorderLayout) jContentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));// 删除内容面板中间原来的组建
-                jContentPane.add(getJPanel1(i), BorderLayout.CENTER);// 添加要切换的面板
+                jContentPane.add(getJPanel1(finalMapKey,parameMap.get(finalMapKey)), BorderLayout.CENTER);// 添加要切换的面板
                 jContentPane.validate();// 重构内容面板
                 jContentPane.repaint(); // 重绘内容面板
                 // 上面两句缺一不可，
@@ -79,10 +85,10 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JPanel
      */
-    private JPanel getJPanel1(int i) {
-        JPanel panel = panelMap.get(i);
+    private JPanel getJPanel1(String keyName,JPanel panelc) {
+        JPanel panel = panelMap.get(keyName);
         if (panel == null) {
-            jLabel = new JLabel();
+            /*jLabel = new JLabel();
             jLabel.setBounds(new Rectangle(151, 99, 163, 113));
             jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
             jLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,10 +97,10 @@ public class OnTop extends JFrame {
             panel = new JPanel();
             panel.setBackground(Color.red);
             panel.setLayout(null);
-            panel.add(jLabel, null);
-            panelMap.put(i, panel);
+            panel.add(jLabel, null);*/
+            panelMap.put(keyName, panelc);
         }
-        return panel;
+        return panelc;
     }
 
 
@@ -130,7 +136,7 @@ public class OnTop extends JFrame {
     private void initialize() {
         this.setSize(472, 410);
         //this.setResizable(false);
-        this.setContentPane(getJContentPane());
+        //this.setContentPane(getJContentPane());
         this.setTitle("JPanel切换示例");
     }
 
@@ -139,12 +145,12 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JPanel
      */
-    public JPanel getJContentPane() {
+    public JPanel getJContentPane(int num,Map<String,Map<String,JPanel>> jPanelMap) {
         if (jContentPane == null) {
             jContentPane = new JPanel();
             jContentPane.setLayout(new BorderLayout());
-            jContentPane.add(getJPanel1(0), BorderLayout.CENTER);//中间面板
-            jContentPane.add(getJPanel(10), BorderLayout.WEST);//左邊面板
+            jContentPane.add(getJPanel1("0",new JPanel()), BorderLayout.CENTER);//中间面板
+            jContentPane.add(getJPanel(num,jPanelMap), BorderLayout.WEST);//左邊面板
         }
         return jContentPane;
     }

@@ -84,11 +84,47 @@ public class WindowSetting implements FunctionInter{
 
             jPanel1.add(showMain,BorderLayout.NORTH);
 
-         OnTop onTop=new OnTop();
+            OnTop onTop=new OnTop();
+            Map<String,Map<String,JPanel>> jPanelMap=new HashMap<String,Map<String,JPanel>>();
+            Map<String,JPanel> panelHashMap=new HashMap<String,JPanel>();
+            for (int i=0;i<2;i++){
+                jPanelMap.put(String.valueOf(i),getJPanelMap(i,panelHashMap));
+            };
 
-            jPanel1.add(onTop.getJContentPane(),BorderLayout.CENTER);
+            jPanel1.add(onTop.getJContentPane(2,jPanelMap),BorderLayout.CENTER);
 
 
             jPanel.add(jPanel1,BorderLayout.CENTER);
+    }
+
+    public Map<String,JPanel> getJPanelMap(int i,Map<String,JPanel> jPanelMap){
+        if (i==0){
+            JLabel jLabel = new JLabel();
+            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
+            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            jLabel.setForeground(new Color(255, 51, 51));
+            jLabel.setText("Panel 假的" );
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.red);
+            panel.setLayout(null);
+            panel.add(jLabel, null);
+            jPanelMap.put("第一页",panel);
+        }else if(i==1){
+            JLabel jLabel = new JLabel();
+            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
+            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            jLabel.setForeground(new Color(255, 51, 51));
+            jLabel.setText("Panel 也假的" );
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.red);
+            panel.setLayout(null);
+            panel.add(jLabel, null);
+            jPanelMap.put("第二页",panel);
+        }
+
+
+        return jPanelMap;
     }
 }
