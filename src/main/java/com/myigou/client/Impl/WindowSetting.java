@@ -86,18 +86,18 @@ public class WindowSetting implements FunctionInter{
 
             OnTop onTop=new OnTop();
             Map<String,Map<String,JPanel>> jPanelMap=new HashMap<String,Map<String,JPanel>>();
-            Map<String,JPanel> panelHashMap=new HashMap<String,JPanel>();
-            for (int i=0;i<2;i++){
-                jPanelMap.put(String.valueOf(i),getJPanelMap(i,panelHashMap));
+            int countPanel=3;
+            for (int i=0;i<countPanel;i++){
+                jPanelMap.put(String.valueOf(i),getJPanelMap(i));
             };
-
-            jPanel1.add(onTop.getJContentPane(2,jPanelMap),BorderLayout.CENTER);
+            jPanel1.add(onTop.getJContentPane(countPanel,jPanelMap),BorderLayout.CENTER);
 
 
             jPanel.add(jPanel1,BorderLayout.CENTER);
     }
 
-    public Map<String,JPanel> getJPanelMap(int i,Map<String,JPanel> jPanelMap){
+    public Map<String,JPanel> getJPanelMap(int i){
+        Map<String,JPanel> panelHashMap=new HashMap<String,JPanel>();
         if (i==0){
             JLabel jLabel = new JLabel();
             jLabel.setBounds(new Rectangle(151, 99, 163, 113));
@@ -109,7 +109,7 @@ public class WindowSetting implements FunctionInter{
             panel.setBackground(Color.red);
             panel.setLayout(null);
             panel.add(jLabel, null);
-            jPanelMap.put("第一页",panel);
+            panelHashMap.put("第一页",panel);
         }else if(i==1){
             JLabel jLabel = new JLabel();
             jLabel.setBounds(new Rectangle(151, 99, 163, 113));
@@ -121,10 +121,22 @@ public class WindowSetting implements FunctionInter{
             panel.setBackground(Color.red);
             panel.setLayout(null);
             panel.add(jLabel, null);
-            jPanelMap.put("第二页",panel);
+            panelHashMap.put("第二页",panel);
+        }else if(i==2){
+            JLabel jLabel = new JLabel();
+            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
+            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            jLabel.setForeground(new Color(255, 51, 51));
+            jLabel.setText("Panel 是的" );
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.red);
+            panel.setLayout(null);
+            panel.add(jLabel, null);
+            panelHashMap.put("第三页",panel);
         }
 
 
-        return jPanelMap;
+        return panelHashMap;
     }
 }

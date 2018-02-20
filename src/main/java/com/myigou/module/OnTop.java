@@ -62,8 +62,8 @@ public class OnTop extends JFrame {
         for (String key : parameMap.keySet()) {
             mapKey=key;
         }
-        jButton.setText(mapKey);
         String finalMapKey = mapKey;
+        jButton.setText(finalMapKey);
         jButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -147,9 +147,13 @@ public class OnTop extends JFrame {
      */
     public JPanel getJContentPane(int num,Map<String,Map<String,JPanel>> jPanelMap) {
         if (jContentPane == null) {
+            String mapKey="";
+            for (String key : jPanelMap.get("0").keySet()) {
+                mapKey=key;
+            }
             jContentPane = new JPanel();
             jContentPane.setLayout(new BorderLayout());
-            jContentPane.add(getJPanel1("0",new JPanel()), BorderLayout.CENTER);//中间面板
+            jContentPane.add(getJPanel1("0",jPanelMap.get("0").get(mapKey)), BorderLayout.CENTER);//中间面板
             jContentPane.add(getJPanel(num,jPanelMap), BorderLayout.WEST);//左邊面板
         }
         return jContentPane;
