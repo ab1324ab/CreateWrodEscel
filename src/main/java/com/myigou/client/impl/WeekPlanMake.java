@@ -17,7 +17,7 @@ import java.util.List;
  *         Created by ab1324ab on 2017/6/25.
  */
 public class WeekPlanMake extends JPanel implements FunctionInter {
-    //第一页文本
+    // 第一页文本
     private List<List<JTextField>> jTextFieldList1 = new ArrayList<List<JTextField>>();
     // 第一页文本
     private List<List<JTextField>> jTextFieldList2 = new ArrayList<List<JTextField>>();
