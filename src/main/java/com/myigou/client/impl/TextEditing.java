@@ -61,7 +61,7 @@ public class TextEditing implements FunctionInter {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.insets = new Insets(5, 5, 10, 5);
-        jLabel = new JLabel("一、取出目录下所有文件集中放置在一个桌面文件夹(outFile)中");
+        jLabel = new JLabel("一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中");
         gridBagConstraints.gridy = prompt;
         gridBagConstraints.gridwidth = 2;
         gridBagLayout.setConstraints(jLabel, gridBagConstraints);
@@ -277,7 +277,7 @@ public class TextEditing implements FunctionInter {
                     public void run() {
                         FileSystemView fsv = FileSystemView.getFileSystemView();
                         File com = fsv.getHomeDirectory();
-                        File createDirectory = new File(com.getPath() + "\\outFile");
+                        File createDirectory = new File(com.getPath() + "\\Output files");
                         if (!createDirectory.exists()) {
                             createDirectory.mkdir();
                         }
@@ -358,7 +358,7 @@ public class TextEditing implements FunctionInter {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        jLabel.setText("<html>一、取出目录下所有文件集中放置在一个桌面文件夹(outFile)中 <font  style=\"color:red\"> 当前已获取 : " + number + " 个</font ></html>");
+        jLabel.setText("<html>一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中 <font  style=\"color:red\"> 当前已获取 : " + number + " 个</font ></html>");
         return number;
     }
 
