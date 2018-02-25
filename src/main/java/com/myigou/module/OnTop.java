@@ -9,15 +9,14 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import java.awt.Color;
 import javax.swing.JButton;
-import java.awt.Rectangle;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.util.Set;
-import javax.swing.SwingConstants;
 
+/**
+ * @author ab1324ab
+ *         Created by ab1324ab on 2017/6/29.
+ */
 public class OnTop extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -32,13 +31,11 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JPanel
      */
-
-    private JPanel getJPanel(int num,Map<String,Map<String,JPanel>> jPanelMap) {
+    private JPanel getJPanel(int num, Map<String, Map<String, JPanel>> jPanelMap) {
         if (jPanel == null) {
             jPanel = new JPanel();
-            //jPanel.setLayout(new GridLayout(num, 1));
+            // jPanel.setLayout(new GridLayout(num, 1));
             jPanel.setPreferredSize(new Dimension(100, 0));
-
             jPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
             for (int i = 0; i < num; i++) {
                 jPanel.add(getJButton(jPanelMap.get(String.valueOf(i))), null);
@@ -52,25 +49,29 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JButton
      */
-    private JButton getJButton(Map<String,JPanel> parameMap) {
+    private JButton getJButton(Map<String, JPanel> parameMap) {
         jButton = new JButton();
-        //jButton.setBounds(new Rectangle(0, 0, 90, 30));
+        // jButton.setBounds(new Rectangle(0, 0, 90, 30));
         jButton.setPreferredSize(new Dimension(90, 30));
-        //jButton.setSize(100, 15);
+        // jButton.setSize(100, 15);
         jButton.setForeground(Color.red);
-        String mapKey="";
+        String mapKey = "";
         for (String key : parameMap.keySet()) {
-            mapKey=key;
+            mapKey = key;
         }
         String finalMapKey = mapKey;
         jButton.setText(finalMapKey);
         jButton.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                jContentPane.remove(((BorderLayout) jContentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));// 删除内容面板中间原来的组建
-                jContentPane.add(getJPanel1(finalMapKey,parameMap.get(finalMapKey)), BorderLayout.CENTER);// 添加要切换的面板
-                jContentPane.validate();// 重构内容面板
-                jContentPane.repaint(); // 重绘内容面板
+                // 删除内容面板中间原来的组建
+                jContentPane.remove(((BorderLayout) jContentPane.getLayout()).getLayoutComponent(BorderLayout.CENTER));
+                // 添加要切换的面板
+                jContentPane.add(getJPanel1(finalMapKey, parameMap.get(finalMapKey)), BorderLayout.CENTER);
+                // 重构内容面板
+                jContentPane.validate();
+                // 重绘内容面板
+                jContentPane.repaint();
                 // 上面两句缺一不可，
                 // 没有validate()删除和添加没有效果
                 // 没有repaint()界面绘出现混乱
@@ -85,19 +86,19 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JPanel
      */
-    private JPanel getJPanel1(String keyName,JPanel panelc) {
+    private JPanel getJPanel1(String keyName, JPanel panelc) {
         JPanel panel = panelMap.get(keyName);
         if (panel == null) {
-            /*jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("Panel " + i);
-            panel = new JPanel();
-            panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);*/
+//            jLabel = new JLabel();
+//            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
+//            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
+//            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//            jLabel.setForeground(new Color(255, 51, 51));
+//            jLabel.setText("Panel " + i);
+//            panel = new JPanel();
+//            panel.setBackground(Color.red);
+//            panel.setLayout(null);
+//            panel.add(jLabel, null);
             panelMap.put(keyName, panelc);
         }
         return panelc;
@@ -122,7 +123,6 @@ public class OnTop extends JFrame {
     /**
      * This is the default constructor
      */
-
     public OnTop() {
         super();
         initialize();
@@ -135,8 +135,8 @@ public class OnTop extends JFrame {
      */
     private void initialize() {
         this.setSize(472, 410);
-        //this.setResizable(false);
-        //this.setContentPane(getJContentPane());
+        // this.setResizable(false);
+        // this.setContentPane(getJContentPane());
         this.setTitle("JPanel切换示例");
     }
 
@@ -145,16 +145,18 @@ public class OnTop extends JFrame {
      *
      * @return javax.swing.JPanel
      */
-    public JPanel getJContentPane(int num,Map<String,Map<String,JPanel>> jPanelMap) {
+    public JPanel getJContentPane(int num, Map<String, Map<String, JPanel>> jPanelMap) {
         if (jContentPane == null) {
-            String mapKey="";
+            String mapKey = "";
             for (String key : jPanelMap.get("0").keySet()) {
-                mapKey=key;
+                mapKey = key;
             }
             jContentPane = new JPanel();
             jContentPane.setLayout(new BorderLayout());
-            jContentPane.add(getJPanel1("0",jPanelMap.get("0").get(mapKey)), BorderLayout.CENTER);//中间面板
-            jContentPane.add(getJPanel(num,jPanelMap), BorderLayout.WEST);//左邊面板
+            // 中间面板
+            jContentPane.add(getJPanel1("0", jPanelMap.get("0").get(mapKey)), BorderLayout.CENTER);
+            // 左邊面板
+            jContentPane.add(getJPanel(num, jPanelMap), BorderLayout.WEST);
         }
         return jContentPane;
     }

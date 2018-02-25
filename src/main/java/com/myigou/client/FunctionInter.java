@@ -3,20 +3,23 @@ package com.myigou.client;
 import javax.swing.*;
 
 /**
- * Created by ab1324ab on 2017/6/25.
+ * @author ab1324ab
+ *         Created by ab1324ab on 2017/6/25.
  */
 public interface FunctionInter {
 
     /**
      * 获取功能
+     *
      * @return
      */
-    JPanel getFunction(JPanel jPanel,JFrame jFrame);
+    JPanel getFunction(JPanel jPanel, JFrame jFrame);
 
     /**
      * 获取标题
+     *
      * @param jPanel
      * @return
      */
-    JPanel getTitle(JPanel jPanel,JFrame jFrame);
+    JPanel getTitle(JPanel jPanel, JFrame jFrame);
 }

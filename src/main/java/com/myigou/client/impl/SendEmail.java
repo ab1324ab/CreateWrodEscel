@@ -1,6 +1,7 @@
-package com.myigou.client.Impl;
+package com.myigou.client.impl;
 
 import com.myigou.client.FunctionInter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,8 +15,10 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
 /**
- * Created by Administrator on 2017-10-7.
+ * @author ab1324ab
+ *         Created by ab1324ab on 2017-10-7.
  */
 public class SendEmail implements FunctionInter {
 
@@ -24,16 +27,17 @@ public class SendEmail implements FunctionInter {
     final String apiKey = "myEscel_test_XU4ODn";
     final String from = "service@sendcloud.im";
     final String fromName = "myEscel_test_XU4ODn";
+    // 网格布局
+    private GridBagLayout gridBagLayout = new GridBagLayout();
 
-    private GridBagLayout gridBagLayout=new GridBagLayout();//网格布局
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(gridBagLayout);
         this.editMsg(jPanel);
-        //this.createFolders(jPanel);
-        //this.createFolders1(jPanel);
-        //this.createFolders2(jPanel);
-        //this.registerListener(jPanel,jFrame);
+        // this.createFolders(jPanel);
+        // this.createFolders1(jPanel);
+        // this.createFolders2(jPanel);
+        // this.registerListener(jPanel,jFrame);
         return jPanel;
     }
 
@@ -45,27 +49,30 @@ public class SendEmail implements FunctionInter {
 
     /**
      * 编辑邮件发送信息
+     *
      * @param jPanel
      */
-    public void editMsg(JPanel jPanel){
-        GridBagConstraints gridBagConstraints=new GridBagConstraints();//控制按钮显示组件
-        gridBagConstraints.insets=new Insets(5,5,5,5);
+    public void editMsg(JPanel jPanel) {
+        // 控制按钮显示组件
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
 
-        JLabel toUserName=new JLabel("收件人：");
+        JLabel toUserName = new JLabel("收件人：");
         jPanel.add(toUserName);
-        JTextField toUser=new JTextField();//文件地址
+        // 文件地址
+        JTextField toUser = new JTextField();
         toUser.setColumns(20);
-        gridBagConstraints.gridwidth=2;
-        gridBagLayout.setConstraints(toUser,gridBagConstraints);
+        gridBagConstraints.gridwidth = 2;
+        gridBagLayout.setConstraints(toUser, gridBagConstraints);
         jPanel.add(toUser);
     }
 
 
-    public String sendEMS(){
-        String returnStr="error";
-        try{
+    public String sendEMS() {
+        String returnStr = "error";
+        try {
             HttpClient httpclient = new DefaultHttpClient();
-            //ContentType.MULTIPART_FORM_DATA;
+            // ContentType.MULTIPART_FORM_DATA;
             HttpPost httPost = new HttpPost(url);
             List params = new ArrayList();
             // 您需要登录SendCloud创建API_USER，使用API_USER和API_KEY才可以进行邮件的发送。
@@ -79,14 +86,15 @@ public class SendEmail implements FunctionInter {
             httPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
             // 请求
             HttpResponse response = httpclient.execute(httPost);
-            // 处理响应
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) { // 正常返回
+            // 处理响应  正常返回200
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 // 读取xml文档
                 String result = EntityUtils.toString(response.getEntity());
-                returnStr=result;
+                returnStr = result;
             }
             httPost.releaseConnection();
-        }catch (Exception ex){}
+        } catch (Exception ex) {
+        }
         return returnStr;
     }
 }
