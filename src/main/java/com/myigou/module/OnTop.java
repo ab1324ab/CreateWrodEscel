@@ -116,6 +116,7 @@ public class OnTop extends JFrame {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 OnTop thisClass = new OnTop();
                 thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
