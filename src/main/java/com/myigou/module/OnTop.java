@@ -36,7 +36,8 @@ public class OnTop extends JFrame {
             jPanel = new JPanel();
             // jPanel.setLayout(new GridLayout(num, 1));
             jPanel.setPreferredSize(new Dimension(100, 0));
-            jPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+            jPanel.setBackground(new Color(210, 210, 210));
+            jPanel.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             for (int i = 0; i < num; i++) {
                 jPanel.add(getJButton(jPanelMap.get(String.valueOf(i))), null);
             }
@@ -51,8 +52,11 @@ public class OnTop extends JFrame {
      */
     private JButton getJButton(Map<String, JPanel> parameMap) {
         jButton = new JButton();
+        jButton.setFocusPainted(false);
         // jButton.setBounds(new Rectangle(0, 0, 90, 30));
-        jButton.setPreferredSize(new Dimension(90, 30));
+        // 设置尺寸
+        Dimension preferredSize = new Dimension(90,35);
+        jButton.setPreferredSize(preferredSize);
         // jButton.setSize(100, 15);
         jButton.setForeground(Color.red);
         String mapKey = "";
@@ -152,6 +156,8 @@ public class OnTop extends JFrame {
                 mapKey = key;
             }
             jContentPane = new JPanel();
+            jContentPane.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+
             jContentPane.setLayout(new BorderLayout());
             // 中间面板
             jContentPane.add(getJPanel1("0", jPanelMap.get("0").get(mapKey)), BorderLayout.CENTER);

@@ -60,7 +60,7 @@ public class WindowView extends JFrame implements Runnable {
         JButton button2 = new JButton("关于我们");
         // 添加标题面板入窗体
         this.add(MuenBar.displayJpael.get("titlePanel"), BorderLayout.NORTH);
-        this.add(MuenBar.displayJpael.get("clientPanel"));
+        this.add(MuenBar.displayJpael.get("clientPanel"), BorderLayout.CENTER);
         // 关于我们 帮助
         this.add(button2, BorderLayout.SOUTH);
         this.setVisible(true);
@@ -115,7 +115,7 @@ public class WindowView extends JFrame implements Runnable {
     public void selectButton(HashMap<String, JPanel> mapJpanel) {
         // 添加标题面板入窗体
         this.add(mapJpanel.get("titlePanel"), BorderLayout.NORTH);
-        this.add(mapJpanel.get("clientPanel"));
+        this.add(mapJpanel.get("clientPanel"), BorderLayout.CENTER);
         mapJpanel.get("titlePanel").setVisible(false);
         mapJpanel.get("titlePanel").setVisible(true);
         mapJpanel.get("clientPanel").setVisible(false);

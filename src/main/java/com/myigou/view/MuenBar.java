@@ -103,6 +103,17 @@ public class MuenBar {
         });
         this.muenStyle(weekPlan, "1");
         function.add(weekPlan);
+
+        JMenuItem weekPlan2 = new JMenuItem("周计划生成2");
+        weekPlan2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                windowView.selectButton(windowView.accessDisplay("fun_1_2"));
+            }
+        });
+        this.muenStyle(weekPlan2, "1");
+        function.add(weekPlan2);
+
         JMenuItem documentFile = new JMenuItem("文件编辑");
         documentFile.addActionListener(new ActionListener() {
             @Override
