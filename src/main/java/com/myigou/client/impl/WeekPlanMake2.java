@@ -2,6 +2,7 @@ package com.myigou.client.impl;
 
 import com.myigou.client.FunctionInter;
 import com.myigou.module.OnTop;
+import com.myigou.tool.PropertiesTool;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,12 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     private GridBagLayout gridBagLayout = new GridBagLayout();
     // 字体类型
     Font font= new Font("仿宋", Font.BOLD, 12);
+    // 内容map
+    private Map<String, String> contentMap = null;
+
+    public WeekPlanMake2() {
+        contentMap = PropertiesTool.redConfigFile("config.properties");
+    }
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(new BorderLayout());
@@ -82,56 +89,81 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JLabel title = new JLabel();
             title.setFont(font);
             title.setForeground(new Color(255, 51, 51));
+            title.setHorizontalAlignment(SwingConstants.LEFT);
+            title.setFont(new Font("仿宋",Font.BOLD,20));
             title.setText("本周计划");
             //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
             gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints.weightx = 0;
             gridBagConstraints.weighty = 0;
+            gridBagConstraints.gridwidth = 2;
             gridBagConstraints.insets = new Insets(5, 5, 5, 5);
             gridBagLayout.setConstraints(title, gridBagConstraints);
             contentJPanel.add(title);
+            // 部门文本
+            JLabel ranks = new JLabel();
+            ranks.setFont(font);
+            ranks.setForeground(new Color(255, 51, 51));
+            ranks.setText("部门：");
+            ranks.setHorizontalAlignment(SwingConstants.CENTER);
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 0;
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.gridwidth = 1;
+            gridBagLayout.setConstraints(ranks, gridBagConstraints);
+            contentJPanel.add(ranks);
+            //部门 编辑框
+            JTextField ranksText = new JTextField(contentMap.get("department"));
+            ranksText.setColumns(5);
+            ranksText.setHorizontalAlignment(JTextField.CENTER);
+            gridBagLayout.setConstraints(ranksText, gridBagConstraints);
+            contentJPanel.add(ranksText);
             // 计划人文本
             JLabel jLabel = new JLabel();
             jLabel.setFont(font);
             jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("计划人:");
+            jLabel.setText("计划人：");
             jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            gridBagConstraints.weightx = 1;
-            gridBagConstraints.weighty = 0;
-            gridBagConstraints.gridy = 1;
             gridBagLayout.setConstraints(jLabel, gridBagConstraints);
             contentJPanel.add(jLabel);
             //计划人 编辑框
-            JTextField plannedText = new JTextField();
+            JTextField plannedText = new JTextField(contentMap.get("name"));
             plannedText.setColumns(5);
+            plannedText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(plannedText, gridBagConstraints);
             contentJPanel.add(plannedText);
-            // 计划日期
-            JLabel plannedDate = new JLabel();
-            plannedDate.setFont(font);
-            plannedDate.setForeground(new Color(255, 51, 51));
-            plannedDate.setHorizontalAlignment(SwingConstants.CENTER);
-            plannedDate.setText("计划日期:");
-            gridBagLayout.setConstraints(plannedDate, gridBagConstraints);
-            contentJPanel.add(plannedDate);
-            // 计划日期编辑框
-            JTextField plannedDateText = new JTextField();
-            plannedDateText.setColumns(5);
-            gridBagLayout.setConstraints(plannedDateText, gridBagConstraints);
-            contentJPanel.add(plannedDateText);
             // 总结日期
             JLabel summaryDate = new JLabel();
             summaryDate.setFont(font);
             summaryDate.setForeground(new Color(255, 51, 51));
             summaryDate.setHorizontalAlignment(SwingConstants.CENTER);
-            summaryDate.setText("总结日期:");
+            summaryDate.setText("总结日期：");
+            gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(summaryDate, gridBagConstraints);
             contentJPanel.add(summaryDate);
             // 总结日期编辑框
             JTextField summaryDateText = new JTextField();
             summaryDateText.setColumns(5);
+            summaryDateText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(summaryDateText, gridBagConstraints);
             contentJPanel.add(summaryDateText);
+            // 计划日期
+            JLabel plannedDate = new JLabel();
+            plannedDate.setFont(font);
+            plannedDate.setForeground(new Color(255, 51, 51));
+            plannedDate.setHorizontalAlignment(SwingConstants.CENTER);
+            plannedDate.setText("计划日期：");
+            gridBagConstraints.gridwidth = 2;
+            gridBagLayout.setConstraints(plannedDate, gridBagConstraints);
+            contentJPanel.add(plannedDate);
+            // 计划日期编辑框
+            JTextField plannedDateText = new JTextField();
+            plannedDateText.setColumns(5);
+            plannedDateText.setHorizontalAlignment(JTextField.CENTER);
+            // plannedDateText.setFont(new Font("仿宋", Font.BOLD, 13));
+            gridBagLayout.setConstraints(plannedDateText, gridBagConstraints);
+            contentJPanel.add(plannedDateText);
+
 
             gridBagConstraints.gridy = 2;
             // 任务人/组别
@@ -139,7 +171,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             personGroup.setFont(font);
             personGroup.setForeground(new Color(255, 51, 51));
             personGroup.setHorizontalAlignment(SwingConstants.CENTER);
-            personGroup.setText("任务名/组别:");
+            personGroup.setText("任务名/组别");
+            gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(personGroup, gridBagConstraints);
             contentJPanel.add(personGroup);
             // 任务内容
@@ -147,7 +180,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             mandateContent.setFont(font);
             mandateContent.setForeground(new Color(255, 51, 51));
             mandateContent.setHorizontalAlignment(SwingConstants.CENTER);
-            mandateContent.setText("任务内容:");
+            mandateContent.setText("任务内容");
+            gridBagConstraints.gridwidth = 3;
             gridBagLayout.setConstraints(mandateContent, gridBagConstraints);
             contentJPanel.add(mandateContent);
             // 难易度
@@ -155,7 +189,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             difficulty.setFont(font);
             difficulty.setForeground(new Color(255, 51, 51));
             difficulty.setHorizontalAlignment(SwingConstants.CENTER);
-            difficulty.setText("难易度:");
+            difficulty.setText("难易度");
+            gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(difficulty, gridBagConstraints);
             contentJPanel.add(difficulty);
             // 预计完成时间
@@ -163,7 +198,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             projectedCompletion.setFont(font);
             projectedCompletion.setForeground(new Color(255, 51, 51));
             projectedCompletion.setHorizontalAlignment(SwingConstants.CENTER);
-            projectedCompletion.setText("预计完成时间:");
+            projectedCompletion.setText("预计完成时间");
+            gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(projectedCompletion, gridBagConstraints);
             contentJPanel.add(projectedCompletion);
             // 完成比例
@@ -171,7 +207,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             percentage.setFont(font);
             percentage.setForeground(new Color(255, 51, 51));
             percentage.setHorizontalAlignment(SwingConstants.CENTER);
-            percentage.setText("完成比例:");
+            percentage.setText("完成比例");
+            gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(percentage, gridBagConstraints);
             contentJPanel.add(percentage);
             // 跟进人
@@ -179,7 +216,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             head.setFont(font);
             head.setForeground(new Color(255, 51, 51));
             head.setHorizontalAlignment(SwingConstants.CENTER);
-            head.setText("跟进人:");
+            head.setText("跟进人");
+            gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(head, gridBagConstraints);
             contentJPanel.add(head);
             // 完成情况
@@ -187,34 +225,43 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             status.setFont(font);
             status.setForeground(new Color(255, 51, 51));
             status.setHorizontalAlignment(SwingConstants.CENTER);
-            status.setText("完成情况:");
+            status.setText("完成情况");
+            gridBagConstraints.gridwidth = 3;
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
-
-            for(int j = 3; j<10; j++ ){
+            String[] str = {"功能开发/后台组","配合测试同事测试智宝付自动轮询","中","3","80%","侯文康","只有调账功能还不通"};
+            for(int j = 3; j<14; j++ ){
                 gridBagConstraints.gridy = j;
                 // 任务人/组别编辑框
-                JTextField personGroupText = new JTextField();
+                JTextField personGroupText = new JTextField(str[0]);
                 personGroupText.setColumns(5);
+                gridBagConstraints.gridwidth = 1;
+                personGroupText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(personGroupText, gridBagConstraints);
                 contentJPanel.add(personGroupText);
                 // 任务内容编辑框
-                JTextField mandateContentText = new JTextField();
-                mandateContentText.setColumns(5);
+                JTextField mandateContentText = new JTextField(str[1]);
+                mandateContentText.setColumns(20);
+                gridBagConstraints.gridwidth = 3;
+                mandateContentText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(mandateContentText, gridBagConstraints);
                 contentJPanel.add(mandateContentText);
                 // 难易度编辑框
                 String nations[]={"中","低","高"};
                 JComboBox jcb1=new JComboBox(nations);
+                jcb1.setSelectedItem(str[2]);
                 // JTextField difficultyText = new JTextField();
                 jcb1.setMaximumRowCount(3);
                 Dimension dimension= new Dimension(20,10);
                 jcb1.setSize(dimension);
+                gridBagConstraints.gridwidth = 1;
                 gridBagLayout.setConstraints(jcb1, gridBagConstraints);
                 contentJPanel.add(jcb1);
                 // 预计完成时间编辑框
-                JTextField projectedCompletionText = new JTextField();
-                projectedCompletionText.setColumns(5);
+                JTextField projectedCompletionText = new JTextField(str[3]);
+                projectedCompletionText.setColumns(3);
+                gridBagConstraints.gridwidth = 1;
+                projectedCompletionText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(projectedCompletionText, gridBagConstraints);
                 contentJPanel.add(projectedCompletionText);
                 // 完成比例编辑框
@@ -222,17 +269,23 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 JComboBox percentageBox=new JComboBox(percentageText);
                 // JTextField percentageText = new JTextField();
                 // percentageText.setColumns(5);
+                percentageBox.setSelectedItem(str[4]);
                 percentageBox.setMaximumRowCount(5);
+                gridBagConstraints.gridwidth = 1;
                 gridBagLayout.setConstraints(percentageBox, gridBagConstraints);
                 contentJPanel.add(percentageBox);
                 // 跟进人编辑框
-                JTextField headText = new JTextField();
+                JTextField headText = new JTextField(str[5]);
                 headText.setColumns(5);
+                gridBagConstraints.gridwidth = 1;
+                headText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(headText, gridBagConstraints);
                 contentJPanel.add(headText);
-                // 跟进人编辑框
-                JTextField statusText = new JTextField();
-                statusText.setColumns(5);
+                // 完成情况 编辑框
+                JTextField statusText = new JTextField(str[6]);
+                statusText.setColumns(20);
+                gridBagConstraints.gridwidth = 3;
+                statusText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(statusText, gridBagConstraints);
                 contentJPanel.add(statusText);
             }
@@ -241,19 +294,157 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             panel.add(contentJPanel, BorderLayout.NORTH);
             JButton newText = new JButton("增加");
             panel.add(newText);
-            //panel.add(title);
             panelHashMap.put("本周计划", panel);
         } else if (i == 1) {
-            JLabel jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("下周工作计划");
             JPanel panel = new JPanel();
-            // panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            // 创建内容面板
+            JPanel contentJPanel = new JPanel();
+            contentJPanel.setLayout(gridBagLayout);
+            GridBagConstraints gridBagConstraints = new GridBagConstraints();
+            // 本周计划
+            JLabel title = new JLabel();
+            title.setFont(new Font("仿宋",Font.BOLD,20));
+            title.setForeground(new Color(255, 51, 51));
+            title.setHorizontalAlignment(SwingConstants.LEFT);
+            title.setText("下周工作计划");
+            //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
+            gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+            gridBagConstraints.weightx = 0;
+            gridBagConstraints.weighty = 0;
+            gridBagConstraints.gridwidth = 5;
+            gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+            gridBagLayout.setConstraints(title, gridBagConstraints);
+            contentJPanel.add(title);
+            // 任务人/组别
+            JLabel personGroup = new JLabel();
+            personGroup.setFont(font);
+            personGroup.setForeground(new Color(255, 51, 51));
+            personGroup.setHorizontalAlignment(SwingConstants.CENTER);
+            personGroup.setText("任务名/组别");
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 0;
+            gridBagConstraints.gridwidth = 1;
+            gridBagLayout.setConstraints(personGroup, gridBagConstraints);
+            contentJPanel.add(personGroup);
+            // 任务内容
+            JLabel mandateContent = new JLabel();
+            mandateContent.setFont(font);
+            mandateContent.setForeground(new Color(255, 51, 51));
+            mandateContent.setHorizontalAlignment(SwingConstants.CENTER);
+            mandateContent.setText("任务内容");
+            gridBagConstraints.gridwidth = 3;
+            gridBagLayout.setConstraints(mandateContent, gridBagConstraints);
+            contentJPanel.add(mandateContent);
+            // 难易度
+            JLabel difficulty = new JLabel();
+            difficulty.setFont(font);
+            difficulty.setForeground(new Color(255, 51, 51));
+            difficulty.setHorizontalAlignment(SwingConstants.CENTER);
+            difficulty.setText("难易度");
+            gridBagConstraints.gridwidth = 1;
+            gridBagLayout.setConstraints(difficulty, gridBagConstraints);
+            contentJPanel.add(difficulty);
+            // 预计完成时间
+            JLabel projectedCompletion = new JLabel();
+            projectedCompletion.setFont(font);
+            projectedCompletion.setForeground(new Color(255, 51, 51));
+            projectedCompletion.setHorizontalAlignment(SwingConstants.CENTER);
+            projectedCompletion.setText("预计完成时间");
+            gridBagConstraints.gridwidth = 1;
+            gridBagLayout.setConstraints(projectedCompletion, gridBagConstraints);
+            contentJPanel.add(projectedCompletion);
+            // 完成比例
+            JLabel percentage = new JLabel();
+            percentage.setFont(font);
+            percentage.setForeground(new Color(255, 51, 51));
+            percentage.setHorizontalAlignment(SwingConstants.CENTER);
+            percentage.setText("完成比例");
+            gridBagConstraints.gridwidth = 1;
+            gridBagLayout.setConstraints(percentage, gridBagConstraints);
+            contentJPanel.add(percentage);
+            // 跟进人
+            JLabel head = new JLabel();
+            head.setFont(font);
+            head.setForeground(new Color(255, 51, 51));
+            head.setHorizontalAlignment(SwingConstants.CENTER);
+            head.setText("跟进人");
+            gridBagConstraints.gridwidth = 1;
+            gridBagLayout.setConstraints(head, gridBagConstraints);
+            contentJPanel.add(head);
+            // 完成情况
+            JLabel status = new JLabel();
+            status.setFont(font);
+            status.setForeground(new Color(255, 51, 51));
+            status.setHorizontalAlignment(SwingConstants.CENTER);
+            status.setText("完成情况");
+            gridBagConstraints.gridwidth = 3;
+            gridBagLayout.setConstraints(status, gridBagConstraints);
+            contentJPanel.add(status);
+            String[] str = {"功能开发/后台组","配合测试同事测试智宝付自动轮询","中","3","80%","侯文康","只有调账功能还不通"};
+            for(int j = 2; j<14; j++ ){
+                gridBagConstraints.gridy = j;
+                // 任务人/组别编辑框
+                JTextField personGroupText = new JTextField(str[0]);
+                personGroupText.setColumns(5);
+                gridBagConstraints.gridwidth = 1;
+                personGroupText.setHorizontalAlignment(JTextField.CENTER);
+                gridBagLayout.setConstraints(personGroupText, gridBagConstraints);
+                contentJPanel.add(personGroupText);
+                // 任务内容编辑框
+                JTextField mandateContentText = new JTextField(str[1]);
+                mandateContentText.setColumns(20);
+                gridBagConstraints.gridwidth = 3;
+                mandateContentText.setHorizontalAlignment(JTextField.CENTER);
+                gridBagLayout.setConstraints(mandateContentText, gridBagConstraints);
+                contentJPanel.add(mandateContentText);
+                // 难易度编辑框
+                String nations[]={"中","低","高"};
+                JComboBox jcb1=new JComboBox(nations);
+                jcb1.setSelectedItem(str[2]);
+                // JTextField difficultyText = new JTextField();
+                jcb1.setMaximumRowCount(3);
+                Dimension dimension= new Dimension(20,10);
+                jcb1.setSize(dimension);
+                gridBagConstraints.gridwidth = 1;
+                gridBagLayout.setConstraints(jcb1, gridBagConstraints);
+                contentJPanel.add(jcb1);
+                // 预计完成时间编辑框
+                JTextField projectedCompletionText = new JTextField(str[3]);
+                projectedCompletionText.setColumns(3);
+                gridBagConstraints.gridwidth = 1;
+                projectedCompletionText.setHorizontalAlignment(JTextField.CENTER);
+                gridBagLayout.setConstraints(projectedCompletionText, gridBagConstraints);
+                contentJPanel.add(projectedCompletionText);
+                // 完成比例编辑框
+                String percentageText[]={"10%","20%","30%","50%","60%","70%","80%","90%","100%"};
+                JComboBox percentageBox=new JComboBox(percentageText);
+                // JTextField percentageText = new JTextField();
+                // percentageText.setColumns(5);
+                percentageBox.setSelectedItem(str[4]);
+                percentageBox.setMaximumRowCount(5);
+                gridBagConstraints.gridwidth = 1;
+                gridBagLayout.setConstraints(percentageBox, gridBagConstraints);
+                contentJPanel.add(percentageBox);
+                // 跟进人编辑框
+                JTextField headText = new JTextField(str[5]);
+                headText.setColumns(5);
+                gridBagConstraints.gridwidth = 1;
+                headText.setHorizontalAlignment(JTextField.CENTER);
+                gridBagLayout.setConstraints(headText, gridBagConstraints);
+                contentJPanel.add(headText);
+                // 完成情况 编辑框
+                JTextField statusText = new JTextField(str[6]);
+                statusText.setColumns(20);
+                gridBagConstraints.gridwidth = 3;
+                statusText.setHorizontalAlignment(JTextField.CENTER);
+                gridBagLayout.setConstraints(statusText, gridBagConstraints);
+                contentJPanel.add(statusText);
+            }
+            panel.setLayout(new BorderLayout());
+            panel.add(contentJPanel, BorderLayout.NORTH);
+            JButton newText = new JButton("增加");
+            panel.add(newText);
             panelHashMap.put("下周工作计划", panel);
         } else if (i == 2) {
             JLabel jLabel = new JLabel();
