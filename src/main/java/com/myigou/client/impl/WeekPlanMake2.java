@@ -83,7 +83,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             title.setFont(font);
             title.setForeground(new Color(255, 51, 51));
             title.setText("本周计划");
-            gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
+            //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
             gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints.weightx = 0;
             gridBagConstraints.weighty = 0;
@@ -204,20 +204,27 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 gridBagLayout.setConstraints(mandateContentText, gridBagConstraints);
                 contentJPanel.add(mandateContentText);
                 // 难易度编辑框
-                JTextField difficultyText = new JTextField();
-                difficultyText.setColumns(5);
-                gridBagLayout.setConstraints(difficultyText, gridBagConstraints);
-                contentJPanel.add(difficultyText);
+                String nations[]={"中","低","高"};
+                JComboBox jcb1=new JComboBox(nations);
+                // JTextField difficultyText = new JTextField();
+                jcb1.setMaximumRowCount(3);
+                Dimension dimension= new Dimension(20,10);
+                jcb1.setSize(dimension);
+                gridBagLayout.setConstraints(jcb1, gridBagConstraints);
+                contentJPanel.add(jcb1);
                 // 预计完成时间编辑框
                 JTextField projectedCompletionText = new JTextField();
                 projectedCompletionText.setColumns(5);
                 gridBagLayout.setConstraints(projectedCompletionText, gridBagConstraints);
                 contentJPanel.add(projectedCompletionText);
                 // 完成比例编辑框
-                JTextField percentageText = new JTextField();
-                percentageText.setColumns(5);
-                gridBagLayout.setConstraints(percentageText, gridBagConstraints);
-                contentJPanel.add(percentageText);
+                String percentageText[]={"10%","20%","30%","50%","60%","70%","80%","90%","100%"};
+                JComboBox percentageBox=new JComboBox(percentageText);
+                // JTextField percentageText = new JTextField();
+                // percentageText.setColumns(5);
+                percentageBox.setMaximumRowCount(5);
+                gridBagLayout.setConstraints(percentageBox, gridBagConstraints);
+                contentJPanel.add(percentageBox);
                 // 跟进人编辑框
                 JTextField headText = new JTextField();
                 headText.setColumns(5);
