@@ -447,40 +447,159 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             panel.add(newText);
             panelHashMap.put("下周工作计划", panel);
         } else if (i == 2) {
-            JLabel jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("余留问题");
             JPanel panel = new JPanel();
-            // panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            // 创建内容面板
+            JPanel contentJPanel = new JPanel();
+            contentJPanel.setLayout(gridBagLayout);
+            GridBagConstraints gridBagConstraints = new GridBagConstraints();
+            // 余留问题 文字
+            JLabel problems=new JLabel();
+            problems.setFont(new Font("仿宋",Font.BOLD,20));
+            problems.setForeground(new Color(255, 51, 51));
+            //problems.setHorizontalAlignment(SwingConstants.CENTER);
+            problems.setText("余留问题");
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
+            gridBagConstraints.fill = GridBagConstraints.BOTH;
+            gridBagConstraints.weightx = 0;
+            gridBagConstraints.weighty = 0;
+
+            gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+            gridBagLayout.setConstraints(problems, gridBagConstraints);
+            contentJPanel.add(problems);
+            // 余留问题 文本域
+            JTextArea  jTextArea= new JTextArea(1,1);
+            JScrollPane jScrollPane = new JScrollPane();
+            jScrollPane.setViewportView(jTextArea);
+            jTextArea.setFont(new Font("仿宋",Font.BOLD,20));
+            jTextArea.setLineWrap(true);
+            // jTextArea.setBounds(10, 0,50,50);
+            jTextArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 1;
+            gridBagLayout.setConstraints(jScrollPane, gridBagConstraints);
+            contentJPanel.add(jScrollPane);
+            panel.setLayout(new BorderLayout());
+            panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("余留问题", panel);
         }else if (i == 3) {
-            JLabel jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("需其它部门或领导协助解决的事宜");
+            Font font = new Font("仿宋",Font.BOLD,15) ;
             JPanel panel = new JPanel();
-            // panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            JPanel contentJPanel = new JPanel();
+            contentJPanel.setLayout(gridBagLayout);
+            GridBagConstraints gridBagConstraints = new GridBagConstraints();
+            // 余留问题 文字
+            JLabel problems=new JLabel();
+            problems.setFont(new Font("仿宋",Font.BOLD,20));
+            problems.setForeground(new Color(255, 51, 51));
+            //problems.setHorizontalAlignment(SwingConstants.CENTER);
+            problems.setText("需其它部门或领导协助解决的事宜");
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
+            gridBagConstraints.fill = GridBagConstraints.BOTH;
+            gridBagConstraints.weightx = 0;
+            gridBagConstraints.weighty = 0;
+            gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+            gridBagLayout.setConstraints(problems, gridBagConstraints);
+            contentJPanel.add(problems);
+            // 紧急 文本
+            JLabel urgentLabel=new JLabel("紧急：");
+            urgentLabel.setFont(font);
+            urgentLabel.setForeground(new Color(255, 51, 51));
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 0;
+            gridBagLayout.setConstraints(urgentLabel, gridBagConstraints);
+            contentJPanel.add(urgentLabel);
+            // 紧急文本输入框
+            JTextArea  urgentArea= new JTextArea(4,5);
+            JScrollPane urgentScrollPane = new JScrollPane();
+            urgentScrollPane.setViewportView(urgentArea);
+            urgentArea.setFont(new Font("仿宋",Font.BOLD,20));
+            urgentArea.setLineWrap(true);
+            urgentArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            gridBagConstraints.gridy = 2;
+            gridBagLayout.setConstraints(urgentScrollPane, gridBagConstraints);
+            contentJPanel.add(urgentScrollPane);
+            // 一般 文本
+            JLabel commonlyLabel=new JLabel("一般：");
+            commonlyLabel.setFont(font);
+            commonlyLabel.setForeground(new Color(255, 51, 51));
+            gridBagConstraints.gridy = 3;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 0;
+            gridBagLayout.setConstraints(commonlyLabel, gridBagConstraints);
+            contentJPanel.add(commonlyLabel);
+            // 一般 文本输入框
+            JTextArea  commonlyArea= new JTextArea(4,5);
+            JScrollPane commonlyScrollPane = new JScrollPane();
+            commonlyScrollPane.setViewportView(commonlyArea);
+            commonlyArea.setFont(new Font("仿宋",Font.BOLD,20));
+            commonlyArea.setLineWrap(true);
+            commonlyArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            gridBagConstraints.gridy = 4;
+            gridBagLayout.setConstraints(commonlyScrollPane, gridBagConstraints);
+            contentJPanel.add(commonlyScrollPane);
+            // 稍缓 文本
+            JLabel slowlyLabel=new JLabel("稍缓：");
+            slowlyLabel.setFont(font);
+            slowlyLabel.setForeground(new Color(255, 51, 51));
+            gridBagConstraints.gridy = 5;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 0;
+            gridBagLayout.setConstraints(slowlyLabel, gridBagConstraints);
+            contentJPanel.add(slowlyLabel);
+            // 稍缓 文本输入框
+            JTextArea  slowlyArea= new JTextArea(4,5);
+            JScrollPane slowlyScrollPane = new JScrollPane();
+            slowlyScrollPane.setViewportView(slowlyArea);
+            slowlyArea.setFont(new Font("仿宋",Font.BOLD,20));
+            slowlyArea.setLineWrap(true);
+            slowlyArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            gridBagConstraints.gridy = 6;
+            gridBagLayout.setConstraints(slowlyScrollPane, gridBagConstraints);
+            contentJPanel.add(slowlyScrollPane);
+
+            panel.setLayout(new BorderLayout());
+            panel.add(contentJPanel, BorderLayout.NORTH);
             panelHashMap.put("需其它部门或领导协助解决的事宜", panel);
         }else if (i == 4) {
-            JLabel jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("工作中的不足和需改进之处");
             JPanel panel = new JPanel();
-            // panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            // 创建内容面板
+            JPanel contentJPanel = new JPanel();
+            contentJPanel.setLayout(gridBagLayout);
+            GridBagConstraints gridBagConstraints = new GridBagConstraints();
+            // 余留问题 文字
+            JLabel problems=new JLabel();
+            problems.setFont(new Font("仿宋",Font.BOLD,20));
+            problems.setForeground(new Color(255, 51, 51));
+            //problems.setHorizontalAlignment(SwingConstants.CENTER);
+            problems.setText("工作中的不足和需改进之处");
+            gridBagConstraints.gridy = 0;
+            gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
+            gridBagConstraints.fill = GridBagConstraints.BOTH;
+            gridBagConstraints.weightx = 0;
+            gridBagConstraints.weighty = 0;
+
+            gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+            gridBagLayout.setConstraints(problems, gridBagConstraints);
+            contentJPanel.add(problems);
+            // 余留问题 文本域
+            JTextArea  jTextArea= new JTextArea(1,1);
+            JScrollPane jScrollPane = new JScrollPane();
+            jScrollPane.setViewportView(jTextArea);
+            jTextArea.setFont(new Font("仿宋",Font.BOLD,20));
+            jTextArea.setLineWrap(true);
+            // jTextArea.setBounds(10, 0,50,50);
+            jTextArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 1;
+            gridBagLayout.setConstraints(jScrollPane, gridBagConstraints);
+            contentJPanel.add(jScrollPane);
+            panel.setLayout(new BorderLayout());
+            panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("工作中的不足和需改进之处", panel);
         }
         else if (i == 5) {
@@ -492,8 +611,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             jLabel.setText("本周总结");
             JPanel panel = new JPanel();
             // panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            panel.setLayout(new BorderLayout());
+            panel.add(jLabel, BorderLayout.CENTER);
             panelHashMap.put("本周总结", panel);
         }
 
