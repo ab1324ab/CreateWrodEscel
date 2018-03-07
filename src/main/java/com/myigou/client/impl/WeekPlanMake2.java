@@ -27,19 +27,19 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(new BorderLayout());
-        this.xxxx(jPanel, jFrame);
+        this.jPanelWriting(jPanel, jFrame);
 
         return jPanel;
     }
 
     @Override
     public JPanel getTitle(JPanel jPanel, JFrame jFrame) {
-        JLabel titleFileName = new JLabel("周计划生成2");
+        JLabel titleFileName = new JLabel("周计划生成第二版");
         jPanel.add(titleFileName);
         return jPanel;
     }
 
-    public JPanel xxxx(JPanel jPanel, JFrame jFrame) {
+    public JPanel jPanelWriting(JPanel jPanel, JFrame jFrame) {
         OnTop onTop = new OnTop();
 
         Map<String, Map<String, JPanel>> jPanelMap = new HashMap<String, Map<String, JPanel>>();
@@ -496,7 +496,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             //problems.setHorizontalAlignment(SwingConstants.CENTER);
             problems.setText("需其它部门或领导协助解决的事宜");
             gridBagConstraints.gridy = 0;
-            gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
+            //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
             gridBagConstraints.fill = GridBagConstraints.BOTH;
             gridBagConstraints.weightx = 0;
             gridBagConstraints.weighty = 0;
@@ -509,7 +509,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             urgentLabel.setForeground(new Color(255, 51, 51));
             gridBagConstraints.gridy = 1;
             gridBagConstraints.weightx = 1;
-            gridBagConstraints.weighty = 0;
+            gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(urgentLabel, gridBagConstraints);
             contentJPanel.add(urgentLabel);
             // 紧急文本输入框
@@ -520,6 +520,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             urgentArea.setLineWrap(true);
             urgentArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             gridBagConstraints.gridy = 2;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(urgentScrollPane, gridBagConstraints);
             contentJPanel.add(urgentScrollPane);
             // 一般 文本
@@ -528,7 +530,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             commonlyLabel.setForeground(new Color(255, 51, 51));
             gridBagConstraints.gridy = 3;
             gridBagConstraints.weightx = 1;
-            gridBagConstraints.weighty = 0;
+            gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(commonlyLabel, gridBagConstraints);
             contentJPanel.add(commonlyLabel);
             // 一般 文本输入框
@@ -539,6 +541,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             commonlyArea.setLineWrap(true);
             commonlyArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             gridBagConstraints.gridy = 4;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(commonlyScrollPane, gridBagConstraints);
             contentJPanel.add(commonlyScrollPane);
             // 稍缓 文本
@@ -547,7 +551,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             slowlyLabel.setForeground(new Color(255, 51, 51));
             gridBagConstraints.gridy = 5;
             gridBagConstraints.weightx = 1;
-            gridBagConstraints.weighty = 0;
+            gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(slowlyLabel, gridBagConstraints);
             contentJPanel.add(slowlyLabel);
             // 稍缓 文本输入框
@@ -558,11 +562,13 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             slowlyArea.setLineWrap(true);
             slowlyArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             gridBagConstraints.gridy = 6;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(slowlyScrollPane, gridBagConstraints);
             contentJPanel.add(slowlyScrollPane);
 
             panel.setLayout(new BorderLayout());
-            panel.add(contentJPanel, BorderLayout.NORTH);
+            panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("需其它部门或领导协助解决的事宜", panel);
         }else if (i == 4) {
             JPanel panel = new JPanel();

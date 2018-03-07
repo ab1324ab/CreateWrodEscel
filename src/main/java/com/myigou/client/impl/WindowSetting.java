@@ -47,6 +47,7 @@ public class WindowSetting implements FunctionInter {
         JRadioButton createExcel = new JRadioButton("周计划生成");
         JRadioButton fileManage = new JRadioButton("文件编辑");
         JRadioButton sendEmail = new JRadioButton("邮件发送");
+        JRadioButton createExcel2 = new JRadioButton("周计划生成第二版");
         createExcel.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -71,20 +72,32 @@ public class WindowSetting implements FunctionInter {
                 System.out.println("fun_3");
             }
         });
+        createExcel2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 周计划生成第二版
+                PropertiesTool.writeSet(null, "showMain", "fun_1_2");
+                System.out.println("fun_1_2");
+            }
+        });
         if ("fun_1".equals(contentMap.get("showMain"))) {
             createExcel.setSelected(true);
         } else if ("fun_2".equals(contentMap.get("showMain"))) {
             fileManage.setSelected(true);
         } else if ("fun_3".equals(contentMap.get("showMain"))) {
             sendEmail.setSelected(true);
+        } else if ("fun_1_2".equals(contentMap.get("showMain"))) {
+            createExcel2.setSelected(true);
         }
         ButtonGroup group = new ButtonGroup();
         group.add(createExcel);
         group.add(fileManage);
         group.add(sendEmail);
+        group.add(createExcel2);
         showMain.add(createExcel);
         showMain.add(fileManage);
         showMain.add(sendEmail);
+        showMain.add(createExcel2);
         jPanel1.add(showMain, BorderLayout.NORTH);
 
         OnTop onTop = new OnTop();
