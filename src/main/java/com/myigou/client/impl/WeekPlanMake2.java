@@ -75,7 +75,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 String[] strings= string.split(";");
                 int line = 0;
                 while (iter.hasNext()) {
-                    Map.Entry entry = (Map.Entry) iter.next();
                     List<Object> entryValue = (List<Object>)jpannelMap_1.get("line"+line);
                     String[]  strsdd = new String[7];
                     int lineT= line++;
