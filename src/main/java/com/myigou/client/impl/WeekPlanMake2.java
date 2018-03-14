@@ -23,8 +23,10 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     Font font = new Font("仿宋", Font.BOLD, 12);
     // 内容map
     private Map<String, String> contentMap = null;
-    // 存储第一页面板里的部件
-    Map<String,List<Object>> jpannelMap_1 = null;
+    // 存储第一页面板里的部件 本周
+    Map<String, List<Object>> tswkMap = null;
+    // 存储第二页面板里的部件 下周
+    Map<String, List<Object>> nxvWkMap = null;
     public WeekPlanMake2() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
     }
@@ -70,27 +72,18 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         serveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Iterator iter = jpannelMap_1.entrySet().iterator();
-                String string = "功能开发/后台组,配合测询,高,3,30%,侯文康,只有调账功能还不通;功能开发/后台组,配合测询,高,2,30%,侯文康,只有还不通";
-                String[] strings= string.split(";");
-                int line = 0;
-                while (iter.hasNext()) {
-                    List<Object> entryValue = (List<Object>)jpannelMap_1.get("line"+line);
-                    String[]  strsdd = new String[7];
-                    int lineT= line++;
-                    if(lineT < strings.length){
-                        strsdd= strings[lineT].split(",");
-                    }
-                    for(int i = 0;i<7;i++){
-                        if(i==2 || i==4){
-                            JComboBox jComboBox= (JComboBox) entryValue.get(i);
-                            jComboBox.setSelectedItem(strsdd[i]);
-                        }else{
-                            JTextField jTextField= (JTextField) entryValue.get(i);
-                            jTextField.setText(strsdd[i]);
-                        }
-                    }
-                }
+                String string = "功能开发/后台组,配合测询,高,3,30%,侯文康,只有调账功能还不通";
+                String string1="功能开发/后台组,配合测询,中,2,10%,侯文康,只有还不通";
+                String string2="功能开发/后台组,配fasfa询,低,6,20%,侯文康,有调账功能还";
+                List<String>  weekPlanList = new ArrayList<String>();
+                weekPlanList.add(string);
+                weekPlanList.add(string1);
+                weekPlanList.add(string2);
+                // 本周
+                editBox(tswkMap,weekPlanList,",");
+                // 下周
+                editBox(nxvWkMap,weekPlanList,",");
+
             }
         });
 
@@ -124,7 +117,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             title.setHorizontalAlignment(SwingConstants.LEFT);
             title.setFont(new Font("仿宋", Font.BOLD, 20));
             title.setText("本周计划");
-            //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
             gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
             gridBagConstraints.weightx = 0;
             gridBagConstraints.weighty = 0;
@@ -194,7 +186,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JTextField plannedDateText = new JTextField(dateAndEndDate.get(0) + "-" + dateAndEndDate.get(6));
             plannedDateText.setColumns(5);
             plannedDateText.setHorizontalAlignment(JTextField.CENTER);
-            // plannedDateText.setFont(new Font("仿宋", Font.BOLD, 13));
             gridBagLayout.setConstraints(plannedDateText, gridBagConstraints);
             contentJPanel.add(plannedDateText);
 
@@ -263,9 +254,9 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
             String[] str = {"功能开发/后台组", "配合测试同事测试智宝付自动轮询", "中", "3", "80%", "侯文康", "只有调账功能还不通"};
-            jpannelMap_1 = new HashMap<String,List<Object>>();
+            tswkMap = new HashMap<String, List<Object>>();
             for (int j = 3; j < 14; j++) {
-                List<Object> jComponentList = new ArrayList<Object>();
+                List<Object> tswkList = new ArrayList<Object>();
                 gridBagConstraints.gridy = j;
                 // 任务人/组别编辑框
                 JTextField personGroupText = new JTextField(str[0]);
@@ -274,7 +265,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 personGroupText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(personGroupText, gridBagConstraints);
                 contentJPanel.add(personGroupText);
-                jComponentList.add(personGroupText);
+                tswkList.add(personGroupText);
                 // 任务内容编辑框
                 JTextField mandateContentText = new JTextField(str[1]);
                 mandateContentText.setColumns(20);
@@ -282,7 +273,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 mandateContentText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(mandateContentText, gridBagConstraints);
                 contentJPanel.add(mandateContentText);
-                jComponentList.add(mandateContentText);
+                tswkList.add(mandateContentText);
                 // 难易度编辑框
                 String nations[] = {"中", "低", "高"};
                 JComboBox jcb1 = new JComboBox(nations);
@@ -294,7 +285,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 gridBagConstraints.gridwidth = 1;
                 gridBagLayout.setConstraints(jcb1, gridBagConstraints);
                 contentJPanel.add(jcb1);
-                jComponentList.add(jcb1);
+                tswkList.add(jcb1);
                 // 预计完成时间编辑框
                 JTextField projectedCompletionText = new JTextField(str[3]);
                 projectedCompletionText.setColumns(3);
@@ -302,7 +293,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 projectedCompletionText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(projectedCompletionText, gridBagConstraints);
                 contentJPanel.add(projectedCompletionText);
-                jComponentList.add(projectedCompletionText);
+                tswkList.add(projectedCompletionText);
                 // 完成比例编辑框
                 String percentageText[] = {"10%", "20%", "30%", "50%", "60%", "70%", "80%", "90%", "100%"};
                 JComboBox percentageBox = new JComboBox(percentageText);
@@ -311,7 +302,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 gridBagConstraints.gridwidth = 1;
                 gridBagLayout.setConstraints(percentageBox, gridBagConstraints);
                 contentJPanel.add(percentageBox);
-                jComponentList.add(percentageBox);
+                tswkList.add(percentageBox);
                 // 跟进人编辑框
                 JTextField headText = new JTextField(str[5]);
                 headText.setColumns(5);
@@ -319,7 +310,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 headText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(headText, gridBagConstraints);
                 contentJPanel.add(headText);
-                jComponentList.add(headText);
+                tswkList.add(headText);
                 // 完成情况 编辑框
                 JTextField statusText = new JTextField(str[6]);
                 statusText.setColumns(20);
@@ -327,9 +318,9 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 statusText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(statusText, gridBagConstraints);
                 contentJPanel.add(statusText);
-                jComponentList.add(statusText);
+                tswkList.add(statusText);
                 int line = j;
-                jpannelMap_1.put("line"+(line - 3),jComponentList);
+                tswkMap.put("line" + (line - 3), tswkList);
             }
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.NORTH);
@@ -423,7 +414,10 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
             String[] str = {"功能开发/后台组", "配合测试同事测试智宝付自动轮询", "中", "3", "80%", "侯文康", "只有调账功能还不通"};
+            nxvWkMap = new HashMap<String, List<Object>>();
             for (int j = 2; j < 14; j++) {
+                int jLine = j;
+                List<Object> nxvWkList = new ArrayList<Object>();
                 gridBagConstraints.gridy = j;
                 // 任务人/组别编辑框
                 JTextField personGroupText = new JTextField(str[0]);
@@ -432,6 +426,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 personGroupText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(personGroupText, gridBagConstraints);
                 contentJPanel.add(personGroupText);
+                nxvWkList.add(personGroupText);
                 // 任务内容编辑框
                 JTextField mandateContentText = new JTextField(str[1]);
                 mandateContentText.setColumns(20);
@@ -439,17 +434,18 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 mandateContentText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(mandateContentText, gridBagConstraints);
                 contentJPanel.add(mandateContentText);
+                nxvWkList.add(mandateContentText);
                 // 难易度编辑框
                 String nations[] = {"中", "低", "高"};
-                JComboBox jcb1 = new JComboBox(nations);
-                jcb1.setSelectedItem(str[2]);
-                // JTextField difficultyText = new JTextField();
-                jcb1.setMaximumRowCount(3);
+                JComboBox degreeBox = new JComboBox(nations);
+                degreeBox.setSelectedItem(str[2]);
+                degreeBox.setMaximumRowCount(3);
                 Dimension dimension = new Dimension(20, 10);
-                jcb1.setSize(dimension);
+                degreeBox.setSize(dimension);
                 gridBagConstraints.gridwidth = 1;
-                gridBagLayout.setConstraints(jcb1, gridBagConstraints);
-                contentJPanel.add(jcb1);
+                gridBagLayout.setConstraints(degreeBox, gridBagConstraints);
+                contentJPanel.add(degreeBox);
+                nxvWkList.add(degreeBox);
                 // 预计完成时间编辑框
                 JTextField projectedCompletionText = new JTextField(str[3]);
                 projectedCompletionText.setColumns(3);
@@ -457,16 +453,16 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 projectedCompletionText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(projectedCompletionText, gridBagConstraints);
                 contentJPanel.add(projectedCompletionText);
+                nxvWkList.add(projectedCompletionText);
                 // 完成比例编辑框
                 String percentageText[] = {"10%", "20%", "30%", "50%", "60%", "70%", "80%", "90%", "100%"};
                 JComboBox percentageBox = new JComboBox(percentageText);
-                // JTextField percentageText = new JTextField();
-                // percentageText.setColumns(5);
                 percentageBox.setSelectedItem(str[4]);
                 percentageBox.setMaximumRowCount(5);
                 gridBagConstraints.gridwidth = 1;
                 gridBagLayout.setConstraints(percentageBox, gridBagConstraints);
                 contentJPanel.add(percentageBox);
+                nxvWkList.add(percentageBox);
                 // 跟进人编辑框
                 JTextField headText = new JTextField(str[5]);
                 headText.setColumns(5);
@@ -474,6 +470,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 headText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(headText, gridBagConstraints);
                 contentJPanel.add(headText);
+                nxvWkList.add(headText);
                 // 完成情况 编辑框
                 JTextField statusText = new JTextField(str[6]);
                 statusText.setColumns(20);
@@ -481,6 +478,9 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 statusText.setHorizontalAlignment(JTextField.CENTER);
                 gridBagLayout.setConstraints(statusText, gridBagConstraints);
                 contentJPanel.add(statusText);
+                nxvWkList.add(statusText);
+
+                nxvWkMap.put("line"+(jLine-2),nxvWkList);
             }
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.NORTH);
@@ -497,7 +497,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JLabel problems = new JLabel();
             problems.setFont(new Font("仿宋", Font.BOLD, 20));
             problems.setForeground(new Color(255, 51, 51));
-            //problems.setHorizontalAlignment(SwingConstants.CENTER);
             problems.setText("余留问题");
             gridBagConstraints.gridy = 0;
             gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -514,7 +513,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             jScrollPane.setViewportView(jTextArea);
             jTextArea.setFont(new Font("仿宋", Font.BOLD, 20));
             jTextArea.setLineWrap(true);
-            // jTextArea.setBounds(10, 0,50,50);
             jTextArea.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             gridBagConstraints.gridy = 1;
             gridBagConstraints.weightx = 1;
@@ -534,10 +532,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JLabel problems = new JLabel();
             problems.setFont(new Font("仿宋", Font.BOLD, 20));
             problems.setForeground(new Color(255, 51, 51));
-            //problems.setHorizontalAlignment(SwingConstants.CENTER);
             problems.setText("需其它部门或领导协助解决的事宜");
             gridBagConstraints.gridy = 0;
-            //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
             gridBagConstraints.fill = GridBagConstraints.BOTH;
             gridBagConstraints.weightx = 0;
             gridBagConstraints.weighty = 0;
@@ -621,7 +617,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JLabel problems = new JLabel();
             problems.setFont(new Font("仿宋", Font.BOLD, 20));
             problems.setForeground(new Color(255, 51, 51));
-            //problems.setHorizontalAlignment(SwingConstants.CENTER);
             problems.setText("工作中的不足和需改进之处");
             gridBagConstraints.gridy = 0;
             gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -682,11 +677,36 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         calendar.add(Calendar.DAY_OF_YEAR, difference);
         String monday = sdf.format(calendar.getTime());
         dateList.add(monday);
-        for(int i=1;i<7;i++){
+        for (int i = 1; i < 7; i++) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             String tuesday = sdf.format(calendar.getTime());
             dateList.add(tuesday);
         }
         return dateList;
+    }
+
+    /**
+     *  （下周、本周）计划写入编辑框
+     * @param contentColumnMap  内容行
+     * @param contentLineList   内容列
+     * @param decollator   分隔符
+     */
+    public void editBox(Map<String, List<Object>> contentColumnMap,List<String> contentLineList,String decollator){
+        for (int mapLine = 0; mapLine < contentColumnMap.size(); mapLine++) {
+            List<Object> entryValue = (List<Object>) contentColumnMap.get("line" + mapLine);
+            String[] boxLine = new String[7];
+            if (mapLine < contentLineList.size()) {
+                boxLine = contentLineList.get(mapLine).split(decollator);
+            }
+            for (int i = 0; i < 7; i++) {
+                if (i == 2 || i == 4) {
+                    JComboBox jComboBox = (JComboBox) entryValue.get(i);
+                    jComboBox.setSelectedItem(boxLine[i]);
+                } else {
+                    JTextField jTextField = (JTextField) entryValue.get(i);
+                    jTextField.setText(boxLine[i]);
+                }
+            }
+        }
     }
 }
