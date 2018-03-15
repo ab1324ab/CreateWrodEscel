@@ -27,6 +27,9 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     Map<String, List<Object>> tswkMap = null;
     // 存储第二页面板里的部件 下周
     Map<String, List<Object>> nxvWkMap = null;
+    // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
+    Map<String, Object> troubleShootingMap = new HashMap<String, Object>();
+
     public WeekPlanMake2() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
     }
@@ -46,6 +49,13 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         return jPanel;
     }
 
+    /**
+     * 控制界面
+     *
+     * @param jPanel
+     * @param jFrame
+     * @return
+     */
     public JPanel jPanelWriting(JPanel jPanel, JFrame jFrame) {
         OnTop onTop = new OnTop();
 
@@ -73,17 +83,25 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String string = "功能开发/后台组,配合测询,高,3,30%,侯文康,只有调账功能还不通";
-                String string1="功能开发/后台组,配合测询,中,2,10%,侯文康,只有还不通";
-                String string2="功能开发/后台组,配fasfa询,低,6,20%,侯文康,有调账功能还";
-                List<String>  weekPlanList = new ArrayList<String>();
+                String string1 = "功能开发/后台组,配合测询,中,2,10%,侯文康,只有还不通";
+                String string2 = "功能开发/后台组,配fasfa询,低,6,20%,侯文康,有调账功能还";
+                List<String> weekPlanList = new ArrayList<String>();
                 weekPlanList.add(string);
                 weekPlanList.add(string1);
                 weekPlanList.add(string2);
-                // 本周
-                editBox(tswkMap,weekPlanList,",");
-                // 下周
-                editBox(nxvWkMap,weekPlanList,",");
 
+                Map<Integer,String> weekPlanMap = new HashMap<Integer, String>();
+                weekPlanMap.put(1,string);
+                weekPlanMap.put(2,string1);
+                weekPlanMap.put(0,string2);
+                weekPlanMap.put(3,string1);
+                weekPlanMap.put(4,string2);
+                // 本周
+                editBox(tswkMap, weekPlanList, ",");
+                // 下周
+                editBox(nxvWkMap, weekPlanList, ",");
+                // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
+                editBox(troubleShootingMap, weekPlanMap);
             }
         });
 
@@ -480,7 +498,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 contentJPanel.add(statusText);
                 nxvWkList.add(statusText);
 
-                nxvWkMap.put("line"+(jLine-2),nxvWkList);
+                nxvWkMap.put("line" + (jLine - 2), nxvWkList);
             }
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.NORTH);
@@ -519,6 +537,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(jScrollPane, gridBagConstraints);
             contentJPanel.add(jScrollPane);
+            troubleShootingMap.put("line0", jTextArea);
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("余留问题", panel);
@@ -561,6 +580,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(urgentScrollPane, gridBagConstraints);
             contentJPanel.add(urgentScrollPane);
+            troubleShootingMap.put("line1", urgentArea);
             // 一般 文本
             JLabel commonlyLabel = new JLabel("一般：");
             commonlyLabel.setFont(font);
@@ -582,6 +602,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(commonlyScrollPane, gridBagConstraints);
             contentJPanel.add(commonlyScrollPane);
+            troubleShootingMap.put("line2", commonlyArea);
             // 稍缓 文本
             JLabel slowlyLabel = new JLabel("稍缓：");
             slowlyLabel.setFont(font);
@@ -603,6 +624,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(slowlyScrollPane, gridBagConstraints);
             contentJPanel.add(slowlyScrollPane);
+            troubleShootingMap.put("line3", slowlyArea);
 
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.CENTER);
@@ -640,6 +662,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(jScrollPane, gridBagConstraints);
             contentJPanel.add(jScrollPane);
+            troubleShootingMap.put("line4", jTextArea);
+
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("工作中的不足和需改进之处", panel);
@@ -686,12 +710,13 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     }
 
     /**
-     *  （下周、本周）计划写入编辑框
-     * @param contentColumnMap  内容行
-     * @param contentLineList   内容列
-     * @param decollator   分隔符
+     * （下周、本周）计划写入编辑框
+     *
+     * @param contentColumnMap 内容行
+     * @param contentLineList  内容列
+     * @param decollator       分隔符
      */
-    public void editBox(Map<String, List<Object>> contentColumnMap,List<String> contentLineList,String decollator){
+    public void editBox(Map<String, List<Object>> contentColumnMap, List<String> contentLineList, String decollator) {
         for (int mapLine = 0; mapLine < contentColumnMap.size(); mapLine++) {
             List<Object> entryValue = (List<Object>) contentColumnMap.get("line" + mapLine);
             String[] boxLine = new String[7];
@@ -707,6 +732,19 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                     jTextField.setText(boxLine[i]);
                 }
             }
+        }
+    }
+
+    /**
+     * 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
+     *
+     * @param contentColumnMap 故障排除部件
+     * @param contentLineMap  内容列表
+     */
+    public void editBox(Map<String, Object> contentColumnMap, Map<Integer,String> contentLineMap) {
+        for (int i = 0; i < contentColumnMap.size(); i++) {
+            JTextArea jTextArea = (JTextArea)contentColumnMap.get("line"+i);
+            jTextArea.setText(contentLineMap.get(i));
         }
     }
 }
