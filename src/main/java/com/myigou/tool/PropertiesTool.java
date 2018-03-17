@@ -12,10 +12,13 @@ import java.util.Properties;
  */
 public class PropertiesTool {
 
+    // 配置文件分隔符
     public static final String SGMTA_SPLIT = "\\&";
-    public static final String READ_SGMTA_SPLIT = "&";
     public static final String SGMTA_SPLIT_LATER = "\\|";
+    // 部件文本分隔符
     public static final String READ_SPLIT_LATER = "|";
+    public static final String READ_SGMTA_SPLIT = "&";
+
     private static Properties properties = new Properties();
 
     /**
@@ -51,7 +54,7 @@ public class PropertiesTool {
     public static void writeSet(String filename, String key, String value) {
         try {
             Properties writeProperties = new Properties();
-            String pathDir = System.getProperty("user.dir") + "\\config.properties";
+            String pathDir = System.getProperty("user.dir") + "\\" + filename;
             writeProperties.load(new FileInputStream(new File(pathDir)));
             writeProperties.setProperty(key, value);
             writeProperties.store(new FileOutputStream(new File(pathDir)), key);

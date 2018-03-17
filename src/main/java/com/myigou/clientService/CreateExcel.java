@@ -1,4 +1,4 @@
-package com.myigou.init;
+package com.myigou.clientService;
 
 import com.myigou.tool.PropertiesTool;
 import com.myigou.view.WindowView;

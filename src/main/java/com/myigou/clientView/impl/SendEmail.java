@@ -1,6 +1,6 @@
-package com.myigou.client.impl;
+package com.myigou.clientView.impl;
 
-import com.myigou.client.FunctionInter;
+import com.myigou.clientView.FunctionInter;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package com.myigou.client;
+package com.myigou.clientView;
 
 import javax.swing.*;
 

@@ -1,7 +1,7 @@
-package com.myigou.client.impl;
+package com.myigou.clientView.impl;
 
-import com.myigou.client.FunctionInter;
-import com.myigou.init.CreateExcel;
+import com.myigou.clientView.FunctionInter;
+import com.myigou.clientService.CreateExcel;
 import com.myigou.tool.PropertiesTool;
 
 import javax.swing.*;

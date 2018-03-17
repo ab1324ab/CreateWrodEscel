@@ -1,7 +1,7 @@
 package com.myigou.view;
 
-import com.myigou.client.FunctionInter;
-import com.myigou.client.impl.*;
+import com.myigou.clientView.FunctionInter;
+import com.myigou.clientView.impl.*;
 import com.myigou.tool.HttpRequestEnter;
 import com.myigou.tool.PropertiesTool;
 import com.myigou.tool.UpdateClient;

@@ -1,6 +1,6 @@
-package com.myigou.client.impl;
+package com.myigou.clientView.impl;
 
-import com.myigou.client.FunctionInter;
+import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
 import com.myigou.view.WindowView;
@@ -52,7 +52,7 @@ public class WindowSetting implements FunctionInter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 周计划生成
-                PropertiesTool.writeSet(null, "showMain", "fun_1");
+                PropertiesTool.writeSet("config.properties", "showMain", "fun_1");
                 System.out.println("fun_1");
             }
         });
@@ -60,7 +60,7 @@ public class WindowSetting implements FunctionInter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 文件编辑
-                PropertiesTool.writeSet(null, "showMain", "fun_2");
+                PropertiesTool.writeSet("config.properties", "showMain", "fun_2");
                 System.out.println("fun_2");
             }
         });
@@ -68,7 +68,7 @@ public class WindowSetting implements FunctionInter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 邮件编辑
-                PropertiesTool.writeSet(null, "showMain", "fun_3");
+                PropertiesTool.writeSet("config.properties", "showMain", "fun_3");
                 System.out.println("fun_3");
             }
         });
@@ -76,7 +76,7 @@ public class WindowSetting implements FunctionInter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 周计划生成第二版
-                PropertiesTool.writeSet(null, "showMain", "fun_1_2");
+                PropertiesTool.writeSet("config.properties", "showMain", "fun_1_2");
                 System.out.println("fun_1_2");
             }
         });

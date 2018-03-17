@@ -1,4 +1,4 @@
-package com.myigou.init;
+package com.myigou.clientService;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

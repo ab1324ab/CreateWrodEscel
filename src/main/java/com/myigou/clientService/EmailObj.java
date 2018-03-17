@@ -1,4 +1,4 @@
-package com.myigou.init;
+package com.myigou.clientService;
 
 import java.io.File;
 
