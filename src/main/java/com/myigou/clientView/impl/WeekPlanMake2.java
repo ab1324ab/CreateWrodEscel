@@ -1,6 +1,7 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientService.CreateExcel2;
+import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
@@ -115,9 +116,16 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CreateExcel2 createExcel2 = new CreateExcel2();
-                createExcel2.serveWeedPlanProperties(tswkMap,nxvWkMap);
+                // 本周 写入配置文件
+                createExcel2.serveWeedPlanProperties(tswkMap, WeekPropertiesEnum.tswMapLine);
+                // 下周 写入配置文件
+                createExcel2.serveWeedPlanProperties(nxvWkMap, WeekPropertiesEnum.nxvWkMapLine);
+                // 其余 写入配置文件
                 createExcel2.serveTroubleShootingProperties(troubleShootingMap);
+                // 生成Excel
+                String msg= createExcel2.createExcel();
 
+                JOptionPane.showMessageDialog(jPanel, msg, "提示", JOptionPane.WARNING_MESSAGE);
             }
         });
 
@@ -198,7 +206,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(summaryDate, gridBagConstraints);
             contentJPanel.add(summaryDate);
             // 总结日期编辑框
-            JTextField summaryDateText = new JTextField(dateAndEndDate.get(6));
+            JTextField summaryDateText = new JTextField(dateAndEndDate.get(4));
             summaryDateText.setColumns(5);
             summaryDateText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(summaryDateText, gridBagConstraints);
@@ -214,7 +222,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(plannedDate, gridBagConstraints);
             contentJPanel.add(plannedDate);
             // 计划日期编辑框
-            JTextField plannedDateText = new JTextField(dateAndEndDate.get(0) + "-" + dateAndEndDate.get(6));
+            JTextField plannedDateText = new JTextField(dateAndEndDate.get(0) + "-" + dateAndEndDate.get(4));
             plannedDateText.setColumns(5);
             plannedDateText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(plannedDateText, gridBagConstraints);

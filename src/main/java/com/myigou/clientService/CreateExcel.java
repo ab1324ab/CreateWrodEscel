@@ -1,5 +1,6 @@
 package com.myigou.clientService;
 
+import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
 import com.myigou.tool.PropertiesTool;
 import com.myigou.view.WindowView;
 import org.apache.poi.ss.usermodel.*;
@@ -26,7 +27,7 @@ public class CreateExcel {
 
     public static String mainCreate(Map<String, Object> controlMap) {
         try {
-            contentMap = WindowView.contentMap;
+            contentMap = PropertiesTool.redConfigFile("config.properties");
             CreateExcel testExcel = new CreateExcel();
             String runPath = System.getProperty("user.dir");
             // String runPath=new File(System.getProperty("user.dir")).getParent();
@@ -77,19 +78,19 @@ public class CreateExcel {
         calendar.setTime(new Date());
         // 本周计划- 部门
         cell = sheet.getRow(3).getCell(1);
-        cell.setCellValue(contentMap.get("department"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.department));
         // 本周计划- 计划人
         cell = sheet.getRow(3).getCell(3);
-        cell.setCellValue(contentMap.get("name"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.name));
         // 本周计划- 计划日期
         cell = sheet.getRow(3).getCell(5);
         cell.setCellValue(sdf.format(new Date()));
         // 本周总结- 部门
         cell = sheet.getRow(3).getCell(8);
-        cell.setCellValue(contentMap.get("department"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.department));
         //本周总结- 总结人
         cell = sheet.getRow(3).getCell(10);
-        cell.setCellValue(contentMap.get("name"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.name));
         // 本周总结- 总结时间
         cell = sheet.getRow(3).getCell(12);
         cell.setCellValue(sdf.format(calendar.getTime()));
@@ -130,10 +131,10 @@ public class CreateExcel {
         Sheet sheet = wb.getSheetAt(2);
         // 部门
         cell = sheet.getRow(2).getCell(1);
-        cell.setCellValue(contentMap.get("department"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.department));
         // 姓名
         cell = sheet.getRow(2).getCell(4);
-        cell.setCellValue(contentMap.get("name"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.name));
         // 日期
         cell = sheet.getRow(2).getCell(6);
         cell.setCellValue(sdf.format(new Date()));
@@ -192,10 +193,10 @@ public class CreateExcel {
         cell.setCellValue("下周计划（" + weekStart + "—" + weekEnd + "）");
         // 部门
         cell = sheet.getRow(2).getCell(1);
-        cell.setCellValue(contentMap.get("department"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.department));
         // 姓名
         cell = sheet.getRow(2).getCell(3);
-        cell.setCellValue(contentMap.get("name"));
+        cell.setCellValue(contentMap.get(WeekPropertiesEnum.name));
         // 日期
         cell = sheet.getRow(2).getCell(5);
         SimpleDateFormat dayMould = new SimpleDateFormat("yyyy/MM/dd");

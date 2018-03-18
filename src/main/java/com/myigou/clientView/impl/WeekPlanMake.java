@@ -1,5 +1,6 @@
 package com.myigou.clientView.impl;
 
+import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientService.CreateExcel;
 import com.myigou.tool.PropertiesTool;
@@ -122,9 +123,9 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         JLabel titleDepartment = new JLabel(contentMap.get("titleDepartment"));
         JLabel titleName = new JLabel(contentMap.get("titleName"));
         // 部门
-        department = new JTextField(contentMap.get("department"));
+        department = new JTextField(contentMap.get(WeekPropertiesEnum.department));
         // 名字
-        name = new JTextField(contentMap.get("name"));
+        name = new JTextField(contentMap.get(WeekPropertiesEnum.name));
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         gridBagConstraints.anchor = GridBagConstraints.EAST;
@@ -426,9 +427,9 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         String fileNameText = fileName.getText();
         PropertiesTool.writeSet("config.properties", "fileName", fileNameText);
         String departmentText = department.getText();
-        PropertiesTool.writeSet("config.properties", "department", departmentText);
+        PropertiesTool.writeSet("config.properties", WeekPropertiesEnum.department, departmentText);
         String nameText = name.getText();
-        PropertiesTool.writeSet("config.properties", "name", nameText);
+        PropertiesTool.writeSet("config.properties", WeekPropertiesEnum.name, nameText);
         String pageTem1 = "";
         String pageContents1 = "";
         int indexCell = 2;
