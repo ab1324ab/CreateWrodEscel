@@ -364,7 +364,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.NORTH);
             JButton newText = new JButton("增加");
-            panel.add(newText);
+            panel.add(newText,BorderLayout.SOUTH);
             panelHashMap.put("本周计划", panel);
         } else if (i == 1) {
             JPanel panel = new JPanel();
