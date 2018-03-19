@@ -107,7 +107,7 @@ public class CreateExcel2 {
      * 创建周计划
      * @return String 返回状态
      */
-    public String createExcel() {
+    public String createExcel(int tswkRow,int nxvWkRow) {
         contentMap = PropertiesTool.redConfigFile("config.properties");
         Cell cell = null;
         // 创建表格页
@@ -124,34 +124,74 @@ public class CreateExcel2 {
         // 总结日期
         cell = sheet.getRow(3).getCell(8);
         cell.setCellValue(contentMap.get(WeekPropertiesEnum.summaryDateText));
-
         // 本周计划 内容 生成
-        String tswMapLine = contentMap.get(WeekPropertiesEnum.tswMapLine+0);
-        String[] row= tswMapLine.split(PropertiesTool.READ_SGMTA_SPLIT);
-        // 任务名/组别
-        cell = sheet.getRow(5).getCell(0);
-        cell.setCellValue(row[0]);
-        // 任务内容
-        cell = sheet.getRow(5).getCell(1);
-        cell.setCellValue(row[1]);
-        // 难易度
-        cell = sheet.getRow(5).getCell(4);
-        cell.setCellValue(row[2]);
-        // 预计完成时间
-        cell = sheet.getRow(5).getCell(5);
-        cell.setCellValue(row[3]);
-        // 完成比例
-        cell = sheet.getRow(5).getCell(6);
-        cell.setCellValue(row[4]);
-        // 跟进人
-        cell = sheet.getRow(5).getCell(7);
-        cell.setCellValue(row[5]);
-        // 完成情况
-        cell = sheet.getRow(5).getCell(8);
-        cell.setCellValue(row[6]);
-
-
-
+        for(int tswk = 0;tswk < tswkRow;tswk++){
+            String tswMapLine = contentMap.get(WeekPropertiesEnum.tswMapLine+tswk);
+            String[] row = tswMapLine.split(PropertiesTool.READ_SGMTA_SPLIT);
+            if(row.length == 0){
+                row = new String[7];
+            }
+            // 任务名/组别
+            cell = sheet.getRow(5+tswk).getCell(0);
+            cell.setCellValue(row[0]);
+            // 任务内容
+            cell = sheet.getRow(5+tswk).getCell(1);
+            cell.setCellValue(row[1]);
+            // 难易度
+            cell = sheet.getRow(5+tswk).getCell(4);
+            cell.setCellValue(row[2]);
+            // 预计完成时间
+            cell = sheet.getRow(5+tswk).getCell(5);
+            cell.setCellValue(row[3]);
+            // 完成比例
+            cell = sheet.getRow(5+tswk).getCell(6);
+            cell.setCellValue(row[4]);
+            // 跟进人
+            cell = sheet.getRow(5+tswk).getCell(7);
+            cell.setCellValue(row[5]);
+            // 完成情况
+            cell = sheet.getRow(5+tswk).getCell(8);
+            cell.setCellValue(row[6]);
+        }
+        // 下周计划 内容 生成
+        for(int nxvWk = 0;nxvWk < nxvWkRow;nxvWk++){
+            String tswMapLine = contentMap.get(WeekPropertiesEnum.nxvWkMapLine+nxvWk);
+            String[] row = tswMapLine.split(PropertiesTool.READ_SGMTA_SPLIT);
+            if(row.length == 0){
+                row = new String[7];
+            }
+            // 任务名/组别
+            cell = sheet.getRow(28+nxvWk).getCell(0);
+            cell.setCellValue(row[0]);
+            // 任务内容
+            cell = sheet.getRow(28+nxvWk).getCell(1);
+            cell.setCellValue(row[1]);
+            // 难易度
+            cell = sheet.getRow(28+nxvWk).getCell(4);
+            cell.setCellValue(row[2]);
+            // 预计完成时间
+            cell = sheet.getRow(28+nxvWk).getCell(5);
+            cell.setCellValue(row[3]);
+            // 完成比例
+            cell = sheet.getRow(28+nxvWk).getCell(6);
+            cell.setCellValue(row[4]);
+            // 跟进人
+            cell = sheet.getRow(28+nxvWk).getCell(7);
+            cell.setCellValue(row[5]);
+            // 完成情况
+            cell = sheet.getRow(28+nxvWk).getCell(8);
+            cell.setCellValue(row[6]);
+        }
+            cell = sheet.getRow(41).getCell(0);
+            cell.setCellValue(contentMap.get(WeekPropertiesEnum.leaveArea));
+            cell = sheet.getRow(43).getCell(1);
+            cell.setCellValue(contentMap.get(WeekPropertiesEnum.urgentArea));
+            cell = sheet.getRow(44).getCell(1);
+            cell.setCellValue(contentMap.get(WeekPropertiesEnum.commonlyArea));
+            cell = sheet.getRow(45).getCell(1);
+            cell.setCellValue(contentMap.get(WeekPropertiesEnum.slowlyArea));
+            cell = sheet.getRow(47).getCell(0);
+            cell.setCellValue(contentMap.get(WeekPropertiesEnum.improvementJTextArea));
         // 创建输出文件
         FileOutputStream os = null;
         String runPath = "C:\\Users\\ab1324ab\\Desktop";//System.getProperty("user.dir");
@@ -164,6 +204,7 @@ public class CreateExcel2 {
             wb.write(os);
         } catch (IOException e) {
             e.printStackTrace();
+            return e.getMessage();
         }
         return "写出成功！";
     }

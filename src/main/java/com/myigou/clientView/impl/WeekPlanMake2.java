@@ -40,7 +40,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(new BorderLayout());
         this.jPanelWriting(jPanel, jFrame);
-
+        this.initComponent();
         return jPanel;
     }
 
@@ -84,24 +84,24 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         serveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String string = "功能开发/后台组,配合测询,高,3,30%,侯文康,只有调账功能还不通";
-                String string1 = "功能开发/后台组,配合测询,中,2,10%,侯文康,只有还不通";
-                String string2 = "功能开发/后台组,配fasfa询,低,6,20%,侯文康,有调账功能还";
+                String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";
+                String string1 = "功能开发/后台组&配合测询&中&2&10%&侯文康&只有还不通";
+                String string2 = "功能开发/后台组&配fasfa询&低&6&20%&侯文康&有调账功能还";
                 List<String> weekPlanList = new ArrayList<String>();
                 weekPlanList.add(string);
                 weekPlanList.add(string1);
                 weekPlanList.add(string2);
 
-                Map<Integer,String> weekPlanMap = new HashMap<Integer, String>();
-                weekPlanMap.put(8,string);
-                weekPlanMap.put(4,string1);
-                weekPlanMap.put(5,string2);
-                weekPlanMap.put(6,string1);
-                weekPlanMap.put(7,string2);
+                Map<Integer, String> weekPlanMap = new HashMap<Integer, String>();
+                weekPlanMap.put(8, string);
+                weekPlanMap.put(4, string1);
+                weekPlanMap.put(5, string2);
+                weekPlanMap.put(6, string1);
+                weekPlanMap.put(7, string2);
                 // 本周
-                editBox(tswkMap, weekPlanList, ",");
+                editBox(tswkMap, weekPlanList, PropertiesTool.READ_SGMTA_SPLIT);
                 // 下周
-                editBox(nxvWkMap, weekPlanList, ",");
+                editBox(nxvWkMap, weekPlanList, PropertiesTool.READ_SGMTA_SPLIT);
                 // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
                 editBox(troubleShootingMap, weekPlanMap);
             }
@@ -123,17 +123,14 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 // 其余 写入配置文件
                 createExcel2.serveTroubleShootingProperties(troubleShootingMap);
                 // 生成Excel
-                String msg= createExcel2.createExcel();
-
+                String msg = createExcel2.createExcel(tswkMap.size(), nxvWkMap.size());
                 JOptionPane.showMessageDialog(jPanel, msg, "提示", JOptionPane.WARNING_MESSAGE);
             }
         });
-
         ctrlonPanel.setBackground(new Color(210, 210, 210));
         erJpanel.add(ctrlonPanel, BorderLayout.NORTH);
         erJpanel.add(onTop.getJContentPane(countPanel, jPanelMap), BorderLayout.CENTER);
         jPanel.add(erJpanel, BorderLayout.CENTER);
-
         return jPanel;
     }
 
@@ -177,7 +174,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             ranksText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(ranksText, gridBagConstraints);
             contentJPanel.add(ranksText);
-            troubleShootingMap.put("line0",ranksText);
+            troubleShootingMap.put("line0", ranksText);
 
             // 计划人文本
             JLabel jLabel = new JLabel();
@@ -193,7 +190,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             plannedText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(plannedText, gridBagConstraints);
             contentJPanel.add(plannedText);
-            troubleShootingMap.put("line1",plannedText);
+            troubleShootingMap.put("line1", plannedText);
             // 获取开始时间和结束时间
             List<String> dateAndEndDate = getStartDateAndEndDate();
             // 总结日期
@@ -211,7 +208,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             summaryDateText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(summaryDateText, gridBagConstraints);
             contentJPanel.add(summaryDateText);
-            troubleShootingMap.put("line2",summaryDateText);
+            troubleShootingMap.put("line2", summaryDateText);
             // 计划日期
             JLabel plannedDate = new JLabel();
             plannedDate.setFont(font);
@@ -227,7 +224,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             plannedDateText.setHorizontalAlignment(JTextField.CENTER);
             gridBagLayout.setConstraints(plannedDateText, gridBagConstraints);
             contentJPanel.add(plannedDateText);
-            troubleShootingMap.put("line3",plannedDateText);
+            troubleShootingMap.put("line3", plannedDateText);
             gridBagConstraints.gridy = 2;
             // 任务人/组别
             JLabel personGroup = new JLabel();
@@ -292,7 +289,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.gridwidth = 3;
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
-            String[] str = {"功能开发/后台组", "配合测试同事测试智宝付自动轮询", "中", "3", "80%", "侯文康", "只有调账功能还不通"};
+            String[] str = {"V1.1.1.0", "任务1", "低", "1", "10%", "跟进人", "完成情况"};
             tswkMap = new HashMap<String, List<Object>>();
             for (int j = 3; j < 14; j++) {
                 List<Object> tswkList = new ArrayList<Object>();
@@ -372,7 +369,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JPanel contentJPanel = new JPanel();
             contentJPanel.setLayout(gridBagLayout);
             GridBagConstraints gridBagConstraints = new GridBagConstraints();
-            // 本周计划
+            // 下周工作计划
             JLabel title = new JLabel();
             title.setFont(new Font("仿宋", Font.BOLD, 20));
             title.setForeground(new Color(255, 51, 51));
@@ -452,7 +449,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.gridwidth = 3;
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
-            String[] str = {"功能开发/后台组", "配合测试同事测试智宝付自动轮询", "中", "3", "80%", "侯文康", "只有调账功能还不通"};
+            String[] str = {"V1.1.1.0", "任务1", "低", "1", "10%", "跟进人", "完成情况"};
             nxvWkMap = new HashMap<String, List<Object>>();
             for (int j = 2; j < 14; j++) {
                 int jLine = j;
@@ -760,14 +757,44 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
      * 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
      *
      * @param contentColumnMap 故障排除部件
-     * @param contentLineMap  内容列表
+     * @param contentLineMap   内容列表
      */
-    public void editBox(Map<String, Object> contentColumnMap, Map<Integer,String> contentLineMap) {
+    public void editBox(Map<String, Object> contentColumnMap, Map<Integer, String> contentLineMap) {
         for (int i = 0; i < contentColumnMap.size(); i++) {
-            if(i > 3){
-                JTextArea jTextArea = (JTextArea)contentColumnMap.get("line"+i);
+            if (i > 3) {
+                JTextArea jTextArea = (JTextArea) contentColumnMap.get("line" + i);
                 jTextArea.setText(contentLineMap.get(i));
             }
         }
+    }
+
+    /**
+     * 初始化部件内容
+     */
+    public void initComponent(){
+        List<String> tswkPlanList = new ArrayList<String>();
+        for (int tswk = 0; tswk < tswkMap.size(); tswk++) {
+            if(!contentMap.get(WeekPropertiesEnum.tswMapLine + tswk).equals("&&&&&&")){
+                tswkPlanList.add(contentMap.get(WeekPropertiesEnum.tswMapLine + tswk));
+            }
+        }
+        List<String> nxvWkPlanList = new ArrayList<String>();
+        for (int nxvWk = 0; nxvWk < nxvWkMap.size(); nxvWk++) {
+            if(!contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk).equals("&&&&&&")){
+                nxvWkPlanList.add(contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk));
+            }
+        }
+        Map<Integer, String> weekPlanMap = new HashMap<Integer, String>();
+        weekPlanMap.put(4, contentMap.get(WeekPropertiesEnum.leaveArea));
+        weekPlanMap.put(5, contentMap.get(WeekPropertiesEnum.urgentArea));
+        weekPlanMap.put(6, contentMap.get(WeekPropertiesEnum.commonlyArea));
+        weekPlanMap.put(7, contentMap.get(WeekPropertiesEnum.slowlyArea));
+        weekPlanMap.put(8, contentMap.get(WeekPropertiesEnum.improvementJTextArea));
+        // 本周
+        editBox(tswkMap, tswkPlanList, PropertiesTool.READ_SGMTA_SPLIT);
+        // 下周
+        editBox(nxvWkMap, nxvWkPlanList, PropertiesTool.READ_SGMTA_SPLIT);
+        // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
+        editBox(troubleShootingMap, weekPlanMap);
     }
 }
