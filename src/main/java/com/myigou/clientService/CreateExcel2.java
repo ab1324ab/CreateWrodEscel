@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -194,7 +195,8 @@ public class CreateExcel2 {
             cell.setCellValue(contentMap.get(WeekPropertiesEnum.improvementJTextArea));
         // 创建输出文件
         FileOutputStream os = null;
-        String runPath = "C:\\Users\\ab1324ab\\Desktop";//System.getProperty("user.dir");
+        File desktopDir = FileSystemView.getFileSystemView() .getHomeDirectory();
+        String runPath = desktopDir.getAbsolutePath();
         File file = new File(runPath + "\\" + contentMap.get("fileName") + "周计划总结.xlsx");
         try {
             if (!file.exists()) {
