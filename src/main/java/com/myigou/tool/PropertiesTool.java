@@ -64,6 +64,24 @@ public class PropertiesTool {
     }
 
     /**
+     * 删除配置文件相应KEY
+     *
+     * @param filename
+     * @param key
+     */
+    public static void removeKey(String filename, String key) {
+        try {
+            Properties writeProperties = new Properties();
+            String pathDir = System.getProperty("user.dir") + "\\" + filename;
+            writeProperties.load(new FileInputStream(new File(pathDir)));
+            writeProperties.remove(key);
+            writeProperties.store(new FileOutputStream(new File(pathDir)), "");
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    /**
      * 自动恢复设置
      */
     public static void initialization() {

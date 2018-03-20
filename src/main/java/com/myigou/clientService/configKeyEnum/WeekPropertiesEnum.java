@@ -8,6 +8,8 @@ package com.myigou.clientService.configKeyEnum;
 public class WeekPropertiesEnum {
     // 部件行数键
     public static String line = "line";
+    // 占位符
+    public static String ASK = "?";
     // 本周行数键
     public static String tswMapLine = "tswMapLine";
     // 下周行数键
