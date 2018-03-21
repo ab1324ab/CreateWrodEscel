@@ -1,21 +1,20 @@
 package com.myigou.clientService;
 
 import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
+import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.math.BigInteger;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author ab1324ab
@@ -28,6 +27,8 @@ public class CreateExcel2 {
     Workbook wb = null;
     // 写入配置文件
     private String create_Excel_Properties = "config.properties";
+    // 时间格式化
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd");
 
     public CreateExcel2() {
         try {
@@ -52,6 +53,8 @@ public class CreateExcel2 {
                 if (i == 2 || i == 4) {
                     JComboBox jComboBox = (JComboBox) entryValue.get(i);
                     Object jComboBoxValue = jComboBox.getSelectedItem();
+                    jComboBoxValue = jComboBoxValue.toString().replace("&", "");
+                    jComboBoxValue = jComboBoxValue.toString().replace("?", "");
                     if (!"".equals(jComboBoxValue) && jComboBoxValue != null) {
                         strLine = strLine + jComboBoxValue + PropertiesTool.READ_SGMTA_SPLIT;
                     } else {
@@ -60,6 +63,8 @@ public class CreateExcel2 {
                 } else {
                     JTextField jTextField = (JTextField) entryValue.get(i);
                     String jTextFieldText = jTextField.getText();
+                    jTextFieldText = jTextFieldText.replace("&", "");
+                    jTextFieldText = jTextFieldText.replace("?", "");
                     if (!"".equals(jTextFieldText) && jTextFieldText != null) {
                         strLine = strLine + jTextFieldText + PropertiesTool.READ_SGMTA_SPLIT;
                     } else {
@@ -147,12 +152,12 @@ public class CreateExcel2 {
         cell = sheet.getRow(3).getCell(8);
         cell.setCellValue(contentMap.get(WeekPropertiesEnum.summaryDateText));
         // 本周计划 内容 生成
-        Integer[] cellRow = new Integer[]{0,1,4,5,6,7,8};
+        Integer[] cellRow = new Integer[]{0, 1, 4, 5, 6, 7, 8};
         for (int tswk = 0; tswk < tswkPlanList.size(); tswk++) {
             String[] row = tswkPlanList.get(tswk).split(PropertiesTool.READ_SGMTA_SPLIT);
             for (int irow = 0; irow < row.length; irow++) {
                 String cellValue = row[irow];
-                if(WeekPropertiesEnum.ASK.equals(cellValue)){
+                if (WeekPropertiesEnum.ASK.equals(cellValue)) {
                     cellValue = "";
                 }
                 cell = sheet.getRow(5 + tswk).getCell(cellRow[irow]);
@@ -161,32 +166,15 @@ public class CreateExcel2 {
         }
         // 下周计划 内容 生成
         for (int nxvWk = 0; nxvWk < nxvWkPlanList.size(); nxvWk++) {
-
             String[] row = nxvWkPlanList.get(nxvWk).split(PropertiesTool.READ_SGMTA_SPLIT);
-            if (row.length == 0) {
-                row = new String[7];
+            for (int irow = 0; irow < row.length; irow++) {
+                String cellValue = row[irow];
+                if (WeekPropertiesEnum.ASK.equals(cellValue)) {
+                    cellValue = "";
+                }
+                cell = sheet.getRow(28 + nxvWk).getCell(cellRow[irow]);
+                cell.setCellValue(cellValue);
             }
-            // 任务名/组别
-            cell = sheet.getRow(28 + nxvWk).getCell(0);
-            cell.setCellValue(row[0]);
-            // 任务内容
-            cell = sheet.getRow(28 + nxvWk).getCell(1);
-            cell.setCellValue(row[1]);
-            // 难易度
-            cell = sheet.getRow(28 + nxvWk).getCell(4);
-            cell.setCellValue(row[2]);
-            // 预计完成时间
-            cell = sheet.getRow(28 + nxvWk).getCell(5);
-            cell.setCellValue(row[3]);
-            // 完成比例
-            cell = sheet.getRow(28 + nxvWk).getCell(6);
-            cell.setCellValue(row[4]);
-            // 跟进人
-            cell = sheet.getRow(28 + nxvWk).getCell(7);
-            cell.setCellValue(row[5]);
-            // 完成情况
-            cell = sheet.getRow(28 + nxvWk).getCell(8);
-            cell.setCellValue(row[6]);
         }
         cell = sheet.getRow(41).getCell(0);
         cell.setCellValue(contentMap.get(WeekPropertiesEnum.leaveArea));
@@ -214,5 +202,120 @@ public class CreateExcel2 {
             return e.getMessage();
         }
         return "写出成功！";
+    }
+
+    public List<String> obtainingDataSources(List<String> weekPlanList) {
+        List<Date> dateList = BusinessTool.getStartDateAndEndDate();
+        String foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
+                + "~" + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
+        try {
+            File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
+            String runPath = desktopDir.getAbsolutePath();
+            String fileExcel = runPath + "\\" + "开发三部.xlsx";
+            Workbook wb = new XSSFWorkbook(new FileInputStream(new File(fileExcel)));
+            Sheet sheet = wb.getSheet(foundSheetName);
+            Integer[] lineNum = new Integer[]{0, 1, 4, 5, 6, 7, 8};
+            for (int rowsLineNum = 4; rowsLineNum < sheet.getPhysicalNumberOfRows(); rowsLineNum++) {
+                Row row = sheet.getRow(rowsLineNum);
+                if("上周遗留任务".equals(row.getCell(lineNum[0]).getStringCellValue())){
+                    break;
+                }
+                String string = "";
+                for (int cellLineNum = 0; cellLineNum < lineNum.length; cellLineNum++) {
+                    String rowContent = row.getCell(lineNum[cellLineNum]).toString();
+                    if("".equals(rowContent)){
+                        rowContent = WeekPropertiesEnum.ASK;
+                    }else if (cellLineNum == 2){
+
+                    }else if(cellLineNum == 3){
+
+                    }
+                    string = string + rowContent + PropertiesTool.READ_SGMTA_SPLIT;
+                }
+                weekPlanList.add(string);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            return weekPlanList;
+        }
+    }
+
+    /**
+     * 根据不同情况获取Java类型值
+     * @param cell
+     * @return 返回Object类型值
+     */
+    public Object getJavaValue(Cell cell) {
+        Object o = null;
+        int cellType = cell.getCellType();
+        switch (cellType) {
+            case XSSFCell.CELL_TYPE_BLANK:
+                o = "";
+                break;
+            case XSSFCell.CELL_TYPE_BOOLEAN:
+                o = cell.getBooleanCellValue();
+                break;
+            case XSSFCell.CELL_TYPE_ERROR:
+                o = "Bad value!";
+                break;
+            case XSSFCell.CELL_TYPE_NUMERIC:
+                o = getValueOfNumericCell(cell);
+                break;
+            case XSSFCell.CELL_TYPE_FORMULA:
+                try {
+                    o = getValueOfNumericCell(cell);
+                } catch (IllegalStateException e) {
+                    try {
+                        o = cell.getRichStringCellValue().toString();
+                    } catch (IllegalStateException e2) {
+                        o = cell.getErrorCellValue();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                o = cell.getRichStringCellValue().getString();
+        }
+        return o;
+    }
+    // 获取数字类型的cell值
+    private static Object getValueOfNumericCell(Cell cell) {
+        Boolean isDate = DateUtil.isCellDateFormatted(cell);
+        Double d = cell.getNumericCellValue();
+        Object o = null;
+        if (isDate) {
+            o = DateFormat.getDateTimeInstance()
+                    .format(cell.getDateCellValue());
+        } else {
+            o = getRealStringValueOfDouble(d);
+        }
+        return o;
+    }
+    // 处理科学计数法与普通计数法的字符串显示，尽最大努力保持精度
+    private static String getRealStringValueOfDouble(Double d) {
+        String doubleStr = d.toString();
+        boolean b = doubleStr.contains("E");
+        int indexOfPoint = doubleStr.indexOf('.');
+        if (b) {
+            int indexOfE = doubleStr.indexOf('E');
+            // 小数部分
+            BigInteger xs = new BigInteger(doubleStr.substring(indexOfPoint
+                    + BigInteger.ONE.intValue(), indexOfE));
+            // 指数
+            int pow = Integer.valueOf(doubleStr.substring(indexOfE
+                    + BigInteger.ONE.intValue()));
+            int xsLen = xs.toByteArray().length;
+            int scale = xsLen - pow > 0 ? xsLen - pow : 0;
+            doubleStr = String.format("%." + scale + "f", d);
+        } else {
+            java.util.regex.Pattern p = Pattern.compile(".0$");
+            java.util.regex.Matcher m = p.matcher(doubleStr);
+            if (m.find()) {
+                doubleStr = doubleStr.replace(".0", "");
+            }
+        }
+        return doubleStr;
     }
 }
