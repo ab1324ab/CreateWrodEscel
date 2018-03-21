@@ -53,11 +53,10 @@ public class PropertiesTool {
      */
     public static void writeSet(String filename, String key, String value) {
         try {
-            Properties writeProperties = new Properties();
             String pathDir = System.getProperty("user.dir") + "\\" + filename;
-            writeProperties.load(new FileInputStream(new File(pathDir)));
-            writeProperties.setProperty(key, value);
-            writeProperties.store(new FileOutputStream(new File(pathDir)), key);
+            properties.load(new FileInputStream(new File(pathDir)));
+            properties.setProperty(key, value);
+            properties.store(new FileOutputStream(new File(pathDir)), key);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -71,11 +70,10 @@ public class PropertiesTool {
      */
     public static void removeKey(String filename, String key) {
         try {
-            Properties writeProperties = new Properties();
             String pathDir = System.getProperty("user.dir") + "\\" + filename;
-            writeProperties.load(new FileInputStream(new File(pathDir)));
-            writeProperties.remove(key);
-            writeProperties.store(new FileOutputStream(new File(pathDir)), "");
+            properties.load(new FileInputStream(new File(pathDir)));
+            properties.remove(key);
+            properties.store(new FileOutputStream(new File(pathDir)), key);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
