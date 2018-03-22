@@ -23,7 +23,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     // 网格布局
     private GridBagLayout gridBagLayout = new GridBagLayout();
     // 字体类型
-    Font font = new Font("仿宋", Font.BOLD, 12);
+    Font font = new Font("楷体", Font.PLAIN, 13);
     // 内容map
     private Map<String, String> contentMap = null;
     // 存储第一页面板里的部件 本周
@@ -72,8 +72,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         JPanel erJpanel = new JPanel();
         erJpanel.setLayout(new BorderLayout());
         JPanel ctrlonPanel = new JPanel();
-        JLabel explain = new JLabel("控制");
-        explain.setFont(new Font("仿宋", Font.BOLD, 25));
+        JLabel explain = new JLabel("文档名:xxxx.Excel");
+        explain.setFont(new Font("仿宋", Font.PLAIN, 25));
         ctrlonPanel.add(explain);
 
         JButton serveButton = new JButton("获取周计划源");
@@ -114,6 +114,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         });
         // 生成文档按钮
         JButton makeButton = new JButton("生成文档");
+        makeButton.setFont(font);
         // 去掉按钮文字周围焦点
         makeButton.setFocusPainted(false);
         makeButton.setPreferredSize(preferredSize);
@@ -155,10 +156,12 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             title.setHorizontalAlignment(SwingConstants.LEFT);
             title.setFont(new Font("仿宋", Font.BOLD, 20));
             title.setText("本周计划");
-            gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-            gridBagConstraints.weightx = 0;
-            gridBagConstraints.weighty = 0;
-            gridBagConstraints.gridwidth = 2;
+            gridBagConstraints.fill = GridBagConstraints.BOTH;
+            //gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
+            gridBagConstraints.weightx = 1;  // 当窗口放大时，长度变
+            gridBagConstraints.weighty = 1;  // 当窗口放大时，高度变
+            //gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+            //gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
             gridBagConstraints.insets = new Insets(5, 5, 5, 5);
             gridBagLayout.setConstraints(title, gridBagConstraints);
             contentJPanel.add(title);
@@ -168,8 +171,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             ranks.setForeground(new Color(255, 51, 51));
             ranks.setText("部门：");
             ranks.setHorizontalAlignment(SwingConstants.CENTER);
-            gridBagConstraints.weightx = 1;
-            gridBagConstraints.weighty = 0;
+            //gridBagConstraints.weightx = 1;
+            //gridBagConstraints.weighty = 0;
             gridBagConstraints.gridy = 1;
             gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(ranks, gridBagConstraints);
@@ -297,7 +300,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
             tswkMap = new HashMap<String, List<Object>>();
-            for (int j = 3; j < 14; j++) {
+            for (int j = 3; j < 18; j++) {
                 List<Object> tswkList = new ArrayList<Object>();
                 gridBagConstraints.gridy = j;
                 // 任务人/组别编辑框
@@ -364,8 +367,11 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 int line = j;
                 tswkMap.put(WeekPropertiesEnum.line + (line - 3), tswkList);
             }
+            JScrollPane jScrollPane = new JScrollPane(contentJPanel);
+            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            contentJPanel.setBackground(new Color(250, 250, 250));
             panel.setLayout(new BorderLayout());
-            panel.add(contentJPanel, BorderLayout.NORTH);
+            panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
             panel.add(newText,BorderLayout.SOUTH);
             panelHashMap.put("本周计划", panel);
@@ -382,9 +388,9 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             title.setHorizontalAlignment(SwingConstants.LEFT);
             title.setText("下周工作计划");
             //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
-            gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-            gridBagConstraints.weightx = 0;
-            gridBagConstraints.weighty = 0;
+            gridBagConstraints.fill = GridBagConstraints.BOTH;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.weighty = 1;
             gridBagConstraints.gridwidth = 5;
             gridBagConstraints.insets = new Insets(5, 5, 5, 5);
             gridBagLayout.setConstraints(title, gridBagConstraints);
@@ -396,8 +402,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             personGroup.setHorizontalAlignment(SwingConstants.CENTER);
             personGroup.setText("任务名/组别");
             gridBagConstraints.gridy = 1;
-            gridBagConstraints.weightx = 1;
-            gridBagConstraints.weighty = 0;
+            //gridBagConstraints.weightx = 1;
+            //gridBagConstraints.weighty = 0;
             gridBagConstraints.gridwidth = 1;
             gridBagLayout.setConstraints(personGroup, gridBagConstraints);
             contentJPanel.add(personGroup);
@@ -456,7 +462,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(status, gridBagConstraints);
             contentJPanel.add(status);
             nxvWkMap = new HashMap<String, List<Object>>();
-            for (int j = 2; j < 14; j++) {
+            for (int j = 2; j < 18; j++) {
                 int jLine = j;
                 List<Object> nxvWkList = new ArrayList<Object>();
                 gridBagConstraints.gridy = j;
@@ -523,10 +529,12 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
                 nxvWkMap.put(WeekPropertiesEnum.line + (jLine - 2), nxvWkList);
             }
+            JScrollPane jScrollPane = new JScrollPane(contentJPanel);
+            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             panel.setLayout(new BorderLayout());
-            panel.add(contentJPanel, BorderLayout.NORTH);
+            panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
-            panel.add(newText);
+            panel.add(newText,BorderLayout.SOUTH);
             panelHashMap.put("下周工作计划", panel);
         } else if (i == 2) {
             JPanel panel = new JPanel();

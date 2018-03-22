@@ -82,10 +82,12 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     public void controlCenter(JPanel pagePanel1) {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
         // 文件名 提示标签
-        JLabel titleFileName = new JLabel("文件名：");
+        JLabel titleFileName = new JLabel("文件名：",JLabel.RIGHT);
         gridBagLayout.setConstraints(titleFileName, gridBagConstraints);
         pagePanel1.add(titleFileName);
         // 文件名 输入框
@@ -120,15 +122,19 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     public void page1(JPanel pagePanel1) {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        JLabel titleDepartment = new JLabel(contentMap.get("titleDepartment"));
-        JLabel titleName = new JLabel(contentMap.get("titleName"));
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        //gridBagConstraints.anchor = GridBagConstraints.EAST;
+        JLabel titleDepartment = new JLabel(contentMap.get("titleDepartment"),JLabel.RIGHT);
+        JLabel titleName = new JLabel(contentMap.get("titleName"),JLabel.RIGHT);
         // 部门
         department = new JTextField(contentMap.get(WeekPropertiesEnum.department));
         // 名字
         name = new JTextField(contentMap.get(WeekPropertiesEnum.name));
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
-        gridBagConstraints.anchor = GridBagConstraints.EAST;
+
         gridBagLayout.setConstraints(titleDepartment, gridBagConstraints);
         // 部门
         pagePanel1.add(titleDepartment);
@@ -139,15 +145,15 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         //titleName.setBorder(BorderFactory.createLineBorder(Color.black));//边框
         gridBagLayout.setConstraints(titleName, gridBagConstraints);
         pagePanel1.add(titleName);
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
+
         gridBagLayout.setConstraints(name, gridBagConstraints);
         name.setColumns(8);
         // 创建文本框
         pagePanel1.add(name);
-        gridBagConstraints.anchor = GridBagConstraints.CENTER;
+
         String[] title1 = contentMap.get("title1").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 9; j++) {
-            JLabel renwuContents = new JLabel(title1[j]);
+            JLabel renwuContents = new JLabel(title1[j],JLabel.CENTER);
             if (j == 2 || j == 3 || j == 4 || j == 6 || j == 7 || j == 8) {
                 gridBagConstraints.gridwidth = 1;
             } else if (j == 0 || j == 5) {
@@ -155,12 +161,12 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
             } else {
                 gridBagConstraints.gridwidth = 3;
             }
-            gridBagConstraints.weightx = 0;
-            gridBagConstraints.weighty = 0;
+
             gridBagConstraints.gridy = 2;
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
         }
+        gridBagConstraints.anchor = GridBagConstraints.CENTER;
         String[] pageContents1 = contentMap.get("pageContents1").split(PropertiesTool.SGMTA_SPLIT_LATER);
         for (int i = 2; i < 2 + pageContents1.length; i++) {
             jTextFields1 = new ArrayList<JTextField>();
@@ -183,8 +189,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                 }
                 // 添加文本对象到list
                 jTextFields1.add(textField);
-                gridBagConstraints.weightx = 0;
-                gridBagConstraints.weighty = 0;
+
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(textField, gridBagConstraints);
                 // 完成比例
@@ -212,10 +217,13 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     public void page2(JPanel pagePanel1) {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         String[] title2 = contentMap.get("title2").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 6; j++) {
-            JLabel renwuContents = new JLabel(title2[j]);
+            JLabel renwuContents = new JLabel(title2[j],JLabel.CENTER);
             if (j == 0) {
                 gridBagConstraints.gridwidth = 1;
             } else if (j == 1) {
@@ -225,8 +233,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
             } else {
                 gridBagConstraints.gridwidth = 6;
             }
-            gridBagConstraints.weightx = 0;
-            gridBagConstraints.weighty = 0;
+
             gridBagConstraints.gridy = 5;
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
@@ -268,8 +275,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     gridBagConstraints.gridwidth = 6;
                 }
                 jTextFields2.add(weelText);
-                gridBagConstraints.weightx = 0;
-                gridBagConstraints.weighty = 0;
+
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(weelText, gridBagConstraints);
                 // 完成比例
@@ -298,23 +304,25 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     public void page3(JPanel pagePanel1) {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         String[] title3 = contentMap.get("title3").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 5; j++) {
-            JLabel renwuContents = new JLabel(title3[j]);
-            gridBagConstraints.weightx = 0;
-            gridBagConstraints.weighty = 0;
+            JLabel renwuContents = new JLabel(title3[j],JLabel.CENTER);
+
             gridBagConstraints.gridy = 13;
             if (j == 1) {
                 gridBagConstraints.gridwidth = 3;
             } else {
                 gridBagConstraints.gridwidth = 1;
             }
-            if (j == 5) {
-                gridBagConstraints.anchor = GridBagConstraints.WEST;
-            } else {
+
+
+
                 gridBagConstraints.anchor = GridBagConstraints.CENTER;
-            }
+
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
         }
@@ -337,10 +345,9 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     textField.setColumns(3);
                 }
                 jTextFields3.add(textField);
-                gridBagConstraints.weightx = 0;
-                gridBagConstraints.weighty = 0;
+
                 gridBagConstraints.gridy = i + 1;
-                gridBagConstraints.anchor = GridBagConstraints.CENTER;
+
                 gridBagLayout.setConstraints(textField, gridBagConstraints);
                 // 完成比例
                 pagePanel1.add(textField);
@@ -350,7 +357,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     } else {
                         jCheckBoxsPage3.add(new JCheckBox("", false));
                     }
-                    gridBagConstraints.anchor = GridBagConstraints.WEST;
+
                     gridBagLayout.setConstraints(jCheckBoxsPage3.get(i - 13), gridBagConstraints);
                     pagePanel1.add(jCheckBoxsPage3.get(i - 13));
                 }
