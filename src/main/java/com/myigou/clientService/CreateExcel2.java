@@ -28,7 +28,7 @@ public class CreateExcel2 {
     // 写入配置文件
     private String create_Excel_Properties = "config.properties";
     // 时间格式化
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
 
     public CreateExcel2() {
         try {
@@ -205,6 +205,7 @@ public class CreateExcel2 {
     }
 
     public List<String> obtainingDataSources(List<String> weekPlanList) {
+        contentMap = PropertiesTool.redConfigFile("config.properties");
         List<Date> dateList = BusinessTool.getStartDateAndEndDate();
         String foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
                 + "~" + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
@@ -225,97 +226,22 @@ public class CreateExcel2 {
                     String rowContent = row.getCell(lineNum[cellLineNum]).toString();
                     if("".equals(rowContent)){
                         rowContent = WeekPropertiesEnum.ASK;
-                    }else if (cellLineNum == 2){
-
-                    }else if(cellLineNum == 3){
-
+                    }else if (cellLineNum == 3){
+                        rowContent = rowContent.replace(".0","");
+                    }else if(cellLineNum == 4){
+                        rowContent = (int)(Double.parseDouble(rowContent) * 100) + "%";
                     }
                     string = string + rowContent + PropertiesTool.READ_SGMTA_SPLIT;
                 }
-                weekPlanList.add(string);
+                if(contentMap.get("name").equals(string.split("&")[5])){
+                    weekPlanList.add(string);
+                }
+
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally {
             return weekPlanList;
         }
-    }
-
-    /**
-     * 根据不同情况获取Java类型值
-     * @param cell
-     * @return 返回Object类型值
-     */
-    public Object getJavaValue(Cell cell) {
-        Object o = null;
-        int cellType = cell.getCellType();
-        switch (cellType) {
-            case XSSFCell.CELL_TYPE_BLANK:
-                o = "";
-                break;
-            case XSSFCell.CELL_TYPE_BOOLEAN:
-                o = cell.getBooleanCellValue();
-                break;
-            case XSSFCell.CELL_TYPE_ERROR:
-                o = "Bad value!";
-                break;
-            case XSSFCell.CELL_TYPE_NUMERIC:
-                o = getValueOfNumericCell(cell);
-                break;
-            case XSSFCell.CELL_TYPE_FORMULA:
-                try {
-                    o = getValueOfNumericCell(cell);
-                } catch (IllegalStateException e) {
-                    try {
-                        o = cell.getRichStringCellValue().toString();
-                    } catch (IllegalStateException e2) {
-                        o = cell.getErrorCellValue();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
-            default:
-                o = cell.getRichStringCellValue().getString();
-        }
-        return o;
-    }
-    // 获取数字类型的cell值
-    private static Object getValueOfNumericCell(Cell cell) {
-        Boolean isDate = DateUtil.isCellDateFormatted(cell);
-        Double d = cell.getNumericCellValue();
-        Object o = null;
-        if (isDate) {
-            o = DateFormat.getDateTimeInstance()
-                    .format(cell.getDateCellValue());
-        } else {
-            o = getRealStringValueOfDouble(d);
-        }
-        return o;
-    }
-    // 处理科学计数法与普通计数法的字符串显示，尽最大努力保持精度
-    private static String getRealStringValueOfDouble(Double d) {
-        String doubleStr = d.toString();
-        boolean b = doubleStr.contains("E");
-        int indexOfPoint = doubleStr.indexOf('.');
-        if (b) {
-            int indexOfE = doubleStr.indexOf('E');
-            // 小数部分
-            BigInteger xs = new BigInteger(doubleStr.substring(indexOfPoint
-                    + BigInteger.ONE.intValue(), indexOfE));
-            // 指数
-            int pow = Integer.valueOf(doubleStr.substring(indexOfE
-                    + BigInteger.ONE.intValue()));
-            int xsLen = xs.toByteArray().length;
-            int scale = xsLen - pow > 0 ? xsLen - pow : 0;
-            doubleStr = String.format("%." + scale + "f", d);
-        } else {
-            java.util.regex.Pattern p = Pattern.compile(".0$");
-            java.util.regex.Matcher m = p.matcher(doubleStr);
-            if (m.find()) {
-                doubleStr = doubleStr.replace(".0", "");
-            }
-        }
-        return doubleStr;
     }
 }

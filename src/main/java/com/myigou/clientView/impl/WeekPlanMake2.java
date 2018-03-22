@@ -89,13 +89,14 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 List<String> weekPlanList = new ArrayList<String>();
                 CreateExcel2 excel2 = new CreateExcel2();
                 weekPlanList = excel2.obtainingDataSources(weekPlanList);
-                /*String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";
+
+                String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";
                 String string1 = "功能开发/后台组&配合测询&中&2&10%&侯文康&只有还不通";
                 String string2 = "功能开发/后台组&配fasfa询&低&6&20%&侯文康&有调账功能还";
-                List<String> weekPlanList = new ArrayList<String>();
-                weekPlanList.add(string);
-                weekPlanList.add(string1);
-                weekPlanList.add(string2);
+                List<String> weekPlanList1 = new ArrayList<String>();
+                weekPlanList1.add(string);
+                weekPlanList1.add(string1);
+                weekPlanList1.add(string2);
 
                 Map<Integer, String> weekPlanMap = new HashMap<Integer, String>();
                 weekPlanMap.put(4, string);
@@ -106,9 +107,9 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 // 本周
                 editBox(tswkMap, weekPlanList, PropertiesTool.READ_SGMTA_SPLIT);
                 // 下周
-                editBox(nxvWkMap, weekPlanList, PropertiesTool.READ_SGMTA_SPLIT);
+                editBox(nxvWkMap, weekPlanList1, PropertiesTool.READ_SGMTA_SPLIT);
                 // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
-                editBox(troubleShootingMap, weekPlanMap);*/
+                editBox(troubleShootingMap, weekPlanMap);
             }
         });
         // 生成文档按钮
