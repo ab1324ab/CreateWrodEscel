@@ -2,12 +2,10 @@ package com.myigou.module;
 
 
 import javax.swing.SwingUtilities;
-import java.awt.BorderLayout;
+import java.awt.*;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-import java.awt.Dimension;
 import javax.swing.BorderFactory;
-import java.awt.Color;
 import javax.swing.JButton;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +56,8 @@ public class OnTop extends JFrame {
         Dimension preferredSize = new Dimension(90,35);
         jButton.setPreferredSize(preferredSize);
         // jButton.setSize(100, 15);
-        jButton.setForeground(Color.red);
+        //jButton.setForeground(Color.red);
+        jButton.setFont(new Font("微软雅黑",Font.PLAIN,13));
         String mapKey = "";
         for (String key : parameMap.keySet()) {
             mapKey = key;
@@ -93,56 +92,9 @@ public class OnTop extends JFrame {
     private JPanel getJPanel1(String keyName, JPanel panelc) {
         JPanel panel = panelMap.get(keyName);
         if (panel == null) {
-//            jLabel = new JLabel();
-//            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-//            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-//            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//            jLabel.setForeground(new Color(255, 51, 51));
-//            jLabel.setText("Panel " + i);
-//            panel = new JPanel();
-//            panel.setBackground(Color.red);
-//            panel.setLayout(null);
-//            panel.add(jLabel, null);
             panelMap.put(keyName, panelc);
         }
         return panelc;
-    }
-
-
-    /**
-     * @param args
-     */
-
-    public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                OnTop thisClass = new OnTop();
-                thisClass.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                thisClass.setVisible(true);
-            }
-        });
-    }
-
-    /**
-     * This is the default constructor
-     */
-    public OnTop() {
-        super();
-        initialize();
-    }
-
-    /**
-     * This method initializes this
-     *
-     * @return void
-     */
-    private void initialize() {
-        this.setSize(472, 410);
-        // this.setResizable(false);
-        // this.setContentPane(getJContentPane());
-        this.setTitle("JPanel切换示例");
     }
 
     /**

@@ -34,6 +34,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     Map<String, Object> troubleShootingMap = new HashMap<String, Object>();
     // 时间格式转
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+    // 面板文字颜色
+    Color  redColor=new Color(255, 51, 51);
 
     public WeekPlanMake2() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
@@ -152,7 +154,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 本周计划
             JLabel title = new JLabel();
             title.setFont(font);
-            title.setForeground(new Color(255, 51, 51));
+            title.setForeground(redColor);
             title.setHorizontalAlignment(SwingConstants.LEFT);
             title.setFont(new Font("仿宋", Font.BOLD, 20));
             title.setText("本周计划");
@@ -168,7 +170,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 部门文本
             JLabel ranks = new JLabel();
             ranks.setFont(font);
-            ranks.setForeground(new Color(255, 51, 51));
+            ranks.setForeground(redColor);
             ranks.setText("部门：");
             ranks.setHorizontalAlignment(SwingConstants.CENTER);
             //gridBagConstraints.weightx = 1;
@@ -188,7 +190,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 计划人文本
             JLabel jLabel = new JLabel();
             jLabel.setFont(font);
-            jLabel.setForeground(new Color(255, 51, 51));
+            jLabel.setForeground(redColor);
             jLabel.setText("计划人：");
             jLabel.setHorizontalAlignment(SwingConstants.CENTER);
             gridBagLayout.setConstraints(jLabel, gridBagConstraints);
@@ -205,7 +207,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 总结日期
             JLabel summaryDate = new JLabel();
             summaryDate.setFont(font);
-            summaryDate.setForeground(new Color(255, 51, 51));
+            summaryDate.setForeground(redColor);
             summaryDate.setHorizontalAlignment(SwingConstants.CENTER);
             summaryDate.setText("总结日期：");
             gridBagConstraints.gridwidth = 1;
@@ -221,7 +223,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 计划日期
             JLabel plannedDate = new JLabel();
             plannedDate.setFont(font);
-            plannedDate.setForeground(new Color(255, 51, 51));
+            plannedDate.setForeground(redColor);
             plannedDate.setHorizontalAlignment(SwingConstants.CENTER);
             plannedDate.setText("计划日期：");
             gridBagConstraints.gridwidth = 2;
@@ -239,7 +241,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 任务人/组别
             JLabel personGroup = new JLabel();
             personGroup.setFont(font);
-            personGroup.setForeground(new Color(255, 51, 51));
+            personGroup.setForeground(redColor);
             personGroup.setHorizontalAlignment(SwingConstants.CENTER);
             personGroup.setText("任务名/组别");
             gridBagConstraints.gridwidth = 1;
@@ -248,7 +250,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 任务内容
             JLabel mandateContent = new JLabel();
             mandateContent.setFont(font);
-            mandateContent.setForeground(new Color(255, 51, 51));
+            mandateContent.setForeground(redColor);
             mandateContent.setHorizontalAlignment(SwingConstants.CENTER);
             mandateContent.setText("任务内容");
             gridBagConstraints.gridwidth = 3;
@@ -257,7 +259,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 难易度
             JLabel difficulty = new JLabel();
             difficulty.setFont(font);
-            difficulty.setForeground(new Color(255, 51, 51));
+            difficulty.setForeground(redColor);
             difficulty.setHorizontalAlignment(SwingConstants.CENTER);
             difficulty.setText("难易度");
             gridBagConstraints.gridwidth = 1;
@@ -266,7 +268,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 预计完成时间
             JLabel projectedCompletion = new JLabel();
             projectedCompletion.setFont(font);
-            projectedCompletion.setForeground(new Color(255, 51, 51));
+            projectedCompletion.setForeground(redColor);
             projectedCompletion.setHorizontalAlignment(SwingConstants.CENTER);
             projectedCompletion.setText("预计完成时间");
             gridBagConstraints.gridwidth = 1;
@@ -275,7 +277,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 完成比例
             JLabel percentage = new JLabel();
             percentage.setFont(font);
-            percentage.setForeground(new Color(255, 51, 51));
+            percentage.setForeground(redColor);
             percentage.setHorizontalAlignment(SwingConstants.CENTER);
             percentage.setText("完成比例");
             gridBagConstraints.gridwidth = 1;
@@ -284,7 +286,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 跟进人
             JLabel head = new JLabel();
             head.setFont(font);
-            head.setForeground(new Color(255, 51, 51));
+            head.setForeground(redColor);
             head.setHorizontalAlignment(SwingConstants.CENTER);
             head.setText("跟进人");
             gridBagConstraints.gridwidth = 1;
@@ -293,7 +295,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 完成情况
             JLabel status = new JLabel();
             status.setFont(font);
-            status.setForeground(new Color(255, 51, 51));
+            status.setForeground(redColor);
             status.setHorizontalAlignment(SwingConstants.CENTER);
             status.setText("完成情况");
             gridBagConstraints.gridwidth = 3;
@@ -384,7 +386,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 下周工作计划
             JLabel title = new JLabel();
             title.setFont(new Font("仿宋", Font.BOLD, 20));
-            title.setForeground(new Color(255, 51, 51));
+            title.setForeground(redColor);
             title.setHorizontalAlignment(SwingConstants.LEFT);
             title.setText("下周工作计划");
             //gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -398,7 +400,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 任务人/组别
             JLabel personGroup = new JLabel();
             personGroup.setFont(font);
-            personGroup.setForeground(new Color(255, 51, 51));
+            personGroup.setForeground(redColor);
             personGroup.setHorizontalAlignment(SwingConstants.CENTER);
             personGroup.setText("任务名/组别");
             gridBagConstraints.gridy = 1;
@@ -410,7 +412,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 任务内容
             JLabel mandateContent = new JLabel();
             mandateContent.setFont(font);
-            mandateContent.setForeground(new Color(255, 51, 51));
+            mandateContent.setForeground(redColor);
             mandateContent.setHorizontalAlignment(SwingConstants.CENTER);
             mandateContent.setText("任务内容");
             gridBagConstraints.gridwidth = 3;
@@ -419,7 +421,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 难易度
             JLabel difficulty = new JLabel();
             difficulty.setFont(font);
-            difficulty.setForeground(new Color(255, 51, 51));
+            difficulty.setForeground(redColor);
             difficulty.setHorizontalAlignment(SwingConstants.CENTER);
             difficulty.setText("难易度");
             gridBagConstraints.gridwidth = 1;
@@ -428,7 +430,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 预计完成时间
             JLabel projectedCompletion = new JLabel();
             projectedCompletion.setFont(font);
-            projectedCompletion.setForeground(new Color(255, 51, 51));
+            projectedCompletion.setForeground(redColor);
             projectedCompletion.setHorizontalAlignment(SwingConstants.CENTER);
             projectedCompletion.setText("预计完成时间");
             gridBagConstraints.gridwidth = 1;
@@ -437,7 +439,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 完成比例
             JLabel percentage = new JLabel();
             percentage.setFont(font);
-            percentage.setForeground(new Color(255, 51, 51));
+            percentage.setForeground(redColor);
             percentage.setHorizontalAlignment(SwingConstants.CENTER);
             percentage.setText("完成比例");
             gridBagConstraints.gridwidth = 1;
@@ -446,7 +448,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 跟进人
             JLabel head = new JLabel();
             head.setFont(font);
-            head.setForeground(new Color(255, 51, 51));
+            head.setForeground(redColor);
             head.setHorizontalAlignment(SwingConstants.CENTER);
             head.setText("跟进人");
             gridBagConstraints.gridwidth = 1;
@@ -455,7 +457,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 完成情况
             JLabel status = new JLabel();
             status.setFont(font);
-            status.setForeground(new Color(255, 51, 51));
+            status.setForeground(redColor);
             status.setHorizontalAlignment(SwingConstants.CENTER);
             status.setText("完成情况");
             gridBagConstraints.gridwidth = 3;
@@ -545,7 +547,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 余留问题 文字
             JLabel problems = new JLabel();
             problems.setFont(new Font("仿宋", Font.BOLD, 20));
-            problems.setForeground(new Color(255, 51, 51));
+            problems.setForeground(redColor);
             problems.setText("余留问题");
             gridBagConstraints.gridy = 0;
             gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -581,7 +583,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 余留问题 文字
             JLabel problems = new JLabel();
             problems.setFont(new Font("仿宋", Font.BOLD, 20));
-            problems.setForeground(new Color(255, 51, 51));
+            problems.setForeground(redColor);
             problems.setText("需其它部门或领导协助解决的事宜");
             gridBagConstraints.gridy = 0;
             gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -593,7 +595,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 紧急 文本
             JLabel urgentLabel = new JLabel("紧急：");
             urgentLabel.setFont(font);
-            urgentLabel.setForeground(new Color(255, 51, 51));
+            urgentLabel.setForeground(redColor);
             gridBagConstraints.gridy = 1;
             gridBagConstraints.weightx = 1;
             gridBagConstraints.weighty = 1;
@@ -615,7 +617,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 一般 文本
             JLabel commonlyLabel = new JLabel("一般：");
             commonlyLabel.setFont(font);
-            commonlyLabel.setForeground(new Color(255, 51, 51));
+            commonlyLabel.setForeground(redColor);
             gridBagConstraints.gridy = 3;
             gridBagConstraints.weightx = 1;
             gridBagConstraints.weighty = 1;
@@ -637,7 +639,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 稍缓 文本
             JLabel slowlyLabel = new JLabel("稍缓：");
             slowlyLabel.setFont(font);
-            slowlyLabel.setForeground(new Color(255, 51, 51));
+            slowlyLabel.setForeground(redColor);
             gridBagConstraints.gridy = 5;
             gridBagConstraints.weightx = 1;
             gridBagConstraints.weighty = 1;
@@ -669,7 +671,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             // 工作中的不足和需改进之处 文字
             JLabel problems = new JLabel();
             problems.setFont(new Font("仿宋", Font.BOLD, 20));
-            problems.setForeground(new Color(255, 51, 51));
+            problems.setForeground(redColor);
             problems.setText("工作中的不足和需改进之处");
             gridBagConstraints.gridy = 0;
             gridBagConstraints.anchor = GridBagConstraints.PAGE_START;
@@ -703,7 +705,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             jLabel.setBounds(new Rectangle(151, 99, 163, 113));
             jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
             jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-            jLabel.setForeground(new Color(255, 51, 51));
+            jLabel.setForeground(redColor);
             jLabel.setText("本周总结");
             JPanel panel = new JPanel();
             // panel.setBackground(Color.red);
