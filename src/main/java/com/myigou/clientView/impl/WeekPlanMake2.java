@@ -1,6 +1,7 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientService.CreateExcel2;
+import com.myigou.clientService.ResultObject.DataSourceResponse;
 import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
@@ -90,28 +91,30 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             public void actionPerformed(ActionEvent e) {
                 List<String> weekPlanList = new ArrayList<String>();
                 CreateExcel2 excel2 = new CreateExcel2();
-                weekPlanList = excel2.obtainingDataSources(weekPlanList);
-
-                String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";
-                String string1 = "功能开发/后台组&配合测询&中&2&10%&侯文康&只有还不通";
-                String string2 = "功能开发/后台组&配fasfa询&低&6&20%&侯文康&有调账功能还";
-                List<String> weekPlanList1 = new ArrayList<String>();
-                weekPlanList1.add(string);
-                weekPlanList1.add(string1);
-                weekPlanList1.add(string2);
-
-                Map<Integer, String> weekPlanMap = new HashMap<Integer, String>();
-                weekPlanMap.put(4, string);
-                weekPlanMap.put(5, string1);
-                weekPlanMap.put(6, string2);
-                weekPlanMap.put(7, string1);
-                weekPlanMap.put(8, string2);
+                DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList);
+                if (dataSources.getStatus() != null) {
+                    JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "提示", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+//                String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";
+//                String string1 = "功能开发/后台组&配合测询&中&2&10%&侯文康&只有还不通";
+//                String string2 = "功能开发/后台组&配fasfa询&低&6&20%&侯文康&有调账功能还";
+//                List<String> weekPlanList1 = new ArrayList<String>();
+//                weekPlanList1.add(string);
+//                weekPlanList1.add(string1);
+//                weekPlanList1.add(string2);
+//                Map<Integer, String> weekPlanMap = new HashMap<Integer, String>();
+//                weekPlanMap.put(4, string);
+//                weekPlanMap.put(5, string1);
+//                weekPlanMap.put(6, string2);
+//                weekPlanMap.put(7, string1);
+//                weekPlanMap.put(8, string2);
                 // 本周
-                editBox(tswkMap, weekPlanList, PropertiesTool.READ_SGMTA_SPLIT);
+                editBox(tswkMap, dataSources.getDataSource(), PropertiesTool.READ_SGMTA_SPLIT);
                 // 下周
-                editBox(nxvWkMap, weekPlanList1, PropertiesTool.READ_SGMTA_SPLIT);
+                //editBox(nxvWkMap, weekPlanList1, PropertiesTool.READ_SGMTA_SPLIT);
                 // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
-                editBox(troubleShootingMap, weekPlanMap);
+                //editBox(troubleShootingMap, weekPlanMap);
             }
         });
         // 生成文档按钮
@@ -322,7 +325,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 contentJPanel.add(mandateContentText);
                 tswkList.add(mandateContentText);
                 // 难易度编辑框
-                String nations[] = {"","中", "低", "高"};
+                String nations[] = {"", "中", "低", "高"};
                 JComboBox jcb1 = new JComboBox(nations);
                 jcb1.setSelectedItem("");
                 // JTextField difficultyText = new JTextField();
@@ -342,7 +345,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 contentJPanel.add(projectedCompletionText);
                 tswkList.add(projectedCompletionText);
                 // 完成比例编辑框
-                String percentageText[] = {"","10%", "20%", "30%", "50%", "60%", "70%", "80%", "90%", "100%"};
+                String percentageText[] = {"", "10%", "20%", "30%", "50%", "60%", "70%", "80%", "90%", "100%"};
                 JComboBox percentageBox = new JComboBox(percentageText);
                 percentageBox.setSelectedItem("");
                 percentageBox.setMaximumRowCount(5);
@@ -375,7 +378,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
-            panel.add(newText,BorderLayout.SOUTH);
+            panel.add(newText, BorderLayout.SOUTH);
             panelHashMap.put("本周计划", panel);
         } else if (i == 1) {
             JPanel panel = new JPanel();
@@ -485,7 +488,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 contentJPanel.add(mandateContentText);
                 nxvWkList.add(mandateContentText);
                 // 难易度编辑框
-                String nations[] = {"","中", "低", "高"};
+                String nations[] = {"", "中", "低", "高"};
                 JComboBox degreeBox = new JComboBox(nations);
                 degreeBox.setSelectedItem("");
                 degreeBox.setMaximumRowCount(3);
@@ -504,7 +507,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 contentJPanel.add(projectedCompletionText);
                 nxvWkList.add(projectedCompletionText);
                 // 完成比例编辑框
-                String percentageText[] = {"","10%", "20%", "30%", "50%", "60%", "70%", "80%", "90%", "100%"};
+                String percentageText[] = {"", "10%", "20%", "30%", "50%", "60%", "70%", "80%", "90%", "100%"};
                 JComboBox percentageBox = new JComboBox(percentageText);
                 percentageBox.setSelectedItem("");
                 percentageBox.setMaximumRowCount(5);
@@ -536,7 +539,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
-            panel.add(newText,BorderLayout.SOUTH);
+            panel.add(newText, BorderLayout.SOUTH);
             panelHashMap.put("下周工作计划", panel);
         } else if (i == 2) {
             JPanel panel = new JPanel();
@@ -717,7 +720,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     }
 
 
-
     /**
      * （下周、本周）计划写入编辑框
      *
@@ -726,11 +728,23 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
      * @param decollator       分隔符
      */
     public void editBox(Map<String, List<Object>> contentColumnMap, List<String> contentLineList, String decollator) {
+        for (int c = 0; c < contentColumnMap.size(); c++) {
+            List<Object> entryValue = (List<Object>) contentColumnMap.get(WeekPropertiesEnum.line + c);
+            for (int i = 0; i < 7; i++) {
+                if (i == 2 || i == 4) {
+                    JComboBox jComboBox = (JComboBox) entryValue.get(i);
+                    jComboBox.setSelectedItem("");
+                } else {
+                    JTextField jTextField = (JTextField) entryValue.get(i);
+                    jTextField.setText("");
+                }
+            }
+        }
         for (int mapLine = 0; mapLine < contentLineList.size(); mapLine++) {
             List<Object> entryValue = (List<Object>) contentColumnMap.get(WeekPropertiesEnum.line + mapLine);
             for (int i = 0; i < 7; i++) {
-                String vstr= contentLineList.get(mapLine).split(decollator)[i];
-                if(WeekPropertiesEnum.ASK.equals(vstr)){
+                String vstr = contentLineList.get(mapLine).split(decollator)[i];
+                if (WeekPropertiesEnum.ASK.equals(vstr)) {
                     vstr = "";
                 }
                 if (i == 2 || i == 4) {
@@ -762,18 +776,18 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     /**
      * 初始化部件内容
      */
-    public void initComponent(){
+    public void initComponent() {
         List<String> tswkPlanList = new ArrayList<String>();
         for (int tswk = 0; tswk < tswkMap.size(); tswk++) {
-            String conten= contentMap.get(WeekPropertiesEnum.tswMapLine + tswk);
-            if(!"".equals(conten) && conten != null){
+            String conten = contentMap.get(WeekPropertiesEnum.tswMapLine + tswk);
+            if (!"".equals(conten) && conten != null) {
                 tswkPlanList.add(conten);
             }
         }
         List<String> nxvWkPlanList = new ArrayList<String>();
         for (int nxvWk = 0; nxvWk < nxvWkMap.size(); nxvWk++) {
-            String conten= contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk);
-            if(!"".equals(conten) && conten != null){
+            String conten = contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk);
+            if (!"".equals(conten) && conten != null) {
                 nxvWkPlanList.add(conten);
             }
         }

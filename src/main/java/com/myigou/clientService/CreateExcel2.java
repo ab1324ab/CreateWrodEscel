@@ -1,20 +1,18 @@
 package com.myigou.clientService;
 
+import com.myigou.clientService.ResultObject.DataSourceResponse;
+import com.myigou.clientService.configKeyEnum.ErrorEnum;
 import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
 import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.math.BigInteger;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * @author ab1324ab
@@ -28,7 +26,7 @@ public class CreateExcel2 {
     // 写入配置文件
     private String create_Excel_Properties = "config.properties";
     // 时间格式化
-    SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
+    SimpleDateFormat dateFormat = null;
 
     public CreateExcel2() {
         try {
@@ -204,44 +202,65 @@ public class CreateExcel2 {
         return "写出成功！";
     }
 
-    public List<String> obtainingDataSources(List<String> weekPlanList) {
-        contentMap = PropertiesTool.redConfigFile("config.properties");
-        List<Date> dateList = BusinessTool.getStartDateAndEndDate();
-        String foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
-                + "~" + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
+    /**
+     * 获取数据源内容写入部件
+     *
+     * @param weekPlanList
+     * @return DataSourceResponse
+     */
+    public DataSourceResponse obtainingDataSources(List<String> weekPlanList) {
+        DataSourceResponse dataSourceResponse = new DataSourceResponse(weekPlanList);
+        String foundSheetName = "";
         try {
+            contentMap = PropertiesTool.redConfigFile("config.properties");
+            dateFormat = new SimpleDateFormat("MM.dd");
+            List<Date> dateList = BusinessTool.getStartDateAndEndDate();
+            foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
+                    + "~" + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
             File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
             String runPath = desktopDir.getAbsolutePath();
             String fileExcel = runPath + "\\" + "开发三部.xlsx";
             Workbook wb = new XSSFWorkbook(new FileInputStream(new File(fileExcel)));
             Sheet sheet = wb.getSheet(foundSheetName);
+            if (null == sheet) {
+                throw new RuntimeException();
+            }
             Integer[] lineNum = new Integer[]{0, 1, 4, 5, 6, 7, 8};
             for (int rowsLineNum = 4; rowsLineNum < sheet.getPhysicalNumberOfRows(); rowsLineNum++) {
                 Row row = sheet.getRow(rowsLineNum);
-                if("上周遗留任务".equals(row.getCell(lineNum[0]).getStringCellValue())){
+                if ("上周遗留任务".equals(row.getCell(lineNum[0]).getStringCellValue())) {
                     break;
                 }
                 String string = "";
                 for (int cellLineNum = 0; cellLineNum < lineNum.length; cellLineNum++) {
                     String rowContent = row.getCell(lineNum[cellLineNum]).toString();
-                    if("".equals(rowContent)){
+                    if ("".equals(rowContent)) {
                         rowContent = WeekPropertiesEnum.ASK;
-                    }else if (cellLineNum == 3){
-                        rowContent = rowContent.replace(".0","");
-                    }else if(cellLineNum == 4){
-                        rowContent = (int)(Double.parseDouble(rowContent) * 100) + "%";
+                    } else if (cellLineNum == 3) {
+                        rowContent = rowContent.replace(".0", "");
+                    } else if (cellLineNum == 4) {
+                        rowContent = (int) (Double.parseDouble(rowContent) * 100) + "%";
                     }
                     string = string + rowContent + PropertiesTool.READ_SGMTA_SPLIT;
                 }
-                if(contentMap.get("name").equals(string.split("&")[5])){
+                if (contentMap.get("name").equals(string.split("&")[5])) {
                     weekPlanList.add(string);
                 }
-
             }
+        } catch (IOException ioe) {
+            dataSourceResponse.setStatus(ErrorEnum.FileError.getErrorMsg());
+            ioe.printStackTrace();
+            return dataSourceResponse;
+        } catch (IllegalArgumentException x) {
+            dataSourceResponse.setStatus(ErrorEnum.DateFormatError.getErrorMsg());
+            return dataSourceResponse;
+        } catch (RuntimeException runt) {
+            dataSourceResponse.setStatus(String.format(ErrorEnum.DateFormatMismatch.getErrorMsg(), foundSheetName));
+            return dataSourceResponse;
         } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            return weekPlanList;
+            dataSourceResponse.setStatus(ErrorEnum.SystemError.getErrorMsg());
+            return dataSourceResponse;
         }
+        return dataSourceResponse;
     }
 }
