@@ -1,6 +1,6 @@
 package com.myigou.tool;
 
-import com.myigou.view.WindowView;
+import com.myigou.mainView.WindowView;
 
 import javax.swing.*;
 

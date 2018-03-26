@@ -1,4 +1,4 @@
-package com.myigou.view;
+package com.myigou.mainView;
 
 
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;

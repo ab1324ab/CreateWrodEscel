@@ -1,4 +1,4 @@
-package com.myigou.view;
+package com.myigou.mainView;
 
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.*;

@@ -3,7 +3,7 @@ package com.myigou.clientView.impl;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
-import com.myigou.view.WindowView;
+import com.myigou.mainView.WindowView;
 
 import javax.swing.*;
 import java.awt.*;
