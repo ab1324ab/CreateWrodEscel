@@ -34,7 +34,7 @@ public class OnTop extends JFrame {
             jPanel = new JPanel();
             // jPanel.setLayout(new GridLayout(num, 1));
             jPanel.setPreferredSize(new Dimension(100, 0));
-            jPanel.setBackground(new Color(210, 210, 210));
+            //jPanel.setBackground(new Color(210, 210, 210));
             jPanel.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             for (int i = 0; i < num; i++) {
                 jPanel.add(getJButton(jPanelMap.get(String.valueOf(i))), null);

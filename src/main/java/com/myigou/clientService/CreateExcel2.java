@@ -118,7 +118,7 @@ public class CreateExcel2 {
      *
      * @return String 返回状态
      */
-    public String createExcel(int tswkRow, int nxvWkRow) {
+    public String createExcel(int tswkRow, int nxvWkRow,String fileName) {
         contentMap = PropertiesTool.redConfigFile("config.properties");
         List<String> tswkPlanList = new ArrayList<String>();
         for (int tswk = 0; tswk < tswkRow; tswk++) {
@@ -186,9 +186,9 @@ public class CreateExcel2 {
         cell.setCellValue(contentMap.get(WeekPropertiesEnum.improvementJTextArea));
         // 创建输出文件
         FileOutputStream os = null;
-        File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
-        String runPath = desktopDir.getAbsolutePath();
-        File file = new File(runPath + "\\" + contentMap.get("fileName") + "周计划总结.xlsx");
+        // File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
+        String runPath = System.getProperty("user.dir");
+        File file = new File(runPath + "\\" + fileName);
         try {
             if (!file.exists()) {
                 file.createNewFile();
@@ -208,7 +208,7 @@ public class CreateExcel2 {
      * @param weekPlanList
      * @return DataSourceResponse
      */
-    public DataSourceResponse obtainingDataSources(List<String> weekPlanList) {
+    public DataSourceResponse obtainingDataSources(List<String> weekPlanList,String xlsxFileUrl) {
         DataSourceResponse dataSourceResponse = new DataSourceResponse(weekPlanList);
         String foundSheetName = "";
         try {
@@ -217,10 +217,7 @@ public class CreateExcel2 {
             List<Date> dateList = BusinessTool.getStartDateAndEndDate();
             foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
                     + "~" + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
-            File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
-            String runPath = desktopDir.getAbsolutePath();
-            String fileExcel = runPath + "\\" + "开发三部.xlsx";
-            Workbook wb = new XSSFWorkbook(new FileInputStream(new File(fileExcel)));
+            Workbook wb = new XSSFWorkbook(new FileInputStream(new File(xlsxFileUrl)));
             Sheet sheet = wb.getSheet(foundSheetName);
             if (null == sheet) {
                 throw new RuntimeException();

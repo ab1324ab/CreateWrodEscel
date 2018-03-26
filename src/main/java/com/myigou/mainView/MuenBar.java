@@ -22,13 +22,20 @@ public class MuenBar {
 
     // 主方法启动类
     public static void main(String[] args) {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
+        //JFrame.setDefaultLookAndFeelDecorated(true);
+        //JDialog.setDefaultLookAndFeelDecorated(true);
+        String lookAndFeel = UIManager.getSystemLookAndFeelClassName();
+        try {
+            UIManager.setLookAndFeel(lookAndFeel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         windowView = new WindowView();
+        SwingUtilities.updateComponentTreeUI(windowView);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                SubstanceLookAndFeel.setSkin(new NebulaBrickWallSkin());
+                //SubstanceLookAndFeel.setSkin(new NebulaBrickWallSkin());
                 thread = new Thread(windowView, "更新线程启动");
                 thread.interrupt();
                 thread.start();
@@ -112,7 +119,7 @@ public class MuenBar {
             }
         });
         this.muenStyle(weekPlan2, "1");
-        function.add(weekPlan2);
+        function.add(weekPlan2,JLabel.CENTER);
 
         JMenuItem documentFile = new JMenuItem("文件编辑");
         documentFile.addActionListener(new ActionListener() {
@@ -144,7 +151,8 @@ public class MuenBar {
         this.muenStyle(function, "0");
         bar.add(function);
         JMenu window = new JMenu("窗口显示", false);
-        JMenuItem setting = new JMenuItem("设置窗口");
+        JMenuItem setting = new JMenuItem("设置窗口",SwingConstants.CENTER);
+        //setting.setHorizontalAlignment(SwingConstants.CENTER);
         setting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -164,8 +172,8 @@ public class MuenBar {
             }
         });
         this.muenStyle(contact, "1");
-        help.add(contact);
-        JMenuItem aboutMe = new JMenuItem("关于");
+        help.add(contact,JLabel.CENTER);
+        JMenuItem aboutMe = new JMenuItem("关于",JLabel.CENTER);
         aboutMe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -183,7 +191,7 @@ public class MuenBar {
         jmuen.setPreferredSize(new Dimension(100, 25));
         int textLenth = 0;
         switch (jmuen.getText().length()) {
-            case 1:
+            /*case 1:
                 textLenth = 10;
                 break;
             case 2:
@@ -200,15 +208,15 @@ public class MuenBar {
                 break;
             case 6:
                 textLenth = 1;
-                break;
+                break;*/
             default:
                 textLenth = 0;
         }
         String conter = "";
         for (int i = 0; i <= textLenth; i++) {
-            conter += " ";
+            conter += "";
         }
-        jmuen.setText(conter + jmuen.getText());
+        jmuen.setText(jmuen.getText());
         if ("1".equals(sign)) {
             jmuen.setPreferredSize(new Dimension(96, 25));
         }

@@ -9,9 +9,12 @@ import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -35,6 +38,10 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     Map<String, Object> troubleShootingMap = new HashMap<String, Object>();
     // 时间格式转
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+    // 时间格式转 文件名
+    SimpleDateFormat fileFormat = new SimpleDateFormat("yyyy年MM月dd日");
+    // 文件名
+    String studo="%s周总结（智盾-开发三部门-%s）.xlsx";
     // 面板文字颜色
     Color  redColor=new Color(255, 51, 51);
 
@@ -75,10 +82,15 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         JPanel erJpanel = new JPanel();
         erJpanel.setLayout(new BorderLayout());
         JPanel ctrlonPanel = new JPanel();
-        JLabel explain = new JLabel("文档名:xxxx.Excel");
+        JLabel explain = new JLabel("文档名:");
         explain.setFont(new Font("仿宋", Font.PLAIN, 25));
         ctrlonPanel.add(explain);
-
+        JTextField fileName = new JTextField();
+        String fileDate= fileFormat.format(new Date());
+        String fName= String.format(studo,fileDate,contentMap.get("name"));
+        fileName.setFont(font);
+        fileName.setText(fName);
+        ctrlonPanel.add(fileName);
         JButton serveButton = new JButton("获取周计划源");
         serveButton.setFont(font);
         // 去掉按钮文字周围焦点
@@ -89,9 +101,29 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         serveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
+                JFileChooser chooser = new JFileChooser();
+                FileSystemView fsv = FileSystemView.getFileSystemView();
+                File homeFile = fsv.getHomeDirectory();
+                chooser.setCurrentDirectory(homeFile);
+
+                // 设置只能选择文件 Escel文档
+                chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Escel文档", "xlsx");
+                chooser.setFileFilter(filter);
+                String directoryURL = null;
+                int returnVal = chooser.showOpenDialog(jFrame);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    directoryURL = chooser.getSelectedFile().getPath();
+                    chooser.hide();
+                }
+                if (directoryURL == null) {
+                    return;
+                }
                 List<String> weekPlanList = new ArrayList<String>();
                 CreateExcel2 excel2 = new CreateExcel2();
-                DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList);
+                DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList,directoryURL);
                 if (dataSources.getStatus() != null) {
                     JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "提示", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -135,11 +167,11 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 // 其余 写入配置文件
                 createExcel2.serveTroubleShootingProperties(troubleShootingMap);
                 // 生成Excel
-                String msg = createExcel2.createExcel(tswkMap.size(), nxvWkMap.size());
+                String msg = createExcel2.createExcel(tswkMap.size(), nxvWkMap.size(),fName);
                 JOptionPane.showMessageDialog(jPanel, msg, "提示", JOptionPane.WARNING_MESSAGE);
             }
         });
-        ctrlonPanel.setBackground(new Color(210, 210, 210));
+        //ctrlonPanel.setBackground(new Color(210, 210, 210));
         erJpanel.add(ctrlonPanel, BorderLayout.NORTH);
         erJpanel.add(onTop.getJContentPane(countPanel, jPanelMap), BorderLayout.CENTER);
         jPanel.add(erJpanel, BorderLayout.CENTER);
@@ -536,6 +568,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             }
             JScrollPane jScrollPane = new JScrollPane(contentJPanel);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            contentJPanel.setBackground(new Color(250, 250, 250));
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
@@ -573,8 +606,10 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagConstraints.weighty = 1;
             gridBagLayout.setConstraints(jScrollPane, gridBagConstraints);
             contentJPanel.add(jScrollPane);
+
             troubleShootingMap.put("line4", leaveArea);
             panel.setLayout(new BorderLayout());
+            contentJPanel.setBackground(new Color(250, 250, 250));
             panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("余留问题", panel);
         } else if (i == 3) {
@@ -663,6 +698,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             troubleShootingMap.put("line7", slowlyArea);
 
             panel.setLayout(new BorderLayout());
+            contentJPanel.setBackground(new Color(250, 250, 250));
             panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("需其它部门或领导协助解决的事宜", panel);
         } else if (i == 4) {
@@ -702,6 +738,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.CENTER);
+            contentJPanel.setBackground(new Color(250, 250, 250));
             panelHashMap.put("工作中的不足和需改进之处", panel);
         } else if (i == 5) {
             JLabel jLabel = new JLabel();

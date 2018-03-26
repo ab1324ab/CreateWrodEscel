@@ -44,12 +44,13 @@ public class WindowView extends JFrame implements Runnable {
      * 初始化窗口所有参数
      */
     public void init() {
+
         this.setSize(1020, 650);
         this.setMinimumSize(new Dimension(1020,650));
         this.setTitle("综合工具" + VERSION_THIS);
         // this.setResizable(false);
         WindowTool.winConter(this);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 添加菜单项
         muenBar.menuBox(this);
         if (contentMap.size() != 0) {
@@ -64,6 +65,7 @@ public class WindowView extends JFrame implements Runnable {
         this.add(MuenBar.displayJpael.get("clientPanel"), BorderLayout.CENTER);
         // 关于我们 帮助
         this.add(button2, BorderLayout.SOUTH);
+
         this.setVisible(true);
     }
 
