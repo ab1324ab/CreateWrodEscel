@@ -1,4 +1,4 @@
-package com.myigou.clientService.configKeyEnum;
+package com.myigou.clientService.enums;
 
 /**
  * @author ab1324ab

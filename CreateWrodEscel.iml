@@ -32,5 +32,7 @@
     <orderEntry type="library" name="Maven: com.github.insubstantial:laf-plugin:7.3" level="project" />
     <orderEntry type="library" name="Maven: com.github.insubstantial:laf-widget:7.3" level="project" />
     <orderEntry type="library" name="Maven: com.jtattoo:JTattoo:1.6.11" level="project" />
+    <orderEntry type="library" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20160810" level="project" />
   </component>
 </module>

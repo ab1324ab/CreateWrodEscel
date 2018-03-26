@@ -1,6 +1,6 @@
 package com.myigou.clientView.impl;
 
-import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
+import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientService.CreateExcel;
 import com.myigou.tool.PropertiesTool;

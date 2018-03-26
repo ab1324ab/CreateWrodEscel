@@ -1,4 +1,4 @@
-package com.myigou.clientService.ResultObject;
+package com.myigou.clientService.response;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package com.myigou.clientService;
 
-import com.myigou.clientService.ResultObject.DataSourceResponse;
-import com.myigou.clientService.configKeyEnum.ErrorEnum;
-import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
+import com.myigou.clientService.response.DataSourceResponse;
+import com.myigou.clientService.errorcode.HintInformationErrorCode;
+import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
 import org.apache.poi.ss.usermodel.*;
@@ -248,17 +248,17 @@ public class CreateExcel2 {
                 }
             }
         } catch (IOException ioe) {
-            dataSourceResponse.setStatus(ErrorEnum.FileError.getErrorMsg());
+            dataSourceResponse.setStatus(HintInformationErrorCode.FileError.getErrorMsg());
             ioe.printStackTrace();
             return dataSourceResponse;
         } catch (IllegalArgumentException x) {
-            dataSourceResponse.setStatus(ErrorEnum.DateFormatError.getErrorMsg());
+            dataSourceResponse.setStatus(HintInformationErrorCode.DateFormatError.getErrorMsg());
             return dataSourceResponse;
         } catch (RuntimeException runt) {
-            dataSourceResponse.setStatus(String.format(ErrorEnum.DateFormatMismatch.getErrorMsg(), foundSheetName));
+            dataSourceResponse.setStatus(String.format(HintInformationErrorCode.DateFormatMismatch.getErrorMsg(), foundSheetName));
             return dataSourceResponse;
         } catch (Exception e) {
-            dataSourceResponse.setStatus(ErrorEnum.SystemError.getErrorMsg());
+            dataSourceResponse.setStatus(HintInformationErrorCode.SystemError.getErrorMsg());
             return dataSourceResponse;
         }
         return dataSourceResponse;

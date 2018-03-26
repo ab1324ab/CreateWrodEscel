@@ -1,9 +1,9 @@
-package com.myigou.clientService.configKeyEnum;
+package com.myigou.clientService.errorcode;
 
 /**
  * Created by ab1324ab on 2018/3/26.
  */
-public enum ErrorEnum {
+public enum HintInformationErrorCode {
 
     FileError("数据源文件错误","FileError"),
     DateFormatError("日期格式设置错误","DateFormatError"),
@@ -14,7 +14,7 @@ public enum ErrorEnum {
     private String errorCode;
 
     // 构造方法
-    private ErrorEnum(String errorMsg, String errorCode) {
+    private HintInformationErrorCode(String errorMsg, String errorCode) {
         this.errorMsg = errorMsg;
         this.errorCode = errorCode;
     }

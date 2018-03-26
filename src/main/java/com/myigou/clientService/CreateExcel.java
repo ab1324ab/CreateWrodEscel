@@ -1,8 +1,7 @@
 package com.myigou.clientService;
 
-import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
+import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.tool.PropertiesTool;
-import com.myigou.view.WindowView;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 

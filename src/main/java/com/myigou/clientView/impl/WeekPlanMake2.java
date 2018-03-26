@@ -1,8 +1,8 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientService.CreateExcel2;
-import com.myigou.clientService.ResultObject.DataSourceResponse;
-import com.myigou.clientService.configKeyEnum.WeekPropertiesEnum;
+import com.myigou.clientService.response.DataSourceResponse;
+import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.BusinessTool;
