@@ -178,7 +178,7 @@ public class WindowView extends JFrame implements Runnable {
         jPanelBar.setVisible(true);
         jFrame.add(jPanelBar, BorderLayout.CENTER);
         WindowTool.winConter(jFrame);
-        // System.out.println(new ImageIcon(WindowView.class.getResource("/icon/restore.ico").getPath().substring(1)).getImage());
+        // System.out.println(new ImageIcon(WindowView.class.getResource("restore.ico").getPath().substring(1)).getImage());
         this.setVisible(false);
         jFrame.setVisible(true);
         timer.start();

@@ -1,6 +1,7 @@
 package com.myigou.mainView;
 
 
+import com.myigou.tool.ImageIconTool;
 import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.NebulaBrickWallSkin;
 
@@ -8,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -101,6 +105,7 @@ public class MuenBar {
         this.muenStyle(menu1, "0");
         bar.add(menu1);
         JMenu function = new JMenu("功能选项", false);
+        function.setPreferredSize(new Dimension(100, 25));
         JMenuItem weekPlan = new JMenuItem("周计划生成");
         weekPlan.addActionListener(new ActionListener() {
             @Override
@@ -108,10 +113,11 @@ public class MuenBar {
                 windowView.selectButton(windowView.accessDisplay("fun_1"));
             }
         });
-        this.muenStyle(weekPlan, "1");
+        //this.muenStyle(weekPlan, "1");
         function.add(weekPlan);
 
-        JMenuItem weekPlan2 = new JMenuItem("周计划生成2");
+
+        JMenuItem weekPlan2 = new JMenuItem("周计划生成2", ImageIconTool.gitImageIcon("/icons/new24.gif"));
         weekPlan2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,7 +154,7 @@ public class MuenBar {
         });
         this.muenStyle(request, "1");
         function.add(request);
-        this.muenStyle(function, "0");
+        //this.muenStyle(function, "0");
         bar.add(function);
         JMenu window = new JMenu("窗口显示", false);
         JMenuItem setting = new JMenuItem("设置窗口",SwingConstants.CENTER);
@@ -218,7 +224,9 @@ public class MuenBar {
         }
         jmuen.setText(jmuen.getText());
         if ("1".equals(sign)) {
-            jmuen.setPreferredSize(new Dimension(96, 25));
+            //jmuen.setPreferredSize(new Dimension(96, 25));
         }
     }
+
+
 }
