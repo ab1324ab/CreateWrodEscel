@@ -109,7 +109,7 @@ public class OnTop extends JFrame {
                 mapKey = key;
             }
             jContentPane = new JPanel();
-            jContentPane.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            //jContentPane.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
 
             jContentPane.setLayout(new BorderLayout());
             // 中间面板

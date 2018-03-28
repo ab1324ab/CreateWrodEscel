@@ -101,8 +101,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         serveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
                 JFileChooser chooser = new JFileChooser();
                 FileSystemView fsv = FileSystemView.getFileSystemView();
                 File homeFile = fsv.getHomeDirectory();

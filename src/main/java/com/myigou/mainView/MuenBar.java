@@ -23,7 +23,8 @@ public class MuenBar {
     public static HashMap<String, JPanel> displayJpael = null;
     public static WindowView windowView = null;
     public static Thread thread = null;
-
+    private int ico_Width = 20;
+    private int ico_Height = 20;
     // 主方法启动类
     public static void main(String[] args) {
         //JFrame.setDefaultLookAndFeelDecorated(true);
@@ -57,7 +58,7 @@ public class MuenBar {
     public void menuBox(final JFrame jFrame) {
         JMenuBar bar = new JMenuBar();
         JMenu menu1 = new JMenu("文件", false);
-        JMenuItem newFile = new JMenuItem("新建文本");
+        JMenuItem newFile = new JMenuItem("新建文本",ImageIconTool.gitImageIcon("/icons/new.png",ico_Width,ico_Height));
         newFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,7 +67,7 @@ public class MuenBar {
         });
         this.muenStyle(newFile, "1");
         menu1.add(newFile);
-        JMenuItem openFile = new JMenuItem("打开文本");
+        JMenuItem openFile = new JMenuItem("打开文本",ImageIconTool.gitImageIcon("/icons/open.png",ico_Width,ico_Height));
         openFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,7 +76,7 @@ public class MuenBar {
         });
         this.muenStyle(openFile, "1");
         menu1.add(openFile);
-        JMenuItem saveFile = new JMenuItem("保存文本");
+        JMenuItem saveFile = new JMenuItem("保存文本",ImageIconTool.gitImageIcon("/icons/save.png",ico_Width,ico_Height));
         saveFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -84,7 +85,7 @@ public class MuenBar {
         });
         this.muenStyle(saveFile, "1");
         menu1.add(saveFile);
-        JMenuItem saveAsFile = new JMenuItem("文本另存");
+        JMenuItem saveAsFile = new JMenuItem("文本另存",ImageIconTool.gitImageIcon("/icons/saveAs.png",ico_Width,ico_Height));
         saveAsFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -93,7 +94,7 @@ public class MuenBar {
         });
         this.muenStyle(saveAsFile, "1");
         menu1.add(saveAsFile);
-        JMenuItem exitFile = new JMenuItem("退出");
+        JMenuItem exitFile = new JMenuItem("退出",ImageIconTool.gitImageIcon("/icons/exit.png",ico_Width,ico_Height));
         exitFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,20 +105,18 @@ public class MuenBar {
         menu1.add(exitFile);
         this.muenStyle(menu1, "0");
         bar.add(menu1);
+
         JMenu function = new JMenu("功能选项", false);
-        function.setPreferredSize(new Dimension(100, 25));
-        JMenuItem weekPlan = new JMenuItem("周计划生成");
+        JMenuItem weekPlan = new JMenuItem("周计划",ImageIconTool.gitImageIcon("/icons/excel.png",ico_Width,ico_Height));
         weekPlan.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 windowView.selectButton(windowView.accessDisplay("fun_1"));
             }
         });
-        //this.muenStyle(weekPlan, "1");
+        this.muenStyle(weekPlan, "1");
         function.add(weekPlan);
-
-
-        JMenuItem weekPlan2 = new JMenuItem("周计划生成2", ImageIconTool.gitImageIcon("/icons/Excel.png",18,16));
+        JMenuItem weekPlan2 = new JMenuItem("周计划第二版", ImageIconTool.gitImageIcon("/icons/Excel.png",ico_Width,ico_Height));
         weekPlan2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,9 +124,8 @@ public class MuenBar {
             }
         });
         this.muenStyle(weekPlan2, "1");
-        function.add(weekPlan2,JLabel.CENTER);
-
-        JMenuItem documentFile = new JMenuItem("文件编辑");
+        function.add(weekPlan2);
+        JMenuItem documentFile = new JMenuItem("文件编辑",ImageIconTool.gitImageIcon("/icons/file.png",ico_Width,ico_Height));
         documentFile.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -136,7 +134,7 @@ public class MuenBar {
         });
         this.muenStyle(documentFile, "1");
         function.add(documentFile);
-        JMenuItem sendEmail = new JMenuItem("邮件发送");
+        JMenuItem sendEmail = new JMenuItem("邮件发送",ImageIconTool.gitImageIcon("/icons/email.png",ico_Width,ico_Height));
         sendEmail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -145,7 +143,7 @@ public class MuenBar {
         });
         this.muenStyle(sendEmail, "1");
         function.add(sendEmail);
-        JMenuItem request = new JMenuItem("网络请求");
+        JMenuItem request = new JMenuItem("网络请求",ImageIconTool.gitImageIcon("/icons/network.png",ico_Width,ico_Height));
         request.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -154,11 +152,11 @@ public class MuenBar {
         });
         this.muenStyle(request, "1");
         function.add(request);
-        //this.muenStyle(function, "0");
+        this.muenStyle(function, "0");
         bar.add(function);
+
         JMenu window = new JMenu("窗口显示", false);
-        JMenuItem setting = new JMenuItem("设置窗口",SwingConstants.CENTER);
-        //setting.setHorizontalAlignment(SwingConstants.CENTER);
+        JMenuItem setting = new JMenuItem("设置窗口",ImageIconTool.gitImageIcon("/icons/setUp.png",ico_Width,ico_Height));
         setting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,6 +167,7 @@ public class MuenBar {
         this.muenStyle(window, "0");
         window.add(setting);
         bar.add(window);
+
         JMenu help = new JMenu("帮助", false);
         JMenuItem contact = new JMenuItem("联系我");
         contact.addActionListener(new ActionListener() {
@@ -194,37 +193,26 @@ public class MuenBar {
     }
 
     public void muenStyle(AbstractButton jmuen, String sign) {
-        jmuen.setPreferredSize(new Dimension(100, 25));
-        int textLenth = 0;
-        switch (jmuen.getText().length()) {
-            /*case 1:
-                textLenth = 10;
-                break;
-            case 2:
-                textLenth = 7;
-                break;
-            case 3:
-                textLenth = 5;
-                break;
-            case 4:
-                textLenth = 4;
-                break;
-            case 5:
-                textLenth = 2;
-                break;
-            case 6:
-                textLenth = 1;
-                break;*/
-            default:
-                textLenth = 0;
-        }
-        String conter = "";
-        for (int i = 0; i <= textLenth; i++) {
-            conter += "";
-        }
-        jmuen.setText(jmuen.getText());
+
         if ("1".equals(sign)) {
-            //jmuen.setPreferredSize(new Dimension(96, 25));
+            jmuen.setPreferredSize(new Dimension(150, 25));
+        }else{
+            jmuen.setPreferredSize(new Dimension(100, 25));
+            int textLenth = 0;
+            switch (jmuen.getText().length()) {
+                case 1:textLenth = 10;break;
+                case 2:textLenth = 7;break;
+                case 3:textLenth = 5;break;
+                case 4:textLenth = 4;break;
+                case 5:textLenth = 2;break;
+                case 6:textLenth = 1;break;
+                default:textLenth = 0;
+            }
+            String conter = "";
+            for (int i = 0; i <= textLenth; i++) {
+                conter += " ";
+            }
+            jmuen.setText(conter+jmuen.getText());
         }
     }
 
