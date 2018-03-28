@@ -117,7 +117,7 @@ public class MuenBar {
         function.add(weekPlan);
 
 
-        JMenuItem weekPlan2 = new JMenuItem("周计划生成2", ImageIconTool.gitImageIcon("/icons/new24.gif"));
+        JMenuItem weekPlan2 = new JMenuItem("周计划生成2", ImageIconTool.gitImageIcon("/icons/Excel.png",18,16));
         weekPlan2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

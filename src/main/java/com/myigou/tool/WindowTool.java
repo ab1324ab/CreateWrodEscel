@@ -19,7 +19,7 @@ public class WindowTool {
         Toolkit kit = Toolkit.getDefaultToolkit();
         // Image image=kit.createImage();//("C:\\Users\\ab1324ab\\Desktop\\notefile\\view_note\\target\\classes\\com\\myigou\\window\\title.PNG");
         try {
-            frame.setIconImage(kit.getImage(new URL("http://p3.so.qhimgs1.com/bdr/200_200_/t01b5697d383fc43d23.png")));
+            frame.setIconImage(ImageIconTool.gitImageIcon("/icons/tubiao.png",200,200).getImage());
             // this.setIconImage(new ImageIcon("C:\\Users\\ab1324ab\\Desktop\\notefile\\view_note\\target\\classes\\com\\myigou\\window\\title.PNG").getImage());
             // 获取屏幕封装对象
             Dimension screenSize = kit.getScreenSize();
