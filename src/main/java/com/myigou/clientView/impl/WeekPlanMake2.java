@@ -219,7 +219,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             gridBagLayout.setConstraints(ranksText, gridBagConstraints);
             contentJPanel.add(ranksText);
             troubleShootingMap.put("line0", ranksText);
-
             // 计划人文本
             JLabel jLabel = new JLabel();
             jLabel.setFont(font);
