@@ -139,7 +139,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(explain,gbc);
             contentJpanel.add(explain);
             // 文件名
-            JLabel fileName = new JLabel("文件名:",JLabel.RIGHT);
+            JLabel fileName = new JLabel("文件名:",JLabel.CENTER);
             gbc.gridwidth = 1;
             gbc.gridy = 1;
             gridBagLayout.setConstraints(fileName, gbc);
@@ -151,7 +151,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(fileJText,gbc);
             contentJpanel.add(fileJText);
             // 文件名参数
-            JLabel dateParams = new JLabel("时间格式:");
+            JLabel dateParams = new JLabel("时间格式:",JLabel.CENTER);
             gridBagLayout.setConstraints(dateParams,gbc);
             contentJpanel.add(dateParams);
             // 文件名参数输入框
@@ -160,7 +160,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(params1,gbc);
             contentJpanel.add(params1);
             // 生成人名
-            JLabel nameJLabel = new JLabel("姓名:");
+            JLabel nameJLabel = new JLabel("姓名:",JLabel.CENTER);
             gridBagLayout.setConstraints(nameJLabel,gbc);
             contentJpanel.add(nameJLabel);
             // 名字
@@ -169,7 +169,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(nameJText,gbc);
             contentJpanel.add(nameJText);
             // 生成人名
-            JLabel otherJLabel = new JLabel("其它:");
+            JLabel otherJLabel = new JLabel("其它:",JLabel.CENTER);
             gridBagLayout.setConstraints(otherJLabel,gbc);
             contentJpanel.add(otherJLabel);
             // 名字
@@ -188,7 +188,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(explainExcel,gbc);
             contentJpanel.add(explainExcel);
             // 工作表名
-            JLabel excelJLabel = new JLabel("日期格式:");
+            JLabel excelJLabel = new JLabel("日期格式:",JLabel.CENTER);
             gbc.gridy = 3;
             gbc.gridwidth = 1;
             gridBagLayout.setConstraints(excelJLabel,gbc);
@@ -200,7 +200,7 @@ public class WindowSetting implements FunctionInter {
             contentJpanel.add(excelText);
 
             panel.setLayout(new BorderLayout());
-            panel.add(contentJpanel, BorderLayout.NORTH);
+            panel.add(contentJpanel, BorderLayout.CENTER);
             panelHashMap.put("周计划设置", panel);
         } else if (i == 1) {
             JLabel jLabel = new JLabel();
