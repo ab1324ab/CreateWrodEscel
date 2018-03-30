@@ -179,18 +179,21 @@ public class WindowSetting implements FunctionInter {
             contentJpanel.add(otherText);
 
             // 说明
-            JLabel explainExcel = new JLabel("说明：文件名格式“%s”占位符（例如：%s周总结-开发三部门%s），结果：‘xx月xx日’周总结-开发三部门‘某某’。");
+            JLabel explainExcel = new JLabel("说明：文档工作表名示例（MM.dd），MM大写表示月份，dd小写表示日期。");
+            explainExcel.setBorder(BorderFactory.createLineBorder(new Color(190,190,190),1));
+            explainExcel.setFont(new Font("楷体",Font.PLAIN,16));
+            explainExcel.setForeground(new Color(232,40,40));
             gbc.gridy = 2;
             gbc.gridwidth = 10;
             gridBagLayout.setConstraints(explainExcel,gbc);
             contentJpanel.add(explainExcel);
-            // 文档页标名
+            // 工作表名
             JLabel excelJLabel = new JLabel("日期格式:");
             gbc.gridy = 3;
             gbc.gridwidth = 1;
             gridBagLayout.setConstraints(excelJLabel,gbc);
             contentJpanel.add(excelJLabel);
-            // 文档页标名 输入框
+            // 工作表名 输入框
             JTextField excelText = new JTextField();
             otherText.setColumns(20);
             gridBagLayout.setConstraints(excelText,gbc);
