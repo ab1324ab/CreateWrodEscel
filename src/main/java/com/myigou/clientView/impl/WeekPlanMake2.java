@@ -186,7 +186,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             GridBagConstraints gridBagConstraints = new GridBagConstraints();
             // 本周计划
             JLabel title = new JLabel();
-            title.setFont(font);
             title.setForeground(redColor);
             title.setHorizontalAlignment(SwingConstants.LEFT);
             title.setFont(new Font("仿宋", Font.BOLD, 20));

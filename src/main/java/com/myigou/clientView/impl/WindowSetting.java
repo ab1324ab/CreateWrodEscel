@@ -24,12 +24,17 @@ public class WindowSetting implements FunctionInter {
     private GridBagLayout gridBagLayout = new GridBagLayout();
     // 内容部件Map
     private Map<String, String> contentMap = new HashMap<String, String>();
-
+    // 内容字体
+    Font font= new Font("黑体",Font.BOLD,16);
+    // 设置部件Map
+    private Map setMap = new HashMap();
+    // 应用按钮
+    JButton applicationButton = null;
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(new BorderLayout());
         this.settingMain(jPanel,jFrame);
-
+        this.registerListener(jFrame);
         return jPanel;
     }
 
@@ -118,7 +123,7 @@ public class WindowSetting implements FunctionInter {
             JPanel contentJpanel = new JPanel();
             contentJpanel.setLayout(gridBagLayout);
             Border border = BorderFactory.createEtchedBorder();
-            border = BorderFactory.createTitledBorder(border,"周计划设置",
+            border = BorderFactory.createTitledBorder(border,"周计划第二版设置",
                     TitledBorder.LEFT,TitledBorder.CENTER,new Font("楷体", Font.PLAIN, 13),Color.BLACK);
             panel.setBorder(border);
             GridBagConstraints gbc = new GridBagConstraints();
@@ -131,51 +136,70 @@ public class WindowSetting implements FunctionInter {
             explain.setSize(new Dimension(10,18));
             gbc.gridy = 0;
             //gbc.anchor = GridBagConstraints.PAGE_START;
-            gbc.fill = GridBagConstraints.BOTH;
+            gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.gridwidth = 10;
             gbc.weightx = 1;
             gbc.weighty = 1;
-            gbc.insets = new Insets(10, 10, 10, 10);
+            gbc.insets = new Insets(5, 5, 5, 5);
             gridBagLayout.setConstraints(explain,gbc);
             contentJpanel.add(explain);
             // 文件名
             JLabel fileName = new JLabel("文件名:",JLabel.CENTER);
             gbc.gridwidth = 1;
+            gbc.weightx = 0;
             gbc.gridy = 1;
             gridBagLayout.setConstraints(fileName, gbc);
             contentJpanel.add(fileName);
             // 文件名输入框
             JTextField fileJText = new JTextField();
+            fileJText.setHorizontalAlignment(JTextField.CENTER);
+            gbc.weightx = 1;
+            fileJText.setFont(font);
             fileJText.setColumns(30);
-            gbc.gridwidth = 1;
             gridBagLayout.setConstraints(fileJText,gbc);
+            setMap.put("fileJText",fileJText);
             contentJpanel.add(fileJText);
             // 文件名参数
             JLabel dateParams = new JLabel("时间格式:",JLabel.CENTER);
+            gbc.weightx = 0;
             gridBagLayout.setConstraints(dateParams,gbc);
             contentJpanel.add(dateParams);
             // 文件名参数输入框
-            JTextField params1 = new JTextField();
-            params1.setColumns(20);
-            gridBagLayout.setConstraints(params1,gbc);
-            contentJpanel.add(params1);
+            JTextField params = new JTextField();
+            gbc.weightx = 1;
+            params.setHorizontalAlignment(JTextField.CENTER);
+            params.setFont(font);
+            params.setColumns(20);
+            gridBagLayout.setConstraints(params,gbc);
+            setMap.put("params",params);
+            contentJpanel.add(params);
             // 生成人名
             JLabel nameJLabel = new JLabel("姓名:",JLabel.CENTER);
+            gbc.weightx = 0;
             gridBagLayout.setConstraints(nameJLabel,gbc);
             contentJpanel.add(nameJLabel);
-            // 名字
+            // 名字 输入框
             JTextField nameJText = new JTextField();
+            gbc.weightx = 1;
+            nameJText.setHorizontalAlignment(JTextField.CENTER);
+            nameJText.setFont(font);
             nameJText.setColumns(20);
             gridBagLayout.setConstraints(nameJText,gbc);
+            setMap.put("nameJText",nameJText);
             contentJpanel.add(nameJText);
             // 生成人名
             JLabel otherJLabel = new JLabel("其它:",JLabel.CENTER);
+            gbc.weightx = 0;
             gridBagLayout.setConstraints(otherJLabel,gbc);
             contentJpanel.add(otherJLabel);
-            // 名字
+            // 名字 输入框
             JTextField otherText = new JTextField();
+            gbc.weightx = 1;
+            otherText.setHorizontalAlignment(JTextField.CENTER);
+            otherText.setFont(font);
             otherText.setColumns(20);
             gridBagLayout.setConstraints(otherText,gbc);
+            setMap.put("otherText",otherText);
             contentJpanel.add(otherText);
 
             // 说明
@@ -184,20 +208,198 @@ public class WindowSetting implements FunctionInter {
             explainExcel.setFont(new Font("楷体",Font.PLAIN,16));
             explainExcel.setForeground(new Color(232,40,40));
             gbc.gridy = 2;
-            gbc.gridwidth = 10;
+            gbc.gridwidth = 8;
             gridBagLayout.setConstraints(explainExcel,gbc);
             contentJpanel.add(explainExcel);
             // 工作表名
             JLabel excelJLabel = new JLabel("日期格式:",JLabel.CENTER);
             gbc.gridy = 3;
             gbc.gridwidth = 1;
+            gbc.weightx = 0;
             gridBagLayout.setConstraints(excelJLabel,gbc);
             contentJpanel.add(excelJLabel);
             // 工作表名 输入框
             JTextField excelText = new JTextField();
+            gbc.weightx = 1;
+            excelText.setHorizontalAlignment(JTextField.CENTER);
+            excelText.setFont(font);
             otherText.setColumns(20);
             gridBagLayout.setConstraints(excelText,gbc);
+            setMap.put("excelText",excelText);
             contentJpanel.add(excelText);
+            // 连接符
+            JLabel connectorJLabel = new JLabel("日期连接符:",JLabel.CENTER);
+            gbc.weightx = 0;
+            gridBagLayout.setConstraints(connectorJLabel,gbc);
+            contentJpanel.add(connectorJLabel);
+            // 连接符 输入框
+            JTextField connectorText = new JTextField(JTextField.CENTER);
+            gbc.weightx = 1;
+            connectorText.setHorizontalAlignment(JTextField.CENTER);
+            connectorText.setFont(font);
+            otherText.setColumns(20);
+            gridBagLayout.setConstraints(connectorText,gbc);
+            setMap.put("connectorText",connectorText);
+            contentJpanel.add(connectorText);
+
+            // 说明
+            JLabel weekLine = new JLabel("说明：可录入多少行，以及显示多少；行内容可为空，行数一定要够。");
+            weekLine.setBorder(BorderFactory.createLineBorder(new Color(190,190,190),1));
+            weekLine.setFont(new Font("楷体",Font.PLAIN,16));
+            weekLine.setForeground(new Color(232,40,40));
+            gbc.gridy = 4;
+            gbc.gridwidth = 8;
+            gridBagLayout.setConstraints(weekLine,gbc);
+            contentJpanel.add(weekLine);
+            // 本周计划 行
+            JLabel tswkJLabel = new JLabel("本周计划:",JLabel.CENTER);
+            gbc.gridwidth = 1;
+            gbc.weightx = 0;
+            gbc.gridy = 5;
+            gridBagLayout.setConstraints(tswkJLabel,gbc);
+            contentJpanel.add(tswkJLabel);
+            // 本周计划 输入框
+            JTextField tswkText = new JTextField();
+            gbc.weightx = 1;
+            tswkText.setHorizontalAlignment(JTextField.CENTER);
+            tswkText.setFont(font);
+            otherText.setColumns(20);
+            gridBagLayout.setConstraints(tswkText,gbc);
+            setMap.put("tswkText",tswkText);
+            contentJpanel.add(tswkText);
+            // 下周计划 行
+            JLabel nxvwkJLabel = new JLabel("下周计划:",JLabel.CENTER);
+            gbc.weightx = 0;
+            gbc.gridy = 5;
+            gridBagLayout.setConstraints(nxvwkJLabel,gbc);
+            contentJpanel.add(nxvwkJLabel);
+            // 下周计划 输入框
+            JTextField nxvwkText = new JTextField();
+            gbc.weightx = 1;
+            nxvwkText.setHorizontalAlignment(JTextField.CENTER);
+            nxvwkText.setFont(font);
+            otherText.setColumns(20);
+            gridBagLayout.setConstraints(nxvwkText,gbc);
+            setMap.put("nxvwkText",nxvwkText);
+            contentJpanel.add(nxvwkText);
+
+            // 说明
+            JLabel fontJLabel = new JLabel("说明：文字设置");
+            fontJLabel.setBorder(BorderFactory.createLineBorder(new Color(190,190,190),1));
+            fontJLabel.setFont(new Font("楷体",Font.PLAIN,16));
+            fontJLabel.setForeground(new Color(232,40,40));
+            gbc.gridy = 6;
+            gbc.gridwidth = 8;
+            gridBagLayout.setConstraints(fontJLabel,gbc);
+            contentJpanel.add(fontJLabel);
+            // 文字颜色 选择
+            JLabel colorLabel = new JLabel("文字颜色:",JLabel.CENTER);
+            gbc.gridwidth = 1;
+            gbc.weightx = 0;
+            gbc.gridy = 7;
+            gridBagLayout.setConstraints(colorLabel,gbc);
+            contentJpanel.add(colorLabel);
+            // 颜色选择
+            JPanel color = new JPanel();
+            color.setLayout(new GridLayout(1,7));
+            JRadioButton red = new JRadioButton("红");
+            JRadioButton orange = new JRadioButton("橙");
+            JRadioButton green = new JRadioButton("绿");
+            JRadioButton young = new JRadioButton("青");
+            JRadioButton blue = new JRadioButton("蓝");
+            JRadioButton purple = new JRadioButton("紫");
+            JRadioButton pink = new JRadioButton("粉");
+            JRadioButton black = new JRadioButton("黑");
+            ButtonGroup group = new ButtonGroup();
+            group.add(red);
+            group.add(orange);
+            group.add(green);
+            group.add(young);
+            group.add(purple);
+            group.add(black);
+            group.add(blue);
+            group.add(pink);
+            color.add(orange);
+            color.add(green);
+            color.add(young);
+            color.add(purple);
+            color.add(red);
+            color.add(black);
+            color.add(blue);
+            color.add(pink);
+            gbc.gridwidth = 3;
+            //gbc.weightx = 1;
+            gridBagLayout.setConstraints(color,gbc);
+            setMap.put("color",color);
+            contentJpanel.add(color);
+            //文字大小
+            JLabel textSizeLabel = new JLabel("文字大小:",JLabel.CENTER);
+            gbc.gridwidth = 1;
+            gbc.weightx = 0;
+            gridBagLayout.setConstraints(textSizeLabel,gbc);
+            contentJpanel.add(textSizeLabel);
+            // 文字大小 输入框
+            JTextField wordsText = new JTextField();
+            gbc.weightx = 1;
+            wordsText.setHorizontalAlignment(JTextField.CENTER);
+            wordsText.setFont(font);
+            otherText.setColumns(20);
+            gridBagLayout.setConstraints(wordsText,gbc);
+            setMap.put("wordsText",wordsText);
+            contentJpanel.add(wordsText);
+
+            // 数值
+            JLabel dropdownBox = new JLabel("说明：下拉框数值设置");
+            dropdownBox.setBorder(BorderFactory.createLineBorder(new Color(190,190,190),1));
+            dropdownBox.setFont(new Font("楷体",Font.PLAIN,16));
+            dropdownBox.setForeground(new Color(232,40,40));
+            gbc.gridy = 8;
+            gbc.gridwidth = 8;
+            gridBagLayout.setConstraints(dropdownBox,gbc);
+            contentJpanel.add(dropdownBox);
+            //  难易度
+            JLabel facilityValue = new JLabel("难易度:",JLabel.CENTER);
+            gbc.gridwidth = 1;
+            gbc.gridy = 9;
+            gbc.weightx = 0;
+            gridBagLayout.setConstraints(facilityValue,gbc);
+            contentJpanel.add(facilityValue);
+            // 难易度 输入框
+            JTextField facilityValueText = new JTextField();
+            gbc.weightx = 1;
+            facilityValueText.setHorizontalAlignment(JTextField.CENTER);
+            facilityValueText.setFont(font);
+            otherText.setColumns(20);
+            gridBagLayout.setConstraints(facilityValueText,gbc);
+            setMap.put("facilityValueText",facilityValueText);
+            contentJpanel.add(facilityValueText);
+            // 完成比例
+            JLabel completionRatio = new JLabel("完成比例:",JLabel.CENTER);
+            gbc.weightx = 0;
+            gridBagLayout.setConstraints(completionRatio,gbc);
+            contentJpanel.add(completionRatio);
+            // 完成比例 输入框
+            JTextField completionRatioText = new JTextField();
+            gbc.weightx = 1;
+            gbc.gridwidth = 3;
+            completionRatioText.setHorizontalAlignment(JTextField.CENTER);
+            completionRatioText.setFont(font);
+            completionRatioText.setColumns(20);
+            gridBagLayout.setConstraints(completionRatioText,gbc);
+            setMap.put("completionRatioText",completionRatioText);
+            contentJpanel.add(completionRatioText);
+
+            // 按钮
+            applicationButton = new JButton("应用");
+            Dimension preferredSize = new Dimension(200,200);//设置尺寸
+            applicationButton.setFont(font);
+            applicationButton.setPreferredSize(preferredSize );
+            gbc.fill = GridBagConstraints.BOTH;
+            gbc.gridwidth = 8; // 横占一个单元格
+            gbc.gridheight = 2;
+            gbc.gridy = 10;
+            gridBagLayout.setConstraints(applicationButton,gbc);
+            contentJpanel.add(applicationButton);
 
             panel.setLayout(new BorderLayout());
             panel.add(contentJpanel, BorderLayout.CENTER);
@@ -228,5 +430,19 @@ public class WindowSetting implements FunctionInter {
             panelHashMap.put("第三页", panel);
         }
         return panelHashMap;
+    }
+
+    /**
+     * 按钮事件
+     */
+    public void registerListener(final JFrame jFrame) {
+
+        applicationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(jFrame, "注意：修改完成之后需要重启应用才能生效。", "提示", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+
     }
 }

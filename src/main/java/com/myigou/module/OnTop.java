@@ -57,7 +57,7 @@ public class OnTop extends JFrame {
         jButton.setPreferredSize(preferredSize);
         // jButton.setSize(100, 15);
         //jButton.setForeground(Color.red);
-        jButton.setFont(new Font("微软雅黑",Font.PLAIN,13));
+        jButton.setFont(new Font("微软雅黑",Font.PLAIN,10));
         String mapKey = "";
         for (String key : parameMap.keySet()) {
             mapKey = key;
