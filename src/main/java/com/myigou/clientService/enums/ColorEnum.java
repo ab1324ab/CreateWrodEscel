@@ -22,6 +22,11 @@ public enum ColorEnum {
         this.value = value;
     }
 
+    /**
+     * 获取颜色值
+     * @param color
+     * @return
+     */
     public static String getColorValue(String color) {
          ColorEnum[] colorEna = ColorEnum.values();
         for(ColorEnum colorEnum : colorEna){
