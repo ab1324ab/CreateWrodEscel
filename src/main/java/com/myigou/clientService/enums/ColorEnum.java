@@ -48,6 +48,7 @@ public enum ColorEnum {
     public static String getColor(int count){
        return ColorEnum.values()[count].getColor();
     }
+
     public String getValue() {
         return value;
     }
