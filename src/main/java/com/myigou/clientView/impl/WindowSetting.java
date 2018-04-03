@@ -26,13 +26,13 @@ public class WindowSetting implements FunctionInter {
     // 内容部件Map
     private Map<String, String> contentMap = new HashMap<String, String>();
     // 内容字体
-    Font font = new Font("黑体", Font.PLAIN, 14);
+    Font font = new Font("楷体", Font.PLAIN, 16);
     // 设置部件Map
     private Map<String, Object> setMap = new HashMap();
     // 应用按钮
     JButton applicationButton = null;
     // 当前选中颜色
-    String selectColor = "黑";
+    String selectColor = null;
     // 配置文件
     final String CONFIG_FILE = "config.properties";
     //String[] color = new String[]{"红", "橙", "绿", "青", "蓝", "紫", "粉", "黑"};
@@ -54,6 +54,8 @@ public class WindowSetting implements FunctionInter {
     public void settingMain(final JPanel jPanel, JFrame jFrame) {
         // 初始化资源文件
         contentMap = WindowView.contentMap;
+        selectColor = contentMap.get("colorPanel");
+
         JPanel jPanel1 = new JPanel(new BorderLayout());
         JPanel showMain = new JPanel();
         showMain.add(new JLabel("启动主页显示选项："));
@@ -159,7 +161,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(fileName, gbc);
             contentJpanel.add(fileName);
             // 文件名输入框
-            JTextField fileJText = new JTextField();
+            JTextField fileJText = new JTextField(contentMap.get("fileJText"));
             fileJText.setHorizontalAlignment(JTextField.CENTER);
             gbc.weightx = 2;
             fileJText.setFont(font);
@@ -173,7 +175,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(dateParams, gbc);
             contentJpanel.add(dateParams);
             // 文件名参数输入框
-            JTextField params = new JTextField();
+            JTextField params = new JTextField(contentMap.get("params"));
             gbc.weightx = 1;
             params.setHorizontalAlignment(JTextField.CENTER);
             params.setFont(font);
@@ -227,7 +229,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(excelJLabel, gbc);
             contentJpanel.add(excelJLabel);
             // 工作表名 输入框
-            JTextField excelText = new JTextField();
+            JTextField excelText = new JTextField(contentMap.get("excelText"));
             gbc.weightx = 1;
             excelText.setHorizontalAlignment(JTextField.CENTER);
             excelText.setFont(font);
@@ -241,7 +243,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(connectorJLabel, gbc);
             contentJpanel.add(connectorJLabel);
             // 连接符 输入框
-            JTextField connectorText = new JTextField(JTextField.CENTER);
+            JTextField connectorText = new JTextField(contentMap.get("connectorText"));
             gbc.weightx = 1;
             connectorText.setHorizontalAlignment(JTextField.CENTER);
             connectorText.setFont(font);
@@ -267,7 +269,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(tswkJLabel, gbc);
             contentJpanel.add(tswkJLabel);
             // 本周计划 输入框
-            JTextField tswkText = new JTextField();
+            JTextField tswkText = new JTextField(contentMap.get("tswkText"));
             gbc.weightx = 1;
             tswkText.setHorizontalAlignment(JTextField.CENTER);
             tswkText.setFont(font);
@@ -282,7 +284,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(nxvwkJLabel, gbc);
             contentJpanel.add(nxvwkJLabel);
             // 下周计划 输入框
-            JTextField nxvwkText = new JTextField();
+            JTextField nxvwkText = new JTextField(contentMap.get("nxvwkText"));
             gbc.weightx = 1;
             nxvwkText.setHorizontalAlignment(JTextField.CENTER);
             nxvwkText.setFont(font);
@@ -339,7 +341,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(textSizeLabel, gbc);
             contentJpanel.add(textSizeLabel);
             // 文字大小 输入框
-            JTextField wordsText = new JTextField();
+            JTextField wordsText = new JTextField(contentMap.get("wordsText"));
             gbc.weightx = 1;
             wordsText.setHorizontalAlignment(JTextField.CENTER);
             wordsText.setFont(font);
@@ -365,7 +367,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(facilityValue, gbc);
             contentJpanel.add(facilityValue);
             // 难易度 输入框
-            JTextField facilityValueText = new JTextField();
+            JTextField facilityValueText = new JTextField(contentMap.get("facilityValueText"));
             gbc.weightx = 1;
             facilityValueText.setHorizontalAlignment(JTextField.CENTER);
             facilityValueText.setFont(font);
@@ -379,7 +381,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(completionRatio, gbc);
             contentJpanel.add(completionRatio);
             // 完成比例 输入框
-            JTextField completionRatioText = new JTextField();
+            JTextField completionRatioText = new JTextField(contentMap.get("completionRatioText"));
             gbc.weightx = 1;
             gbc.gridwidth = 3;
             completionRatioText.setHorizontalAlignment(JTextField.CENTER);
@@ -448,7 +450,8 @@ public class WindowSetting implements FunctionInter {
                 for (String key : setMap.keySet()) {
                     if ("colorPanel".equals(key)) {
                         String colorValue = ColorEnum.getColorValue(selectColor);
-                        PropertiesTool.writeSet(CONFIG_FILE,key,colorValue);
+                        PropertiesTool.writeSet(CONFIG_FILE,key,selectColor);
+                        PropertiesTool.writeSet(CONFIG_FILE,"colorPanelValue",colorValue);
                     } else {
                         JTextField textField = (JTextField) setMap.get(key);
                         if("".equals(textField.getText())){
