@@ -213,10 +213,11 @@ public class CreateExcel2 {
         String foundSheetName = "";
         try {
             contentMap = PropertiesTool.redConfigFile("config.properties");
-            dateFormat = new SimpleDateFormat("MM.dd");
+            dateFormat = new SimpleDateFormat(contentMap.get("excelText"));
             List<Date> dateList = BusinessTool.getStartDateAndEndDate();
             foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
-                    + "~" + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
+                    + contentMap.get("connectorText")
+                    + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
             Workbook wb = new XSSFWorkbook(new FileInputStream(new File(xlsxFileUrl)));
             Sheet sheet = wb.getSheet(foundSheetName);
             if (null == sheet) {

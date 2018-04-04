@@ -5,14 +5,14 @@ package com.myigou.clientService.enums;
  */
 public enum ColorEnum {
 
-    red("红","1"),
-    orange("橙","2"),
-    green("绿","3"),
-    young("青","4"),
-    blue("蓝","5"),
-    purple("紫","6"),
-    black("黑","7"),
-    powder("粉","8");
+    red("红","255,51,51"),
+    orange("橙","255,184,17"),
+    green("绿","28,214,8"),
+    young("青","8,214,196"),
+    blue("蓝","10,117,230"),
+    purple("紫","158,10,230"),
+    black("黑","68,68,68"),
+    powder("粉","243,63,227");
 
     private String color;
     private String value;
