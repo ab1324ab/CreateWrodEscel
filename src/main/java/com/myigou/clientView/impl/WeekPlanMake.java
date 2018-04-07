@@ -153,7 +153,13 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
         String[] title1 = contentMap.get("title1").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 9; j++) {
-            JLabel renwuContents = new JLabel(title1[j],JLabel.CENTER);
+            JLabel renwuContents = null;
+            if(j == 9){
+                renwuContents = new JLabel(title1[j],JLabel.LEFT);
+                gridBagConstraints.weightx = 0;
+            }else{
+                renwuContents = new JLabel(title1[j],JLabel.CENTER);
+            }
             if (j == 2 || j == 3 || j == 4 || j == 6 || j == 7 || j == 8) {
                 gridBagConstraints.gridwidth = 1;
             } else if (j == 0 || j == 5) {
@@ -161,7 +167,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
             } else {
                 gridBagConstraints.gridwidth = 3;
             }
-
             gridBagConstraints.gridy = 2;
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
@@ -189,7 +194,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                 }
                 // 添加文本对象到list
                 jTextFields1.add(textField);
-
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(textField, gridBagConstraints);
                 // 完成比例
@@ -223,7 +227,13 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         String[] title2 = contentMap.get("title2").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 6; j++) {
-            JLabel renwuContents = new JLabel(title2[j],JLabel.CENTER);
+            JLabel renwuContents = null;
+            if(j == 6){
+                renwuContents = new JLabel(title2[j],JLabel.LEFT);
+                gridBagConstraints.weightx = 0;
+            }else{
+                renwuContents = new JLabel(title2[j],JLabel.CENTER);
+            }
             if (j == 0) {
                 gridBagConstraints.gridwidth = 1;
             } else if (j == 1) {
@@ -233,7 +243,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
             } else {
                 gridBagConstraints.gridwidth = 6;
             }
-
             gridBagConstraints.gridy = 5;
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
@@ -275,7 +284,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     gridBagConstraints.gridwidth = 6;
                 }
                 jTextFields2.add(weelText);
-
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(weelText, gridBagConstraints);
                 // 完成比例
@@ -310,19 +318,20 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         String[] title3 = contentMap.get("title3").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 5; j++) {
-            JLabel renwuContents = new JLabel(title3[j],JLabel.CENTER);
-
+            JLabel renwuContents = null;
+            if(j == 5){
+                renwuContents = new JLabel(title3[j],JLabel.LEFT);
+                gridBagConstraints.weightx = 0;
+            }else{
+                renwuContents = new JLabel(title3[j],JLabel.CENTER);
+            }
             gridBagConstraints.gridy = 13;
             if (j == 1) {
                 gridBagConstraints.gridwidth = 3;
             } else {
                 gridBagConstraints.gridwidth = 1;
             }
-
-
-
-                gridBagConstraints.anchor = GridBagConstraints.CENTER;
-
+            gridBagConstraints.anchor = GridBagConstraints.CENTER;
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
         }
@@ -345,9 +354,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     textField.setColumns(3);
                 }
                 jTextFields3.add(textField);
-
                 gridBagConstraints.gridy = i + 1;
-
                 gridBagLayout.setConstraints(textField, gridBagConstraints);
                 // 完成比例
                 pagePanel1.add(textField);
@@ -357,7 +364,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     } else {
                         jCheckBoxsPage3.add(new JCheckBox("", false));
                     }
-
                     gridBagLayout.setConstraints(jCheckBoxsPage3.get(i - 13), gridBagConstraints);
                     pagePanel1.add(jCheckBoxsPage3.get(i - 13));
                 }
@@ -386,7 +392,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(jPanel, ex.getMessage(), "提示", JOptionPane.WARNING_MESSAGE);
                 }
-
             }
         });
         create.addActionListener(new ActionListener() {

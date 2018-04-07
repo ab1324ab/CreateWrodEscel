@@ -38,12 +38,20 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     private Map<String, Object> troubleShootingMap = new HashMap<String, Object>();
     // 文字颜色
     private Color redColor = null;
+    // 面板颜色
+    Color panelColor = null;
 
     public WeekPlanMake2() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
         // 面板文字颜色
         String[] colorPanelValue= contentMap.get("colorPanelValue").split(",");
         redColor = new Color(Integer.parseInt(colorPanelValue[0]), Integer.parseInt(colorPanelValue[1]), Integer.parseInt(colorPanelValue[2]));
+        // 面板颜色
+        String[] colorList = contentMap.get("colorExamplesValue").split(",");
+        int r = Integer.parseInt(colorList[0]);
+        int g = Integer.parseInt(colorList[1]);
+        int b = Integer.parseInt(colorList[2]);
+        panelColor = new Color(r,g,b);
     }
 
     @Override
@@ -70,7 +78,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
      */
     public JPanel jPanelWriting(JPanel jPanel, JFrame jFrame) {
         OnTop onTop = new OnTop();
-
         Map<String, Map<String, JPanel>> jPanelMap = new HashMap<String, Map<String, JPanel>>();
         int countPanel = 6;
         for (int i = 0; i < countPanel; i++) {
@@ -85,8 +92,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         JTextField fileName = new JTextField();
         fileName.setForeground(redColor);
         SimpleDateFormat fileFormat = new SimpleDateFormat(contentMap.get("params"));
-        String fileDate= fileFormat.format(new Date());
-        String fName= String.format(contentMap.get("fileJText"),fileDate,contentMap.get("name"));
+        String fileDate = fileFormat.format(new Date());
+        String fName = contentMap.get("fileJText").replaceFirst("%t",fileDate).replaceFirst("%n",contentMap.get("name"));
         fileName.setFont(font);
         fileName.setText(fName);
         ctrlonPanel.add(fileName);
@@ -353,7 +360,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 contentJPanel.add(mandateContentText);
                 tswkList.add(mandateContentText);
                 // 难易度编辑框
-                String nations[] = {"", "中", "低", "高"};
+                String nations[] = contentMap.get("facilityValueText").split(",");
                 JComboBox jcb1 = new JComboBox(nations);
                 jcb1.setSelectedItem("");
                 // JTextField difficultyText = new JTextField();
@@ -405,7 +412,12 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             }
             JScrollPane jScrollPane = new JScrollPane(contentJPanel);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            contentJPanel.setBackground(new Color(250, 250, 250));
+            String[] colorList = contentMap.get("colorExamplesValue").split(",");
+            int r = Integer.parseInt(colorList[0]);
+            int g = Integer.parseInt(colorList[1]);
+            int b = Integer.parseInt(colorList[2]);
+            Color color = new Color(r,g,b);
+            contentJPanel.setBackground(color);
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
@@ -570,7 +582,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             }
             JScrollPane jScrollPane = new JScrollPane(contentJPanel);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-            contentJPanel.setBackground(new Color(250, 250, 250));
+            contentJPanel.setBackground(panelColor);
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
             JButton newText = new JButton("增加");
@@ -611,7 +623,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
             troubleShootingMap.put("line4", leaveArea);
             panel.setLayout(new BorderLayout());
-            contentJPanel.setBackground(new Color(250, 250, 250));
+            contentJPanel.setBackground(panelColor);
             panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("余留问题", panel);
         } else if (i == 3) {
@@ -699,7 +711,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             troubleShootingMap.put("line7", slowlyArea);
 
             panel.setLayout(new BorderLayout());
-            contentJPanel.setBackground(new Color(250, 250, 250));
+            contentJPanel.setBackground(panelColor);
             panel.add(contentJPanel, BorderLayout.CENTER);
             panelHashMap.put("需其它部门或领导协助解决的事宜", panel);
         } else if (i == 4) {
@@ -739,7 +751,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
             panel.setLayout(new BorderLayout());
             panel.add(contentJPanel, BorderLayout.CENTER);
-            contentJPanel.setBackground(new Color(250, 250, 250));
+            contentJPanel.setBackground(panelColor);
             panelHashMap.put("工作中的不足和需改进之处", panel);
         } else if (i == 5) {
             JLabel jLabel = new JLabel();
@@ -751,6 +763,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JPanel panel = new JPanel();
             // panel.setBackground(Color.red);
             panel.setLayout(new BorderLayout());
+            panel.setBackground(panelColor);
             panel.add(jLabel, BorderLayout.CENTER);
             panelHashMap.put("本周总结", panel);
         }

@@ -4,7 +4,6 @@ import com.myigou.clientService.enums.ColorEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
-import com.myigou.mainView.WindowView;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -35,6 +34,8 @@ public class WindowSetting implements FunctionInter {
     String selectColor = null;
     // 配置文件
     final String CONFIG_FILE = "config.properties";
+    // 颜色示咧
+    JLabel colorExamples = null;
 
     public WindowSetting(){
         contentMap = contentMap = PropertiesTool.redConfigFile(CONFIG_FILE);
@@ -121,14 +122,14 @@ public class WindowSetting implements FunctionInter {
         Map<String, Map<String, JPanel>> jPanelMap = new HashMap<String, Map<String, JPanel>>();
         int countPanel = 3;
         for (int i = 0; i < countPanel; i++) {
-            jPanelMap.put(String.valueOf(i), getJPanelMap(i));
+            jPanelMap.put(String.valueOf(i), getJPanelMap(i,jFrame));
         }
         ;
         jPanel1.add(onTop.getJContentPane(countPanel, jPanelMap), BorderLayout.CENTER);
         jPanel.add(jPanel1, BorderLayout.CENTER);
     }
 
-    public Map<String, JPanel> getJPanelMap(int i) {
+    public Map<String, JPanel> getJPanelMap(int i,JFrame jFrame) {
         Map<String, JPanel> panelHashMap = new HashMap<String, JPanel>();
         if (i == 0) {
             JPanel panel = new JPanel();
@@ -140,7 +141,7 @@ public class WindowSetting implements FunctionInter {
             panel.setBorder(border);
             GridBagConstraints gbc = new GridBagConstraints();
             // 说明
-            JLabel explain = new JLabel("说明：文件名格式“%s”占位符（例如：%s周总结-开发三部门%s），结果：‘xx月xx日’周总结-开发三部门‘某某’。");
+            JLabel explain = new JLabel("说明：格式“%t=时间”,“%n=姓名”(例如:%t周总结-开发三部门%n),结果：xx月xx日周总结-开发三部门某某。");
             explain.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             explain.setFont(new Font("楷体", Font.PLAIN, 16));
             explain.setForeground(new Color(232, 40, 40));
@@ -149,7 +150,7 @@ public class WindowSetting implements FunctionInter {
             gbc.gridy = 0;
             //gbc.anchor = GridBagConstraints.PAGE_START;
             gbc.fill = GridBagConstraints.HORIZONTAL;
-            gbc.gridwidth = 10;
+            gbc.gridwidth = 8;
             gbc.weightx = 1;
             gbc.weighty = 1;
             gbc.insets = new Insets(5, 5, 5, 5);
@@ -165,7 +166,8 @@ public class WindowSetting implements FunctionInter {
             // 文件名输入框
             JTextField fileJText = new JTextField(contentMap.get("fileJText"));
             fileJText.setHorizontalAlignment(JTextField.CENTER);
-            gbc.weightx = 2;
+            gbc.gridwidth = 3;
+            gbc.weightx = 1;
             fileJText.setFont(font);
             fileJText.setColumns(40);
             gridBagLayout.setConstraints(fileJText, gbc);
@@ -173,6 +175,7 @@ public class WindowSetting implements FunctionInter {
             contentJpanel.add(fileJText);
             // 文件名参数
             JLabel dateParams = new JLabel("文件名日期格式:", JLabel.CENTER);
+            gbc.gridwidth = 1;
             gbc.weightx = 0;
             gridBagLayout.setConstraints(dateParams, gbc);
             contentJpanel.add(dateParams);
@@ -296,7 +299,7 @@ public class WindowSetting implements FunctionInter {
             contentJpanel.add(nxvwkText);
 
             // 说明
-            JLabel fontJLabel = new JLabel("说明：文字设置");
+            JLabel fontJLabel = new JLabel("说明：文字设置，面板颜色选择。");
             fontJLabel.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             fontJLabel.setFont(new Font("楷体", Font.PLAIN, 16));
             fontJLabel.setForeground(new Color(232, 40, 40));
@@ -331,29 +334,44 @@ public class WindowSetting implements FunctionInter {
                     jRadioButton.setSelected(true);
                 }
             }
-            gbc.gridwidth = 3;
+            gbc.gridwidth = 4;
             //gbc.weightx = 1;
             gridBagLayout.setConstraints(colorPanel, gbc);
             setMap.put("colorPanel", colorPanel);
             contentJpanel.add(colorPanel);
-            //文字大小
-            JLabel textSizeLabel = new JLabel("文字大小:", JLabel.CENTER);
+            //面板颜色
+            String[] colorList = contentMap.get("colorExamplesValue").split(",");
+            int r = Integer.parseInt(colorList[0]);
+            int g = Integer.parseInt(colorList[1]);
+            int b = Integer.parseInt(colorList[2]);
+            final Color[] color = {new Color(r,g,b)};
+            JButton colorButton = new JButton("面板颜色");
+            colorButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                     color[0] = JColorChooser.showDialog(jFrame,"选择颜色",color[0]);
+                    if(color[0] != null){
+                        colorExamples.setBackground(color[0]);
+                        setMap.put("colorExamplesValue", new JTextField(color[0].getRed()+","+color[0].getGreen()+","+color[0].getBlue()));
+                    }
+                }
+            });
             gbc.gridwidth = 1;
             gbc.weightx = 0;
-            gridBagLayout.setConstraints(textSizeLabel, gbc);
-            contentJpanel.add(textSizeLabel);
-            // 文字大小 输入框
-            JTextField wordsText = new JTextField(contentMap.get("wordsText"));
-            gbc.weightx = 1;
-            wordsText.setHorizontalAlignment(JTextField.CENTER);
-            wordsText.setFont(font);
-            wordsText.setColumns(10);
-            gridBagLayout.setConstraints(wordsText, gbc);
-            setMap.put("wordsText", wordsText);
-            contentJpanel.add(wordsText);
+            gridBagLayout.setConstraints(colorButton, gbc);
+            contentJpanel.add(colorButton);
+
+            colorExamples = new JLabel("示例", JLabel.CENTER);
+            colorExamples.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
+            colorExamples.setOpaque(true);
+            colorExamples.setBackground(color[0]);
+            colorExamples.setFont(font);
+            gbc.gridwidth = 2;
+            gridBagLayout.setConstraints(colorExamples, gbc);
+            contentJpanel.add(colorExamples);
 
             // 数值
-            JLabel dropdownBox = new JLabel("说明：下拉框数值设置");
+            JLabel dropdownBox = new JLabel("说明：下拉框数值设置，以逗号做分割。");
             dropdownBox.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             dropdownBox.setFont(new Font("楷体", Font.PLAIN, 16));
             dropdownBox.setForeground(new Color(232, 40, 40));
@@ -369,7 +387,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(facilityValue, gbc);
             contentJpanel.add(facilityValue);
             // 难易度 输入框
-            JTextField facilityValueText = new JTextField(contentMap.get("facilityValueText"));
+            JTextField facilityValueText = new JTextField(contentMap.get("facilityValueText").replaceFirst(",",""));
             gbc.weightx = 1;
             facilityValueText.setHorizontalAlignment(JTextField.CENTER);
             facilityValueText.setFont(font);
@@ -383,7 +401,7 @@ public class WindowSetting implements FunctionInter {
             gridBagLayout.setConstraints(completionRatio, gbc);
             contentJpanel.add(completionRatio);
             // 完成比例 输入框
-            JTextField completionRatioText = new JTextField(contentMap.get("completionRatioText"));
+            JTextField completionRatioText = new JTextField(contentMap.get("completionRatioText").replaceFirst(",",""));
             gbc.weightx = 1;
             gbc.gridwidth = 3;
             completionRatioText.setHorizontalAlignment(JTextField.CENTER);
@@ -408,9 +426,7 @@ public class WindowSetting implements FunctionInter {
             panel.setLayout(new BorderLayout());
             panel.add(contentJpanel, BorderLayout.CENTER);
             panelHashMap.put("周计划设置", panel);
-        } else if (i == 1)
-
-        {
+        } else if (i == 1){
             JLabel jLabel = new JLabel();
             jLabel.setBounds(new Rectangle(151, 99, 163, 113));
             jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
@@ -422,9 +438,7 @@ public class WindowSetting implements FunctionInter {
             panel.setLayout(null);
             panel.add(jLabel, null);
             panelHashMap.put("第二页", panel);
-        } else if (i == 2)
-
-        {
+        } else if (i == 2){
             JLabel jLabel = new JLabel();
             jLabel.setBounds(new Rectangle(151, 99, 163, 113));
             jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
@@ -453,6 +467,14 @@ public class WindowSetting implements FunctionInter {
                         String colorValue = ColorEnum.getColorValue(selectColor);
                         PropertiesTool.writeSet(CONFIG_FILE,key,selectColor);
                         PropertiesTool.writeSet(CONFIG_FILE,"colorPanelValue",colorValue);
+                    } else if("facilityValueText".equals(key)){
+                        JTextField textField = (JTextField) setMap.get(key);
+                        String textFieldText = ","+textField.getText();
+                        PropertiesTool.writeSet(CONFIG_FILE,key,textFieldText);
+                    } else if("completionRatioText".equals(key)){
+                        JTextField textField = (JTextField) setMap.get(key);
+                        String textFieldText = ","+textField.getText();
+                        PropertiesTool.writeSet(CONFIG_FILE,key,textFieldText);
                     } else {
                         JTextField textField = (JTextField) setMap.get(key);
                         if("".equals(textField.getText())){

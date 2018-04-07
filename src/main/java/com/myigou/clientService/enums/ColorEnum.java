@@ -12,7 +12,8 @@ public enum ColorEnum {
     blue("蓝","10,117,230"),
     purple("紫","158,10,230"),
     black("黑","68,68,68"),
-    powder("粉","243,63,227");
+    powder("粉","243,63,227"),
+    ;
 
     private String color;
     private String value;
