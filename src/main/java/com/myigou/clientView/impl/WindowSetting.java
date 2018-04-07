@@ -434,11 +434,11 @@ public class WindowSetting implements FunctionInter {
             jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
             jLabel.setHorizontalAlignment(SwingConstants.CENTER);
             jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("Panel 也假的");
+            jLabel.setText("第二页，开发中。。。");
             JPanel panel = new JPanel();
-            panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            //panel.setBackground(Color.red);
+            panel.setLayout(new BorderLayout());
+            panel.add(jLabel);
             panelHashMap.put("第二页", panel);
         } else if (i == 2){
             JLabel jLabel = new JLabel();
@@ -446,11 +446,11 @@ public class WindowSetting implements FunctionInter {
             jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
             jLabel.setHorizontalAlignment(SwingConstants.CENTER);
             jLabel.setForeground(new Color(255, 51, 51));
-            jLabel.setText("Panel 是的");
+            jLabel.setText("第三页，开发中。。。");
             JPanel panel = new JPanel();
-            panel.setBackground(Color.red);
-            panel.setLayout(null);
-            panel.add(jLabel, null);
+            //panel.setBackground(Color.red);
+            panel.setLayout(new BorderLayout());
+            panel.add(jLabel);
             panelHashMap.put("第三页", panel);
         }
         return panelHashMap;
