@@ -1,6 +1,7 @@
 package com.myigou.tool;
 
 import java.awt.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -14,13 +15,12 @@ public class WindowTool {
      *
      * @param frame
      */
-    public static void winConter(Frame frame) {
+    public static void winConter(Frame frame)  {
         // 当前窗口属性
-        Toolkit kit = Toolkit.getDefaultToolkit();
-        // Image image=kit.createImage();//("C:\\Users\\ab1324ab\\Desktop\\notefile\\view_note\\target\\classes\\com\\myigou\\window\\title.PNG");
+        Toolkit kit = frame.getToolkit();
         try {
-            frame.setIconImage(ImageIconTool.gitImageIcon("/icons/tubiao.png",200,200).getImage());
-            // this.setIconImage(new ImageIcon("C:\\Users\\ab1324ab\\Desktop\\notefile\\view_note\\target\\classes\\com\\myigou\\window\\title.PNG").getImage());
+            Image image = kit.getImage(WindowTool.class.getClass().getResource("/icons/tubiao.png"));
+            frame.setIconImage(image);
             // 获取屏幕封装对象
             Dimension screenSize = kit.getScreenSize();
             // 获取屏幕高度

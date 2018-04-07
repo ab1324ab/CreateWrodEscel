@@ -116,7 +116,7 @@ public class MuenBar {
         });
         this.muenStyle(weekPlan, "1");
         function.add(weekPlan);
-        JMenuItem weekPlan2 = new JMenuItem("周计划第二版", ImageIconTool.gitImageIcon("/icons/Excel.png",ico_Width,ico_Height));
+        JMenuItem weekPlan2 = new JMenuItem("周计划第二版", ImageIconTool.gitImageIcon("/icons/excel.png",ico_Width,ico_Height));
         weekPlan2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -193,7 +193,6 @@ public class MuenBar {
     }
 
     public void muenStyle(AbstractButton jmuen, String sign) {
-
         if ("1".equals(sign)) {
             jmuen.setPreferredSize(new Dimension(150, 25));
         }else{

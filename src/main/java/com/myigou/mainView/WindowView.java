@@ -2,10 +2,7 @@ package com.myigou.mainView;
 
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.*;
-import com.myigou.tool.HttpRequestEnter;
-import com.myigou.tool.PropertiesTool;
-import com.myigou.tool.UpdateClient;
-import com.myigou.tool.WindowTool;
+import com.myigou.tool.*;
 
 import javax.swing.*;
 import javax.swing.Timer;
