@@ -4,6 +4,8 @@ import com.myigou.clientView.FunctionInter;
 
 import javax.swing.*;
 import javax.swing.Timer;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -37,6 +39,8 @@ public class TextEditing implements FunctionInter {
     private Timer timer;
     // 预编译正则表达式
     private static Pattern NUMBER_PATTERN = Pattern.compile("[a-zA-Z]:(\\\\|/)");
+    // 文字大小
+    private Font fontTxT = new Font("楷体",Font.BOLD,18);
 
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
@@ -50,149 +54,173 @@ public class TextEditing implements FunctionInter {
     }
 
     @Override
-    public JPanel getTitle(JPanel jPanel, JFrame jFrame) {
-        jPanel.add(new JLabel("文件操作"));
+    public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
+        JLabel title= new JLabel("文件操作");
+        title.setFont(font);
+        jPanel.add(title);
         return jPanel;
     }
 
     private void fileConcentrated(JPanel jPanel) {
-        int prompt = 0;
-        int function = 1;
+        Border border = BorderFactory.createEtchedBorder();
+        border = BorderFactory.createTitledBorder(border, "",
+                TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 18), Color.BLACK);
+        jPanel.setBorder(border);
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(5, 5, 10, 5);
         jLabel = new JLabel("一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中");
-        gridBagConstraints.gridy = prompt;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new Insets(5, 30, 20, 5);
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.gridwidth = 6;
         gridBagLayout.setConstraints(jLabel, gridBagConstraints);
         jPanel.add(jLabel);
 
-        gridBagConstraints.insets = new Insets(5, 5, 30, 5);
         JLabel address = new JLabel("文件地址:");
-        gridBagConstraints.gridy = function;
+        gridBagConstraints.insets = new Insets(5, 30, 10, 5);
+        gridBagConstraints.weightx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(address, gridBagConstraints);
         jPanel.add(address);
         // 文件地址
         fileAddress = new JTextField();
-        fileAddress.setColumns(40);
-        gridBagConstraints.gridwidth = 2;
+        fileAddress.setFont(fontTxT);
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
+        fileAddress.setColumns(60);
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.gridwidth = 3;
         gridBagLayout.setConstraints(fileAddress, gridBagConstraints);
         jPanel.add(fileAddress);
 
         select = new JButton("选择目录");
-        select.setPreferredSize(new Dimension(100, 25));
         select.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(select, gridBagConstraints);
         jPanel.add(select);
 
         extracting = new JButton("抓取文件");
-        extracting.setPreferredSize(new Dimension(100, 25));
+        gridBagConstraints.insets = new Insets(5, 10, 10, 30);
         extracting.setFocusPainted(false);
-        gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(extracting, gridBagConstraints);
         jPanel.add(extracting);
 
     }
 
     public void createFolders(JPanel jPanel) {
-        int prompt = 2;
-        int function = 3;
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(5, 5, 10, 5);
         JLabel jLabel = new JLabel("二、输入目录创建文件夹");
-        gridBagConstraints.gridy = prompt;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new Insets(5, 30, 20, 5);
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.gridwidth = 4;
         gridBagLayout.setConstraints(jLabel, gridBagConstraints);
         jPanel.add(jLabel);
 
-        gridBagConstraints.insets = new Insets(5, 5, 30, 5);
         JLabel address = new JLabel("创建地址:");
-        gridBagConstraints.gridy = function;
+        gridBagConstraints.insets = new Insets(5, 30, 10, 5);
+        gridBagConstraints.weightx = 0;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(address, gridBagConstraints);
         jPanel.add(address);
         // 文件地址
         createFileAddress = new JTextField();
-        createFileAddress.setColumns(40);
-        gridBagConstraints.gridwidth = 2;
+        createFileAddress.setFont(fontTxT);
+        createFileAddress.setColumns(60);
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.gridwidth = 3;
         gridBagLayout.setConstraints(createFileAddress, gridBagConstraints);
         jPanel.add(createFileAddress);
 
         createExtracting = new JButton("创建文件夹");
         createExtracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
         gridBagLayout.setConstraints(createExtracting, gridBagConstraints);
         jPanel.add(createExtracting);
 
     }
 
     private void createFolders1(JPanel jPanel) {
-        int prompt = 4;
-        int function = 5;
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(5, 5, 10, 5);
         JLabel jLabel = new JLabel("三、功能开发中。。");
-        gridBagConstraints.gridy = prompt;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.insets = new Insets(5, 30, 20, 5);
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.gridwidth = 4;
         gridBagLayout.setConstraints(jLabel, gridBagConstraints);
         jPanel.add(jLabel);
 
-        gridBagConstraints.insets = new Insets(5, 5, 30, 5);
         JLabel address = new JLabel("创建地址:");
-        gridBagConstraints.gridy = function;
+        gridBagConstraints.insets = new Insets(5, 30, 10, 5);
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.weightx = 0;
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(address, gridBagConstraints);
         jPanel.add(address);
         // 文件地址
         JTextField fileAddress = new JTextField();
-        fileAddress.setColumns(40);
-        gridBagConstraints.gridwidth = 2;
+        fileAddress.setFont(fontTxT);
+        createFileAddress.setColumns(60);
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.gridwidth = 3;
         gridBagLayout.setConstraints(fileAddress, gridBagConstraints);
         jPanel.add(fileAddress);
 
         JButton extracting = new JButton("创建文件夹");
         extracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
         gridBagLayout.setConstraints(extracting, gridBagConstraints);
         jPanel.add(extracting);
 
     }
 
     private void createFolders2(JPanel jPanel) {
-        int prompt = 6;
-        int function = 7;
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(5, 5, 10, 5);
         JLabel jLabel = new JLabel("四、功能开发中。。");
-        gridBagConstraints.gridy = prompt;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new Insets(5, 30, 20, 5);
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.weighty = 1;
+        gridBagConstraints.gridwidth = 4;
         gridBagLayout.setConstraints(jLabel, gridBagConstraints);
         jPanel.add(jLabel);
 
-        gridBagConstraints.insets = new Insets(5, 5, 30, 5);
         JLabel address = new JLabel("创建地址:");
-        gridBagConstraints.gridy = function;
+        gridBagConstraints.insets = new Insets(5, 30, 10, 5);
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.weightx = 0;
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(address, gridBagConstraints);
         jPanel.add(address);
         // 文件地址
         JTextField fileAddress = new JTextField();
-        fileAddress.setColumns(40);
-        gridBagConstraints.gridwidth = 2;
+        fileAddress.setFont(fontTxT);
+        createFileAddress.setColumns(60);
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
+        gridBagConstraints.weightx = 1;
+        gridBagConstraints.gridwidth = 3;
         gridBagLayout.setConstraints(fileAddress, gridBagConstraints);
         jPanel.add(fileAddress);
 
         JButton extracting = new JButton("创建文件夹");
         extracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
+        gridBagConstraints.insets = new Insets(5, 10, 10, 5);
         gridBagLayout.setConstraints(extracting, gridBagConstraints);
         jPanel.add(extracting);
 
@@ -261,7 +289,6 @@ public class TextEditing implements FunctionInter {
                         }
                     }
                 });
-                bar.setPreferredSize(new Dimension(500, 20));
                 jPanelBar.add(bar);
                 jPanel.setVisible(true);
                 jFrame.add(jPanelBar, BorderLayout.CENTER);

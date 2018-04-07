@@ -51,8 +51,10 @@ public class WindowSetting implements FunctionInter {
     }
 
     @Override
-    public JPanel getTitle(JPanel jPanel, JFrame jFrame) {
-        jPanel.add(new JLabel("窗口设置"));
+    public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
+        JLabel title = new JLabel("窗口设置");
+        title.setFont(font);
+        jPanel.add(title);
         return jPanel;
     }
 

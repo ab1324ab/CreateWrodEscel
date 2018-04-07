@@ -1,6 +1,7 @@
 package com.myigou.clientView;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author ab1324ab
@@ -21,5 +22,5 @@ public interface FunctionInter {
      * @param jPanel
      * @return
      */
-    JPanel getTitle(JPanel jPanel, JFrame jFrame);
+    JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font);
 }

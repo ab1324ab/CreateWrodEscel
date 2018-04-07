@@ -95,8 +95,9 @@ public class WindowView extends JFrame implements Runnable {
             } else if ("fun_1_2".equals(status)) {
                 functionInter = new WeekPlanMake2();
             }
+            Font font = new Font("楷体",Font.BOLD,18);
             clientPanel = functionInter.getFunction(clientPanel, this);
-            titlePanel = functionInter.getTitle(titlePanel, this);
+            titlePanel = functionInter.getTitle(titlePanel, this,font);
             mapJpanel.put("clientPanel", clientPanel);
             mapJpanel.put("titlePanel", titlePanel);
         } catch (Exception e) {

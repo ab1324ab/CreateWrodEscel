@@ -63,9 +63,10 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     }
 
     @Override
-    public JPanel getTitle(JPanel jPanel, JFrame jFrame) {
-        JLabel titleFileName = new JLabel("周计划生成第二版");
-        jPanel.add(titleFileName);
+    public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
+        JLabel title = new JLabel("周计划生成第二版");
+        title.setFont(font);
+        jPanel.add(title);
         return jPanel;
     }
 
