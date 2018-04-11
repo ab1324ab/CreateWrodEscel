@@ -23,7 +23,7 @@ public class HttpRequestEnter {
         try {
             client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60);
             // testh.html
-            HttpGet httpGet = new HttpGet("http://185.227.153.65/version.html");
+            HttpGet httpGet = new HttpGet("http://www.nacei.top/version.html");
             HttpResponse response = client.execute(httpGet);
             int status = response.getStatusLine().getStatusCode();
             if (status == 200) {
