@@ -95,6 +95,12 @@
             <version>20160810</version>
         </dependency>
 
+        <dependency>
+            <groupId>two-dimension</groupId>
+            <artifactId>two-dimension-code</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
