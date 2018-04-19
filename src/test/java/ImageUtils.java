@@ -12,18 +12,14 @@ import java.io.IOException;
 public class ImageUtils {
 
 
-
-
-
-
     /**
-     * @param srcImgPath 源图片路径
-     * @param tarImgPath 保存的图片路径
+     * @param srcImgPath       源图片路径
+     * @param tarImgPath       保存的图片路径
      * @param waterMarkContent 水印内容
      * @param markContentColor 水印颜色
-     * @param font 水印字体
+     * @param font             水印字体
      */
-    public void addWaterMark(String srcImgPath, String tarImgPath, String waterMarkContent,Color markContentColor,Font font) {
+    public void addWaterMark(String srcImgPath, String tarImgPath, String waterMarkContent, Color markContentColor, Font font) {
 
         try {
             // 读取原图片信息
@@ -39,8 +35,8 @@ public class ImageUtils {
             g.setFont(font);              //设置字体
 
             //设置水印的坐标
-            int x = srcImgWidth - 2*getWatermarkLength(waterMarkContent, g);
-            int y = srcImgHeight - 2*getWatermarkLength(waterMarkContent, g);
+            int x = srcImgWidth - 2 * getWatermarkLength(waterMarkContent, g);
+            int y = srcImgHeight - 2 * getWatermarkLength(waterMarkContent, g);
             g.drawString(waterMarkContent, x, y);  //画出水印
             g.dispose();
             // 输出图片
@@ -63,14 +59,15 @@ public class ImageUtils {
 
     /**
      * 生成二维码(QRCode)图片的公共方法
-     * @param content 存储内容
-     * @param imgType 图片类型
-     * @param size 二维码尺寸
+     *
+     * @param content  存储内容
+     * @param imgType  图片类型
+     * @param size     二维码尺寸
      * @param logoPath 图片logo路径
      * @return
      * @throws Exception
      */
-    public static BufferedImage qRCodeCommon(String content, String imgType, int size,String logoPath) throws Exception {
+    public static BufferedImage qRCodeCommon(String content, String imgType, int size, String logoPath) throws Exception {
         BufferedImage bufImg = null;
         try {
             Qrcode qrcodeHandler = new Qrcode();
@@ -107,7 +104,7 @@ public class ImageUtils {
                 throw new Exception("QRCode content bytes length = " + contentBytes.length + " not in [0, 800].");
             }
             //非空设置二维码logo,否则不设置
-            if(StringUtils.isNotBlank(logoPath)){
+            if (StringUtils.isNotBlank(logoPath)) {
                 Image image = ImageIO.read(new File(logoPath));
                 gs.drawImage(image, (imgSize - image.getWidth(null)) / 2, (imgSize - image.getHeight(null)) / 2, null);
             }
@@ -122,13 +119,13 @@ public class ImageUtils {
 
     public static void main(String[] args) {
         Font font = new Font("微软雅黑", Font.PLAIN, 16);                     //水印字体
-        String srcImgPath="C:\\Users\\hwk-t170\\Desktop\\多得宝图标\\MMSWeb\\login\\images\\qrbackground.png"; //背景
-        String tarImgPath="C:\\Users\\hwk-t170\\Desktop\\多得宝图标\\MMSWeb\\login\\images\\logo2.png"; //待存储的地址
-        String waterMarkContent="NO:1234567890";  //商家号
+        String srcImgPath = "C:\\Users\\hwk-t170\\Desktop\\多得宝图标\\MMSWeb\\login\\images\\qrbackground.jpg"; //背景
+        String tarImgPath = "C:\\Users\\hwk-t170\\Desktop\\多得宝图标\\MMSWeb\\login\\images\\logo2.png"; //待存储的地址
+        String waterMarkContent = "NO:1234567890";  //商家号
         try {
-            BufferedImage buImg = qRCodeCommon("http://www.baidu.com","png",12,null);//
+            BufferedImage buImg = qRCodeCommon("http://www.baidu.com", "png", 12, null);//
 
-            ImageUtils.qrCodeWatermark(srcImgPath,buImg,waterMarkContent,"C:\\Users\\hwk-t170\\Desktop\\多得宝图标\\MMSWeb\\login\\images\\112.png");
+            ImageUtils.qrCodeWatermark(srcImgPath, buImg, waterMarkContent, "C:\\Users\\hwk-t170\\Desktop\\多得宝图标\\MMSWeb\\login\\images\\112.png");
 
 //            File srcImgFile = new File(srcImgPath);
 //            Image srcImg = ImageIO.read(srcImgFile);
@@ -164,32 +161,33 @@ public class ImageUtils {
 
     /**
      * 二维码添加 商户号水印
+     *
      * @param backgroundPic
      * @param qrCodePic
      * @param content
      * @param imgPath
      */
-    public static void qrCodeWatermark(String backgroundPic,BufferedImage qrCodePic,String content,String imgPath){
+    public static void qrCodeWatermark(String backgroundPic, BufferedImage qrCodePic, String content, String imgPath) {
         try {
-        File srcImgFile = new File(backgroundPic);
-        Image srcImg = ImageIO.read(srcImgFile);
-        BufferedImage bufImg = new BufferedImage(srcImg.getWidth(null), srcImg.getHeight(null), BufferedImage.TYPE_INT_RGB);
-        Graphics2D bufImgGraphics = bufImg.createGraphics();
-        // 重要设置 png图片背景透明不变黑
-        bufImg = bufImgGraphics.getDeviceConfiguration().createCompatibleImage(srcImg.getWidth(null), srcImg.getHeight(null), Transparency.TRANSLUCENT);
-        bufImgGraphics = bufImg.createGraphics();
-
-
-
-        bufImgGraphics.drawImage(qrCodePic, 0, 0,null);
-        bufImgGraphics.setColor(Color.BLACK);
-        bufImgGraphics.setFont(new Font("微软雅黑", Font.PLAIN, 16));
-        int x = bufImg.getWidth()/4-10;
-        int y = bufImg.getHeight()-10;
-        //画出水印
-        bufImgGraphics.drawString(content, x, y);
-        bufImgGraphics.dispose();
-        Boolean flag = ImageIO.write(bufImg, "PNG", new FileOutputStream(new File(imgPath)));
+            Font font = new Font("微软雅黑", Font.PLAIN, 16);
+            File srcImgFile = new File(backgroundPic);
+            BufferedImage bufImg = ImageIO.read(srcImgFile);
+            Graphics2D bufImgGraphics = bufImg.createGraphics();
+            // 二维码图片位置
+            int qrX = (bufImg.getWidth(null) - qrCodePic.getWidth(null)) / 2;
+            int qrY = (bufImg.getHeight(null) - qrCodePic.getHeight(null)) / 2;
+            bufImgGraphics.drawImage(qrCodePic, qrX, qrY, null);
+            // 文字宽度
+            FontMetrics fontMetrics = bufImgGraphics.getFontMetrics(font);
+            int contentWidth = fontMetrics.stringWidth(content);
+            bufImgGraphics.setColor(Color.BLACK);
+            bufImgGraphics.setFont(font);
+            int textX = bufImg.getWidth() / 2 - contentWidth / 2;
+            int textY = bufImg.getHeight() - 110;
+            //画出水印
+            bufImgGraphics.drawString(content, textX, textY);
+            bufImgGraphics.dispose();
+            Boolean flag = ImageIO.write(bufImg, "png", new FileOutputStream(new File(imgPath)));
         } catch (IOException e) {
             e.printStackTrace();
         }
