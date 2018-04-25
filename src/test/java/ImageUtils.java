@@ -182,8 +182,8 @@ public class ImageUtils {
             int contentWidth = fontMetrics.stringWidth(content);
             bufImgGraphics.setColor(Color.BLACK);
             bufImgGraphics.setFont(font);
-            int textX = bufImg.getWidth() / 2 - contentWidth / 2;
-            int textY = bufImg.getHeight() - 110;
+            int textX = bufImg.getWidth(null) / 2 - contentWidth / 2;
+            int textY = bufImg.getHeight(null) - 110;
             //画出水印
             bufImgGraphics.drawString(content, textX, textY);
             bufImgGraphics.dispose();
