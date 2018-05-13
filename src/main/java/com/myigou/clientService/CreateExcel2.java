@@ -223,7 +223,7 @@ public class CreateExcel2 {
             if (null == sheet) {
                 throw new RuntimeException();
             }
-            Integer[] lineNum = new Integer[]{0, 1, 4, 5, 6, 7, 8};
+            Integer[] lineNum = new Integer[]{0, 1, 2, 3, 4, 5, 6};
             for (int rowsLineNum = 4; rowsLineNum < sheet.getPhysicalNumberOfRows(); rowsLineNum++) {
                 Row row = sheet.getRow(rowsLineNum);
                 if ("上周遗留任务".equals(row.getCell(lineNum[0]).getStringCellValue())) {
