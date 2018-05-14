@@ -8,7 +8,8 @@ public enum HintInformationErrorCode {
     FileError("数据源文件错误","FileError"),
     DateFormatError("日期格式设置错误","DateFormatError"),
     DateFormatMismatch("日期格式%s与数据源工作表名不匹配","DateFormatMismatch"),
-    SystemError("系统繁忙,请稍后再试!","SystemError");
+    SystemError("系统繁忙,请稍后再试!","SystemError"),
+    getParamError("获取参数错误:","GetParamError");
 
     private String errorMsg;
     private String errorCode;

@@ -213,16 +213,37 @@ public class CreateExcel2 {
         String foundSheetName = "";
         try {
             contentMap = PropertiesTool.redConfigFile("config.properties");
-            dateFormat = new SimpleDateFormat(contentMap.get("excelText"));
-            List<Date> dateList = BusinessTool.getStartDateAndEndDate();
-            foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
-                    + contentMap.get("connectorText")
-                    + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
-            Workbook wb = new XSSFWorkbook(new FileInputStream(new File(xlsxFileUrl)));
-            Sheet sheet = wb.getSheet(foundSheetName);
-            if (null == sheet) {
-                throw new RuntimeException();
+            try{
+                // 转换日期
+                dateFormat = new SimpleDateFormat(contentMap.get("excelText"));
+                List<Date> dateList = BusinessTool.getStartDateAndEndDate();
+                foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
+                        + contentMap.get("connectorText")
+                        + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
+            }catch (IllegalArgumentException x) {
+                dataSourceResponse.setStatus(HintInformationErrorCode.DateFormatError.getErrorMsg());
+                return dataSourceResponse;
             }
+            // 文档对象
+            Workbook newWb = null;
+            try {
+                newWb = new XSSFWorkbook(new FileInputStream(new File(xlsxFileUrl)));
+            }catch(IOException x){
+                dataSourceResponse.setStatus(HintInformationErrorCode.FileError.getErrorMsg());
+                return dataSourceResponse;
+            }
+            // 工作表
+            Sheet sheet = null;
+            try {
+                sheet = newWb.getSheet(foundSheetName);
+                if (null == sheet) {
+                    throw new RuntimeException();
+                }
+            }catch(RuntimeException x){
+                dataSourceResponse.setStatus(String.format(HintInformationErrorCode.DateFormatMismatch.getErrorMsg(), foundSheetName));
+                return dataSourceResponse;
+            }
+
             Integer[] lineNum = new Integer[]{0, 1, 2, 3, 4, 5, 6};
             for (int rowsLineNum = 4; rowsLineNum < sheet.getPhysicalNumberOfRows(); rowsLineNum++) {
                 Row row = sheet.getRow(rowsLineNum);
@@ -237,7 +258,12 @@ public class CreateExcel2 {
                     } else if (cellLineNum == 3) {
                         rowContent = rowContent.replace(".0", "");
                     } else if (cellLineNum == 4) {
-                        rowContent = (int) (Double.parseDouble(rowContent) * 100) + "%";
+                        try{
+                            rowContent = (int) (Double.parseDouble(rowContent) * 100) + "%";
+                        }catch(Exception x){
+                            dataSourceResponse.setStatus(HintInformationErrorCode.getParamError.getErrorMsg()+rowContent);
+                            return dataSourceResponse;
+                        }
                     }
                     string = string + rowContent + PropertiesTool.READ_SGMTA_SPLIT;
                 }
@@ -245,17 +271,7 @@ public class CreateExcel2 {
                     weekPlanList.add(string);
                 }
             }
-        } catch (IOException ioe) {
-            dataSourceResponse.setStatus(HintInformationErrorCode.FileError.getErrorMsg());
-            ioe.printStackTrace();
-            return dataSourceResponse;
-        } catch (IllegalArgumentException x) {
-            dataSourceResponse.setStatus(HintInformationErrorCode.DateFormatError.getErrorMsg());
-            return dataSourceResponse;
-        } catch (RuntimeException runt) {
-            dataSourceResponse.setStatus(String.format(HintInformationErrorCode.DateFormatMismatch.getErrorMsg(), foundSheetName));
-            return dataSourceResponse;
-        } catch (Exception e) {
+        }   catch (Exception e) {
             dataSourceResponse.setStatus(HintInformationErrorCode.SystemError.getErrorMsg());
             return dataSourceResponse;
         }
