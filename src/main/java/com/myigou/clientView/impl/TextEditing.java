@@ -1,6 +1,8 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientView.FunctionInter;
+import com.myigou.module.MyProgressBar;
+import com.myigou.tool.WindowTool;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -247,7 +249,7 @@ public class TextEditing implements FunctionInter {
                 int returnVal = chooser.showOpenDialog(jFrame);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     directoryURL = chooser.getSelectedFile().getPath();
-                    chooser.hide();
+                    //chooser.dis();
                 }
                 if (directoryURL != null) {
                     fileAddress.setText(directoryURL);
@@ -269,39 +271,11 @@ public class TextEditing implements FunctionInter {
                     return;
                 }
                 final int fileNumber = getCountFile(fileAddress.getText(), 0);
-                final JPanel jPanelBar = new JPanel();
-                final JProgressBar bar = new JProgressBar();
-                // jPanelBar.setBackground(Color.CYAN);
-                bar.setMinimum(0);
-                bar.setMaximum(fileNumber);
-                bar.setValue(0);
-                bar.setStringPainted(true);
-                timer = new Timer(50, new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int value = bar.getValue();
-                        if (value < fileNumber) {
-                            value++;
-                            bar.setValue(value);
-                        } else {
-                            timer.stop();
-                            jPanelBar.setVisible(false);
-                        }
-                    }
-                });
-                jPanelBar.add(bar);
-                jPanel.setVisible(true);
-                jFrame.add(jPanelBar, BorderLayout.CENTER);
-                jPanelBar.updateUI();
-                jPanelBar.setVisible(true);
-                jPanel.revalidate();
-                jPanel.repaint();
-                jFrame.revalidate();
-                jFrame.repaint();
-                timer.start();
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
+                        extracting.setEnabled(false);
+                        number = 0;
                         FileSystemView fsv = FileSystemView.getFileSystemView();
                         File com = fsv.getHomeDirectory();
                         File createDirectory = new File(com.getPath() + "\\Output files");
@@ -312,11 +286,14 @@ public class TextEditing implements FunctionInter {
                         File file = new File(fileAddress.getText());
                         File[] files = file.listFiles();
                         for (int i = 0; i < files.length; i++) {
-                            number = readWriteFile(createDirectory, files[i], barrel, number, jPanel, jFrame);
+                            number = readWriteFile(createDirectory, files[i], barrel, number, jPanel, jFrame,fileNumber);
                         }
+                        extracting.setEnabled(true);
                     }
                 };
-                runnable.run();
+                Thread t = new Thread(runnable);
+                t.start();
+
             }
         });
 
@@ -360,7 +337,7 @@ public class TextEditing implements FunctionInter {
      * @param file
      * @param barrel
      */
-    public int readWriteFile(File fileDirectory, File file, byte[] barrel, int number, JPanel jPanel, JFrame jFrame) {
+    public int readWriteFile(File fileDirectory, File file, byte[] barrel, int number, JPanel jPanel, JFrame jFrame,int fileNumber) {
         try {
             FileInputStream inputFile = null;
             FileOutputStream outFile = null;
@@ -379,13 +356,13 @@ public class TextEditing implements FunctionInter {
                 outFile.close();
             } else if (file.isDirectory()) {
                 for (int i = 0; i < file.listFiles().length; i++) {
-                    number = readWriteFile(fileDirectory, file.listFiles()[i], barrel, number, jPanel, jFrame);
+                    number = readWriteFile(fileDirectory, file.listFiles()[i], barrel, number, jPanel, jFrame,fileNumber);
                 }
             }
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        jLabel.setText("<html>一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中 <font  style=\"color:red\"> 当前已获取 : " + number + " 个</font ></html>");
+        jLabel.setText("<html>一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中 <font  style=\"color:red\"> 当前已获取: " + number + " 个,共: "+fileNumber+" 个;</font ></html>");
         return number;
     }
 
