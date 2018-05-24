@@ -25,20 +25,20 @@ public class TextEditing implements FunctionInter {
     private JButton select = null;
     // 文件地址
     private JTextField fileAddress = null;
-    //创建文件地址
+    // 创建文件地址
     private JTextField createFileAddress = null;
     // 抓取文件按钮
     private JButton extracting = null;
     // 创建文件按钮
     private JButton createExtracting = null;
+    // 搜索按钮
+    JButton selectExtracting = null;
     // 网格布局
     private GridBagLayout gridBagLayout = new GridBagLayout();
     // 文本或图片显示
     private JLabel jLabel = null;
     // 总文件个数
     private int number = 0;
-    // Timer 事件，Timer 控件可以有规律地隔一段时间执行一次代码
-    private Timer timer;
     // 预编译正则表达式
     private static Pattern NUMBER_PATTERN = Pattern.compile("[a-zA-Z]:(\\\\|/)");
     // 文字大小
@@ -174,11 +174,11 @@ public class TextEditing implements FunctionInter {
         gridBagLayout.setConstraints(fileAddress, gridBagConstraints);
         jPanel.add(fileAddress);
 
-        JButton extracting = new JButton("搜索");
-        extracting.setFocusPainted(false);
+        selectExtracting = new JButton("搜索");
+        selectExtracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
-        gridBagLayout.setConstraints(extracting, gridBagConstraints);
-        jPanel.add(extracting);
+        gridBagLayout.setConstraints(selectExtracting, gridBagConstraints);
+        jPanel.add(selectExtracting);
 
         JPanel select = new JPanel();
         select.setLayout(new GridLayout(1,4));
@@ -196,6 +196,13 @@ public class TextEditing implements FunctionInter {
         select.add(searchEnglish);
         gridBagLayout.setConstraints(select, gridBagConstraints);
         jPanel.add(select);
+
+        extracting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     private void createFolders2(JPanel jPanel) {
@@ -241,7 +248,6 @@ public class TextEditing implements FunctionInter {
      * @param jPanel
      */
     private void registerListener(final JPanel jPanel, final JFrame jFrame) {
-
         /**
          * 获取文件路径按钮
          */
@@ -261,7 +267,6 @@ public class TextEditing implements FunctionInter {
                 }
             }
         });
-
         /**
          * 抓取文件按钮
          */
@@ -298,10 +303,8 @@ public class TextEditing implements FunctionInter {
                 };
                 Thread t = new Thread(runnable);
                 t.start();
-
             }
         });
-
         /**
          * 创建文件目录按钮
          */
@@ -339,6 +342,40 @@ public class TextEditing implements FunctionInter {
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(jFrame, "目录打开失败！", "提示", JOptionPane.WARNING_MESSAGE);
                 }
+            }
+        });
+        /**
+         * 搜索文件
+         */
+        selectExtracting.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDialog d = new JDialog(jFrame,"文件夹名");
+                Container container = d.getContentPane();
+                container.setLayout(new BorderLayout());
+                JPanel mView = new JPanel();
+                mView.setLayout(new BorderLayout());
+                JPanel top = new JPanel(new FlowLayout());
+                top.setBorder(BorderFactory.createLineBorder(Color.blue,1));
+                top.add(new JLabel("条件:",JLabel.CENTER));
+                JTextField jTextField= new JTextField();
+                jTextField.setFont(new Font("黑体",Font.PLAIN,15));
+                jTextField.setColumns(30);
+                top.add(jTextField);
+                top.add(new JButton("筛选"));
+                JPanel centre = new JPanel(new BorderLayout());
+                centre.add(new Button("cccccccccccc"),BorderLayout.CENTER);
+                centre.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+                mView.add(top,BorderLayout.NORTH);
+                mView.add(centre,BorderLayout.CENTER);
+                mView.setBorder(BorderFactory.createLineBorder(Color.black,1));
+                container.add(mView);
+                d.setModal(true);
+                d.setSize(600, 400);
+                d.setMinimumSize(new Dimension(600,400));
+
+                d.setLocationRelativeTo(null);
+                d.setVisible(true);
             }
         });
     }
