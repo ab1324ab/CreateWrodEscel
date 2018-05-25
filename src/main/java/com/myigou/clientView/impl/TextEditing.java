@@ -10,8 +10,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -356,24 +355,65 @@ public class TextEditing implements FunctionInter {
                 JPanel mView = new JPanel();
                 mView.setLayout(new BorderLayout());
                 JPanel top = new JPanel(new FlowLayout());
-                top.setBorder(BorderFactory.createLineBorder(Color.blue,1));
+                top.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
                 top.add(new JLabel("条件:",JLabel.CENTER));
                 JTextField jTextField= new JTextField();
                 jTextField.setFont(new Font("黑体",Font.PLAIN,15));
                 jTextField.setColumns(30);
                 top.add(jTextField);
                 top.add(new JButton("筛选"));
-                JPanel centre = new JPanel(new BorderLayout());
-                centre.add(new Button("cccccccccccc"),BorderLayout.CENTER);
-                centre.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+                JPanel centre = new JPanel();
+                GridBagLayout gridBagLayout= new GridBagLayout();
+                centre.setLayout(gridBagLayout);
+                GridBagConstraints gridBagConstraints = new GridBagConstraints();
+
+                for (int i=0 ;i<50;i++){
+                    JLabel jLPath = new JLabel("c://ssssssss/s/s/s/s/s/s/44444444");
+                    jLPath.setFont(new Font("仿宋",Font.PLAIN,20));
+                    jLPath.setBorder(BorderFactory.createLineBorder(Color.white,1));
+                    jLPath.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            try {
+                                JLabel evnLab = (JLabel)e.getSource();
+                                String vca = "cmd /c start \" \" \""+evnLab.getText()+"\"" ;
+                                Runtime.getRuntime().exec(vca);
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            jLPath.setForeground(Color.BLUE);
+                        }
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            jLPath.setForeground(Color.BLACK);
+                        }
+                    });
+                    gridBagConstraints.gridx = 0 ;
+                    gridBagConstraints.gridy = i;
+                    gridBagConstraints.fill = GridBagConstraints.HORIZONTAL ;
+                    // 当窗口放大时，长度变
+                    gridBagConstraints.weightx = 1;
+                    gridBagConstraints.insets = new Insets(0, 10, 0, 10);
+                    gridBagLayout.setConstraints(jLPath,gridBagConstraints);
+                    centre.add(jLPath);
+                }
+
+                //centre.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+                // 过度面板 使组件在最上面
+                JPanel excessive = new JPanel(new BorderLayout());
+                excessive.add(centre,BorderLayout.NORTH);
+
+                JScrollPane jScrollPane = new JScrollPane(excessive);
                 mView.add(top,BorderLayout.NORTH);
-                mView.add(centre,BorderLayout.CENTER);
+                mView.add(jScrollPane,BorderLayout.CENTER);
                 mView.setBorder(BorderFactory.createLineBorder(Color.black,1));
                 container.add(mView);
                 d.setModal(true);
                 d.setSize(600, 400);
                 d.setMinimumSize(new Dimension(600,400));
-
                 d.setLocationRelativeTo(null);
                 d.setVisible(true);
             }
