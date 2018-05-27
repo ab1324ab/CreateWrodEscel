@@ -366,7 +366,7 @@ public class TextEditing implements FunctionInter {
                 for(int i = 1; i < assemblyList.size(); i++){
                     JCheckBox jCheckBox = (JCheckBox)assemblyList.get(i);
                     if("搜索所有文件名".equals(jCheckBox.getText()) && jCheckBox.isSelected()){
-                        term += "]";
+                        term = ".";
                         break;
                     }else{
                         if("搜索包含数字文件名".equals(jCheckBox.getText()) && jCheckBox.isSelected()){
@@ -383,7 +383,7 @@ public class TextEditing implements FunctionInter {
                 if("[".equals(term)){
                     JOptionPane.showMessageDialog(jFrame, "请选择搜索方式", "提示", JOptionPane.WARNING_MESSAGE);
                     //return;
-                }else if(!"[]".equals(term)){
+                }else if(!".".equals(term)){
                     term += "]";
                 }
 
