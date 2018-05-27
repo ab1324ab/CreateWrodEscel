@@ -41,7 +41,6 @@ public class WindowView extends JFrame implements Runnable {
      * 初始化窗口所有参数
      */
     public void init() {
-
         this.setSize(1020, 650);
         this.setMinimumSize(new Dimension(1020,650));
         this.setTitle("综合工具" + VERSION_THIS);

@@ -96,10 +96,17 @@
         </dependency>
 
         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.5</version>
+        </dependency>
+
+        <dependency>
             <groupId>two-dimension</groupId>
             <artifactId>two-dimension-code</artifactId>
             <version>1.0.1</version>
         </dependency>
+
 
     </dependencies>
 

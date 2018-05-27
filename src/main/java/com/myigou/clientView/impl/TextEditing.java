@@ -1,17 +1,17 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientView.FunctionInter;
-import com.myigou.module.MyProgressBar;
-import com.myigou.tool.WindowTool;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
-import javax.swing.Timer;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +43,8 @@ public class TextEditing implements FunctionInter {
     // 文字大小
     private Font fontTxT = new Font("楷体",Font.BOLD,18);
     int[]  position = {5,5,5,5};
+    // 组件数组
+    List<Object> assemblyList = new ArrayList<Object>();
 
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
@@ -172,6 +174,7 @@ public class TextEditing implements FunctionInter {
         gridBagConstraints.gridwidth = 3;
         gridBagLayout.setConstraints(fileAddress, gridBagConstraints);
         jPanel.add(fileAddress);
+        assemblyList.add(fileAddress);
 
         selectExtracting = new JButton("搜索");
         selectExtracting.setFocusPainted(false);
@@ -186,9 +189,13 @@ public class TextEditing implements FunctionInter {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 4;
         JCheckBox searchAll = new JCheckBox("搜索所有文件名");
+        assemblyList.add(searchAll);
         JCheckBox searchNumber = new JCheckBox("搜索包含数字文件名");
+        assemblyList.add(searchNumber);
         JCheckBox searchChinese = new JCheckBox("搜索包含中文文件名");
+        assemblyList.add(searchChinese);
         JCheckBox searchEnglish = new JCheckBox("搜索包含英文文件名");
+        assemblyList.add(searchEnglish);
         select.add(searchAll);
         select.add(searchNumber);
         select.add(searchChinese);
@@ -196,12 +203,6 @@ public class TextEditing implements FunctionInter {
         gridBagLayout.setConstraints(select, gridBagConstraints);
         jPanel.add(select);
 
-        extracting.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
     }
 
     private void createFolders2(JPanel jPanel) {
@@ -349,7 +350,47 @@ public class TextEditing implements FunctionInter {
         selectExtracting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JDialog d = new JDialog(jFrame,"文件夹名");
+                JTextField textField = (JTextField)assemblyList.get(0);
+                String selectUrl = textField.getText();
+                if(StringUtils.isEmpty(selectUrl)){
+                    //JOptionPane.showMessageDialog(jFrame, "搜索路径不能为空", "提示", JOptionPane.WARNING_MESSAGE);
+                    //return;
+                }
+                Pattern pattern = NUMBER_PATTERN;
+                Matcher matcher = pattern.matcher(selectUrl);
+                if(!matcher.find()){
+                    //JOptionPane.showMessageDialog(jFrame, "请输入正确搜索路径", "提示", JOptionPane.WARNING_MESSAGE);
+                    //return;
+                }
+                String term = "[";
+                for(int i = 1; i < assemblyList.size(); i++){
+                    JCheckBox jCheckBox = (JCheckBox)assemblyList.get(i);
+                    if("搜索所有文件名".equals(jCheckBox.getText()) && jCheckBox.isSelected()){
+                        term += "]";
+                        break;
+                    }else{
+                        if("搜索包含数字文件名".equals(jCheckBox.getText()) && jCheckBox.isSelected()){
+                            term += "0-9";
+                        }
+                        if("搜索包含英文文件名".equals(jCheckBox.getText()) && jCheckBox.isSelected()){
+                            term += "a-zA-Z";
+                        }
+                        if("搜索包含中文文件名".equals(jCheckBox.getText()) && jCheckBox.isSelected()){
+                            term += "\u4E00-\u9FA5";
+                        }
+                    }
+                }
+                if("[".equals(term)){
+                    JOptionPane.showMessageDialog(jFrame, "请选择搜索方式", "提示", JOptionPane.WARNING_MESSAGE);
+                    //return;
+                }else if(!"[]".equals(term)){
+                    term += "]";
+                }
+
+
+                JDialog d = new JDialog(jFrame,selectUrl.toUpperCase());
+                d.setSize(700, 400);
+
                 Container container = d.getContentPane();
                 container.setLayout(new BorderLayout());
                 JPanel mView = new JPanel();
@@ -384,10 +425,13 @@ public class TextEditing implements FunctionInter {
                         }
                         @Override
                         public void mouseEntered(MouseEvent e) {
-                            jLPath.setForeground(Color.BLUE);
+                            jLPath.setOpaque(true);
+                            jLPath.setForeground(Color.WHITE);
+                            jLPath.setBackground(Color.BLUE);
                         }
                         @Override
                         public void mouseExited(MouseEvent e) {
+                            jLPath.setOpaque(false);
                             jLPath.setForeground(Color.BLACK);
                         }
                     });
@@ -398,22 +442,17 @@ public class TextEditing implements FunctionInter {
                     gridBagConstraints.weightx = 1;
                     gridBagConstraints.insets = new Insets(0, 10, 0, 10);
                     gridBagLayout.setConstraints(jLPath,gridBagConstraints);
+                    //jLPath.setOpaque(false);
                     centre.add(jLPath);
                 }
-
-                //centre.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
-                // 过度面板 使组件在最上面
-                JPanel excessive = new JPanel(new BorderLayout());
-                excessive.add(centre,BorderLayout.NORTH);
-
-                JScrollPane jScrollPane = new JScrollPane(excessive);
+                JScrollPane jScrollPane = new JScrollPane(centre);
                 mView.add(top,BorderLayout.NORTH);
                 mView.add(jScrollPane,BorderLayout.CENTER);
                 mView.setBorder(BorderFactory.createLineBorder(Color.black,1));
                 container.add(mView);
                 d.setModal(true);
-                d.setSize(600, 400);
-                d.setMinimumSize(new Dimension(600,400));
+
+                d.setMinimumSize(new Dimension(700,400));
                 d.setLocationRelativeTo(null);
                 d.setVisible(true);
             }
