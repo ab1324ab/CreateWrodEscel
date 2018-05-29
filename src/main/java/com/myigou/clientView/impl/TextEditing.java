@@ -273,7 +273,7 @@ public class TextEditing implements FunctionInter {
         extracting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ("".equals(fileAddress.getText())) {
+                if (StringUtils.isEmpty(fileAddress.getText())) {
                     JOptionPane.showMessageDialog(jFrame, "请先选择或输入路径", "提示", JOptionPane.WARNING_MESSAGE);
                     return;
                 } else if (!new File(fileAddress.getText()).exists()) {

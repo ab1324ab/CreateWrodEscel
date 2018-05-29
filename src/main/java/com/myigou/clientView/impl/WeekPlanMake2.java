@@ -7,6 +7,7 @@ import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -832,14 +833,14 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         List<String> tswkPlanList = new ArrayList<String>();
         for (int tswk = 0; tswk < tswkMap.size(); tswk++) {
             String conten = contentMap.get(WeekPropertiesEnum.tswMapLine + tswk);
-            if (!"".equals(conten) && conten != null) {
+            if (!StringUtils.isEmpty(conten) && conten != null) {
                 tswkPlanList.add(conten);
             }
         }
         List<String> nxvWkPlanList = new ArrayList<String>();
         for (int nxvWk = 0; nxvWk < nxvWkMap.size(); nxvWk++) {
             String conten = contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk);
-            if (!"".equals(conten) && conten != null) {
+            if (!StringUtils.isEmpty(conten) && conten != null) {
                 nxvWkPlanList.add(conten);
             }
         }

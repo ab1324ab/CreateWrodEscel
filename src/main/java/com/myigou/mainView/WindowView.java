@@ -3,6 +3,7 @@ package com.myigou.mainView;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.*;
 import com.myigou.tool.*;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -129,7 +130,7 @@ public class WindowView extends JFrame implements Runnable {
     public void run() {
         int i = 1;
         System.out.println("更新模块启动");
-        while ("".equals(version) && i <= 10) {
+        while (StringUtils.isEmpty(version) && i <= 10) {
             HttpRequestEnter httpRequestEnter = new HttpRequestEnter();
             try {
                 version = HttpRequestEnter.versionEscel();

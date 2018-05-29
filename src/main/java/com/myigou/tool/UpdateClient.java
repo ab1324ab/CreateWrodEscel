@@ -1,6 +1,7 @@
 package com.myigou.tool;
 
 import com.myigou.mainView.WindowView;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 
@@ -19,7 +20,7 @@ public class UpdateClient {
         if ("error".equals(version)) {
             JOptionPane.showMessageDialog(clientPanel, "当前管理员禁止使用 ! ", "提示", JOptionPane.QUESTION_MESSAGE);
             System.exit(0);
-        } else if (!WindowView.VERSION_THIS.equals(version) && !"".equals(version)) {
+        } else if (!WindowView.VERSION_THIS.equals(version) && !StringUtils.isEmpty(version)) {
             JOptionPane.showMessageDialog(clientPanel, "当前版本有更新" + version, "提示", JOptionPane.WARNING_MESSAGE);
             // JFrame jFrameGenx=new JFrame("dd");
             // jFrameGenx.setSize(300,100);

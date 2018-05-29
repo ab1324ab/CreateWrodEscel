@@ -4,6 +4,7 @@ import com.myigou.clientService.enums.ColorEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
+import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -479,7 +480,7 @@ public class WindowSetting implements FunctionInter {
                         PropertiesTool.writeSet(CONFIG_FILE,key,textFieldText);
                     } else {
                         JTextField textField = (JTextField) setMap.get(key);
-                        if("".equals(textField.getText())){
+                        if(StringUtils.isEmpty(textField.getText())){
                             JOptionPane.showMessageDialog(jFrame, "不允许设置内容空值！", "提示", JOptionPane.WARNING_MESSAGE);
                             return;
                         }

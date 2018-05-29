@@ -5,6 +5,7 @@ import com.myigou.clientService.errorcode.HintInformationErrorCode;
 import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -53,7 +54,7 @@ public class CreateExcel2 {
                     Object jComboBoxValue = jComboBox.getSelectedItem();
                     jComboBoxValue = jComboBoxValue.toString().replace("&", "");
                     jComboBoxValue = jComboBoxValue.toString().replace("?", "");
-                    if (!"".equals(jComboBoxValue) && jComboBoxValue != null) {
+                    if (jComboBoxValue != null) {
                         strLine = strLine + jComboBoxValue + PropertiesTool.READ_SGMTA_SPLIT;
                     } else {
                         strLine = strLine + WeekPropertiesEnum.ASK + PropertiesTool.READ_SGMTA_SPLIT;
@@ -63,7 +64,7 @@ public class CreateExcel2 {
                     String jTextFieldText = jTextField.getText();
                     jTextFieldText = jTextFieldText.replace("&", "");
                     jTextFieldText = jTextFieldText.replace("?", "");
-                    if (!"".equals(jTextFieldText) && jTextFieldText != null) {
+                    if (!StringUtils.isEmpty(jTextFieldText) && jTextFieldText != null) {
                         strLine = strLine + jTextFieldText + PropertiesTool.READ_SGMTA_SPLIT;
                     } else {
                         strLine = strLine + WeekPropertiesEnum.ASK + PropertiesTool.READ_SGMTA_SPLIT;
@@ -123,14 +124,14 @@ public class CreateExcel2 {
         List<String> tswkPlanList = new ArrayList<String>();
         for (int tswk = 0; tswk < tswkRow; tswk++) {
             String conten = contentMap.get(WeekPropertiesEnum.tswMapLine + tswk);
-            if (!"".equals(conten) && conten != null) {
+            if (!StringUtils.isEmpty(conten)) {
                 tswkPlanList.add(conten);
             }
         }
         List<String> nxvWkPlanList = new ArrayList<String>();
         for (int nxvWk = 0; nxvWk < nxvWkRow; nxvWk++) {
             String conten = contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk);
-            if (!"".equals(conten) && conten != null) {
+            if (!StringUtils.isEmpty(conten)) {
                 nxvWkPlanList.add(conten);
             }
         }
@@ -253,7 +254,7 @@ public class CreateExcel2 {
                 String string = "";
                 for (int cellLineNum = 0; cellLineNum < lineNum.length; cellLineNum++) {
                     String rowContent = row.getCell(lineNum[cellLineNum]).toString();
-                    if ("".equals(rowContent)) {
+                    if (StringUtils.isEmpty(rowContent)) {
                         rowContent = WeekPropertiesEnum.ASK;
                     } else if (cellLineNum == 3) {
                         rowContent = rowContent.replace(".0", "");
