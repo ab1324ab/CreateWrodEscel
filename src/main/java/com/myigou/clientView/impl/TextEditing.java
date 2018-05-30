@@ -280,7 +280,7 @@ public class TextEditing implements FunctionInter {
                     JOptionPane.showMessageDialog(jFrame, "目录不存在！", "提示", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                final int fileNumber = getCountFile(fileAddress.getText(), 0);
+                List<String> fileNumber = getCountFile(fileAddress.getText(), new ArrayList<String>());
                 Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
@@ -296,7 +296,7 @@ public class TextEditing implements FunctionInter {
                         File file = new File(fileAddress.getText());
                         File[] files = file.listFiles();
                         for (int i = 0; i < files.length; i++) {
-                            number = readWriteFile(createDirectory, files[i], barrel, number, jPanel, jFrame,fileNumber);
+                            number = readWriteFile(createDirectory, files[i], barrel, number, jPanel, jFrame,fileNumber.size());
                         }
                         extracting.setEnabled(true);
                     }
@@ -350,16 +350,24 @@ public class TextEditing implements FunctionInter {
         selectExtracting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JTextField textField = (JTextField)assemblyList.get(0);
-                String selectUrl = textField.getText();
-                if(StringUtils.isEmpty(selectUrl)){
-                    //JOptionPane.showMessageDialog(jFrame, "搜索路径不能为空", "提示", JOptionPane.WARNING_MESSAGE);
-                    //return;
+                JFileChooser chooser = new JFileChooser();
+                // 设置只能选择目录
+                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                String selectUrl = "";
+                int returnVal = chooser.showOpenDialog(jFrame);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    selectUrl = chooser.getSelectedFile().getPath();
                 }
+                if (StringUtils.isEmpty(selectUrl)) {
+                    JOptionPane.showMessageDialog(jFrame, "搜索路径不能为空", "提示", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                ((JTextField)assemblyList.get(0)).setText(selectUrl);
+
                 Pattern pattern = NUMBER_PATTERN;
                 Matcher matcher = pattern.matcher(selectUrl);
                 if(!matcher.find()){
-                    //JOptionPane.showMessageDialog(jFrame, "请输入正确搜索路径", "提示", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(jFrame, "请输入正确搜索路径", "提示", JOptionPane.WARNING_MESSAGE);
                     //return;
                 }
                 String term = "[";
@@ -387,6 +395,12 @@ public class TextEditing implements FunctionInter {
                     term += "]";
                 }
 
+                //Pattern compile = Pattern.compile(term);
+                File selectFile = new File(selectUrl);
+                List<String> pathList = getCountFile(selectFile.getAbsolutePath(),new ArrayList<>());
+
+                //Matcher matcher1 = compile.matcher(selectUrl);
+
 
                 JDialog d = new JDialog(jFrame,selectUrl.toUpperCase());
                 d.setSize(700, 400);
@@ -403,23 +417,32 @@ public class TextEditing implements FunctionInter {
                 jTextField.setColumns(30);
                 top.add(jTextField);
                 top.add(new JButton("筛选"));
+                top.add(new JLabel("共 "+pathList.size()+" 个文件"));
                 JPanel centre = new JPanel();
                 GridBagLayout gridBagLayout= new GridBagLayout();
                 centre.setLayout(gridBagLayout);
                 GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-                for (int i=0 ;i<50;i++){
-                    JLabel jLPath = new JLabel("c://ssssssss/s/s/s/s/s/s/44444444");
+                for (int i=0 ; i<pathList.size(); i++){
+                    JLabel jLPath = new JLabel(pathList.get(i).replace(selectUrl,""));
+                    jLPath.setName(pathList.get(i));
                     jLPath.setFont(new Font("仿宋",Font.PLAIN,20));
                     jLPath.setBorder(BorderFactory.createLineBorder(Color.white,1));
                     jLPath.addMouseListener(new MouseAdapter() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             try {
+                                int ComponentCount = centre.getComponentCount();
+                                for(int is=0 ; is<ComponentCount ; is++){
+                                    ((JLabel)centre.getComponent(is)).setBackground(Color.lightGray);
+                                }
+                                jLPath.setOpaque(true);
+                                jLPath.setForeground(Color.BLACK);
+                                jLPath.setBackground(Color.orange);
                                 JLabel evnLab = (JLabel)e.getSource();
-                                String vca = "cmd /c start \" \" \""+evnLab.getText()+"\"" ;
-                                Runtime.getRuntime().exec(vca);
-                            } catch (IOException e1) {
+                                //String vca = "explorer /select, "+ evnLab.getName();
+                                //Runtime.getRuntime().exec(vca);
+                            } catch (Exception e1) {
                                 e1.printStackTrace();
                             }
                         }
@@ -445,10 +468,14 @@ public class TextEditing implements FunctionInter {
                     //jLPath.setOpaque(false);
                     centre.add(jLPath);
                 }
-                JScrollPane jScrollPane = new JScrollPane(centre);
+
+                JPanel jPanel1 = new JPanel(new BorderLayout());
+                jPanel1.add(centre,BorderLayout.NORTH);
+                JScrollPane jScrollPane = new JScrollPane(jPanel1);
+
                 mView.add(top,BorderLayout.NORTH);
                 mView.add(jScrollPane,BorderLayout.CENTER);
-                mView.setBorder(BorderFactory.createLineBorder(Color.black,1));
+                //mView.setBorder(BorderFactory.createLineBorder(Color.black,1));
                 container.add(mView);
                 d.setModal(true);
 
@@ -502,12 +529,12 @@ public class TextEditing implements FunctionInter {
      * @param count
      * @return
      */
-    public int getCountFile(String FilePath, int count) {
+    public List<String> getCountFile(String FilePath, List<String> count) {
         File file = new File(FilePath);
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isFile()) {
-                count++;
+                count.add(f.getAbsolutePath());
             } else if (f.isDirectory()) {
                 count = getCountFile(f.getPath(), count);
             }
