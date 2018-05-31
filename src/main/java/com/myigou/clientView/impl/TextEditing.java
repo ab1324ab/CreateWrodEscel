@@ -350,26 +350,6 @@ public class TextEditing implements FunctionInter {
         selectExtracting.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                // 设置只能选择目录
-                chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-                String selectUrl = "";
-                int returnVal = chooser.showOpenDialog(jFrame);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    selectUrl = chooser.getSelectedFile().getPath();
-                }
-                if (StringUtils.isEmpty(selectUrl)) {
-                    JOptionPane.showMessageDialog(jFrame, "搜索路径不能为空", "提示", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                ((JTextField)assemblyList.get(0)).setText(selectUrl);
-
-                Pattern pattern = NUMBER_PATTERN;
-                Matcher matcher = pattern.matcher(selectUrl);
-                if(!matcher.find()){
-                    JOptionPane.showMessageDialog(jFrame, "请输入正确搜索路径", "提示", JOptionPane.WARNING_MESSAGE);
-                    //return;
-                }
                 String term = "[";
                 for(int i = 1; i < assemblyList.size(); i++){
                     JCheckBox jCheckBox = (JCheckBox)assemblyList.get(i);
@@ -390,39 +370,59 @@ public class TextEditing implements FunctionInter {
                 }
                 if("[".equals(term)){
                     JOptionPane.showMessageDialog(jFrame, "请选择搜索方式", "提示", JOptionPane.WARNING_MESSAGE);
-                    //return;
+                    return;
                 }else if(!".".equals(term)){
                     term += "]";
                 }
-
-                //Pattern compile = Pattern.compile(term);
+                // 获取输入的路径
+                String selectUrl = ((JTextField)assemblyList.get(0)).getText();
+                if(StringUtils.isEmpty(selectUrl)){
+                    JFileChooser chooser = new JFileChooser();
+                    // 设置只能选择目录
+                    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                    int returnVal = chooser.showOpenDialog(jFrame);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        selectUrl = chooser.getSelectedFile().getPath();
+                    }
+                    if (StringUtils.isEmpty(selectUrl)) {
+                        return;
+                    }
+                    ((JTextField)assemblyList.get(0)).setText(selectUrl);
+                }
+                Pattern pattern = NUMBER_PATTERN;
+                Matcher matcher = pattern.matcher(selectUrl);
+                if(!matcher.find()){
+                    JOptionPane.showMessageDialog(jFrame, "请输入正确搜索路径", "提示", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                // 动态正则 筛选文件
+                Pattern compile = Pattern.compile(term);
                 File selectFile = new File(selectUrl);
-                List<String> pathList = getCountFile(selectFile.getAbsolutePath(),new ArrayList<>());
-
-                //Matcher matcher1 = compile.matcher(selectUrl);
-
-
+                List<String> pathList = new ArrayList<String>();
+                List<String> pathTemp = getCountFile(selectFile.getAbsolutePath(),new ArrayList<>());
+                for(int i=0 ; i<pathTemp.size() ; i++){
+                    String[] pStr = null;
+                    if(pathTemp.get(i).split("//").length > 1){
+                        pStr = pathTemp.get(i).split("//");
+                    }else if(pathTemp.get(i).split("\\\\").length > 1){
+                        pStr = pathTemp.get(i).split("\\\\");
+                    }
+                    String fileName = pStr[pStr.length - 1];
+                    Matcher matcher1 = compile.matcher(fileName);
+                    if(matcher1.find()){
+                        pathList.add(pathTemp.get(i));
+                    }
+                }
+                // 组装自定义 对话框
                 JDialog d = new JDialog(jFrame,selectUrl.toUpperCase());
                 d.setSize(700, 400);
-
                 Container container = d.getContentPane();
                 container.setLayout(new BorderLayout());
-                JPanel mView = new JPanel();
-                mView.setLayout(new BorderLayout());
-                JPanel top = new JPanel(new FlowLayout());
-                top.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
-                top.add(new JLabel("条件:",JLabel.CENTER));
-                JTextField jTextField= new JTextField();
-                jTextField.setFont(new Font("黑体",Font.PLAIN,15));
-                jTextField.setColumns(30);
-                top.add(jTextField);
-                top.add(new JButton("筛选"));
-                top.add(new JLabel("共 "+pathList.size()+" 个文件"));
+                // 文件路径展示面板
                 JPanel centre = new JPanel();
                 GridBagLayout gridBagLayout= new GridBagLayout();
                 centre.setLayout(gridBagLayout);
                 GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
                 for (int i=0 ; i<pathList.size(); i++){
                     JLabel jLPath = new JLabel(pathList.get(i).replace(selectUrl,""));
                     jLPath.setName(pathList.get(i));
@@ -465,17 +465,41 @@ public class TextEditing implements FunctionInter {
                     gridBagConstraints.weightx = 1;
                     gridBagConstraints.insets = new Insets(0, 10, 0, 10);
                     gridBagLayout.setConstraints(jLPath,gridBagConstraints);
-                    //jLPath.setOpaque(false);
                     centre.add(jLPath);
                 }
 
                 JPanel jPanel1 = new JPanel(new BorderLayout());
                 jPanel1.add(centre,BorderLayout.NORTH);
                 JScrollPane jScrollPane = new JScrollPane(jPanel1);
+                // 顶部控制面板
+                JPanel top = new JPanel(new FlowLayout());
+                top.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+                top.add(new JLabel("条件:",JLabel.CENTER));
+                JTextField jTextField= new JTextField();
+                jTextField.setFont(new Font("黑体",Font.PLAIN,15));
+                jTextField.setColumns(30);
+                top.add(jTextField);
+                JButton screenJButton = new JButton("筛选");
+                JLabel jFileCount = new JLabel("共 "+pathList.size()+" 个文件");
+                top.add(jFileCount);
+                top.add(screenJButton);
+                screenJButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        centre.removeAll();
+                        String cc = jTextField.getText();
+                        for(int i=0 ; i<pathList.size() ; i++){
 
+                        }
+                        jFileCount.setText("");
+
+                    }
+                });
+                // 显示主面板
+                JPanel mView = new JPanel();
+                mView.setLayout(new BorderLayout());
                 mView.add(top,BorderLayout.NORTH);
                 mView.add(jScrollPane,BorderLayout.CENTER);
-                //mView.setBorder(BorderFactory.createLineBorder(Color.black,1));
                 container.add(mView);
                 d.setModal(true);
 
