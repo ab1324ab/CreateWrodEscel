@@ -254,7 +254,8 @@ public class TextEditing implements FunctionInter {
         select.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
+                String filePath = fileAddress.getText();
+                JFileChooser chooser = new JFileChooser(filePath);
                 // 设置只能选择目录
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 String directoryURL = "";
