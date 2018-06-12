@@ -1,16 +1,13 @@
 package com.myigou.tool;
 
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.CoreConnectionPNames;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.params.HttpMethodParams;
+import java.util.Map;
 
 /**
  * @author ab1324ab
@@ -18,30 +15,61 @@ import java.io.InputStreamReader;
  */
 public class HttpRequestEnter {
 
-    public static String versionEscel() {
-        HttpClient client = new DefaultHttpClient();
+    public static String doPostStr(String url,Map<String,String> map) {
+        HttpClient httpClient = new HttpClient();
         try {
-            client.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60);
-            // testh.html
-            HttpGet httpGet = new HttpGet("http://www.nacei.top/version.html");
-            HttpResponse response = client.execute(httpGet);
-            int status = response.getStatusLine().getStatusCode();
-            if (status == 200) {
-                HttpEntity entity = response.getEntity();
-                InputStream inputStream = entity.getContent();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line = reader.readLine();
-                inputStream.close();
-                reader.close();
-                System.out.println("Request SUCCESS !");
-                return line;
+            PostMethod postMethod = new PostMethod("http://www.nacei.top/version.html");
+            postMethod.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
+            httpClient.getParams().setContentCharset("UTF-8");
+            httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+
+            NameValuePair[] requestBody = new NameValuePair[map.size()];
+            int i = 0;
+            for(String key : map.keySet()){
+                String value = map.get(key);
+                requestBody[i] = new NameValuePair(key, value);
+                i++;
+            }
+            postMethod.setRequestBody(requestBody);
+
+            int statusCode = httpClient.executeMethod(postMethod);
+            if (statusCode == HttpStatus.SC_OK) {
+                String retData = postMethod.getResponseBodyAsString();
+                System.out.println("Request POST SUCCESS !");
+                return retData;
             } else {
-                System.out.println("HttpStatus=" + status + " ; Request ERROR !");
+                System.out.println("HttpStatus=" + statusCode + " ; Request POST ERROR !");
             }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
+        }finally {
+
         }
         return "";
+    }
+
+    public static String doGetStr(String url) {
+        String result = "";
+        try {
+            HttpClient httpClient = new HttpClient();
+            GetMethod getMethod = new GetMethod(url);
+
+            getMethod.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
+            httpClient.getParams().setContentCharset("UTF-8");
+            httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
+            //httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(3000);
+
+            int statusCode = httpClient.executeMethod(getMethod);
+            if(statusCode == HttpStatus.SC_OK){
+                result = getMethod.getResponseBodyAsString();
+                System.out.println("Request GET SUCCESS !");
+            }else{
+                System.out.println("HttpStatus=" + statusCode + " ; Request GET ERROR !");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
 
