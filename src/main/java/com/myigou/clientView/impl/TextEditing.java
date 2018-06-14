@@ -441,8 +441,8 @@ public class TextEditing implements FunctionInter {
                                 jLPath.setForeground(Color.BLACK);
                                 jLPath.setBackground(Color.orange);
                                 JLabel evnLab = (JLabel)e.getSource();
-                                //String vca = "explorer /select, "+ evnLab.getName();
-                                //Runtime.getRuntime().exec(vca);
+                                String vca = "explorer /select, "+ evnLab.getName();
+                                Runtime.getRuntime().exec(vca);
                             } catch (Exception e1) {
                                 e1.printStackTrace();
                             }
@@ -468,7 +468,6 @@ public class TextEditing implements FunctionInter {
                     gridBagLayout.setConstraints(jLPath,gridBagConstraints);
                     centre.add(jLPath);
                 }
-
                 JPanel jPanel1 = new JPanel(new BorderLayout());
                 jPanel1.add(centre,BorderLayout.NORTH);
                 JScrollPane jScrollPane = new JScrollPane(jPanel1);
@@ -484,16 +483,23 @@ public class TextEditing implements FunctionInter {
                 JLabel jFileCount = new JLabel("共 "+pathList.size()+" 个文件");
                 top.add(jFileCount);
                 top.add(screenJButton);
+                String finalConvertUrl = selectUrl;
                 screenJButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        centre.removeAll();
-                        String cc = jTextField.getText();
+                        String jText = jTextField.getText().toLowerCase();
+                        int countFile = 0;
                         for(int i=0 ; i<pathList.size() ; i++){
-
+                            JLabel jLabel = (JLabel)centre.getComponent(i);
+                            String sUrl = jLabel.getText().replace(finalConvertUrl,"").toLowerCase();
+                            if(sUrl.indexOf(jText) != -1){
+                                countFile++;
+                                jLabel.setVisible(true);
+                            }else{
+                                jLabel.setVisible(false);
+                            }
                         }
-                        jFileCount.setText("");
-
+                        jFileCount.setText("共 "+countFile+" 个文件");
                     }
                 });
                 // 显示主面板

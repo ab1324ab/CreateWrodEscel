@@ -22,7 +22,6 @@ public class HttpRequestEnter {
             postMethod.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
             httpClient.getParams().setContentCharset("UTF-8");
             httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
-
             NameValuePair[] requestBody = new NameValuePair[map.size()];
             int i = 0;
             for(String key : map.keySet()){
@@ -31,7 +30,6 @@ public class HttpRequestEnter {
                 i++;
             }
             postMethod.setRequestBody(requestBody);
-
             int statusCode = httpClient.executeMethod(postMethod);
             if (statusCode == HttpStatus.SC_OK) {
                 String retData = postMethod.getResponseBodyAsString();
@@ -42,8 +40,6 @@ public class HttpRequestEnter {
             }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
-        }finally {
-
         }
         return "";
     }
@@ -53,12 +49,10 @@ public class HttpRequestEnter {
         try {
             HttpClient httpClient = new HttpClient();
             GetMethod getMethod = new GetMethod(url);
-
             getMethod.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
             httpClient.getParams().setContentCharset("UTF-8");
             httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
             //httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(3000);
-
             int statusCode = httpClient.executeMethod(getMethod);
             if(statusCode == HttpStatus.SC_OK){
                 result = getMethod.getResponseBodyAsString();
@@ -67,7 +61,7 @@ public class HttpRequestEnter {
                 System.out.println("HttpStatus=" + statusCode + " ; Request GET ERROR !");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }
         return result;
     }
