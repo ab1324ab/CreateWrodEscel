@@ -131,7 +131,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 CreateExcel2 excel2 = new CreateExcel2();
                 DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList,directoryURL);
                 if (dataSources.getStatus() != null) {
-                    JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "提示", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "错误", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 //                String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";

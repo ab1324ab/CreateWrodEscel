@@ -18,10 +18,10 @@ public class UpdateClient {
      */
     public static void updateInstall(JFrame clientPanel, String version) {
         if (version.indexOf("error") != -1) {
-            JOptionPane.showMessageDialog(clientPanel, "当前管理员禁止使用 ! ", "提示", JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.showMessageDialog(clientPanel, "当前管理员禁止使用 ! ", "提示", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         } else if (!WindowView.VERSION_THIS.equals(version)) {
-            JOptionPane.showMessageDialog(clientPanel, "当前版本有更新" + version, "提示", JOptionPane.WARNING_MESSAGE);
+            int flag = JOptionPane.showConfirmDialog(clientPanel, "有新版本 "+version+" 是否更新?" , "更新", JOptionPane.YES_NO_OPTION);
             // JFrame jFrameGenx=new JFrame("dd");
             // jFrameGenx.setSize(300,100);
             // conter(jFrameGenx);

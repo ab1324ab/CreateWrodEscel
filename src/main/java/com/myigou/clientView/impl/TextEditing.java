@@ -160,7 +160,7 @@ public class TextEditing implements FunctionInter {
         gridBagLayout.setConstraints(jLabel, gridBagConstraints);
         jPanel.add(jLabel);
 
-        JLabel address = new JLabel("创建地址:");
+        JLabel address = new JLabel("搜索地址:");
         gridBagConstraints.gridy = 5;
         gridBagConstraints.weightx = 0;
         gridBagConstraints.gridwidth = 1;
@@ -331,7 +331,7 @@ public class TextEditing implements FunctionInter {
                 for(int i = 1; i < urlArr.length; i++){
                     File file = new File(urlArr[0] += "\\"+urlArr[i]);
                     if (!file.exists()){
-                        file.mkdir();
+                        file.mkdirs();
                     }
                 }
                 int res = JOptionPane.showConfirmDialog(jFrame, "是否打开创建目录？", "创建成功", JOptionPane.YES_NO_OPTION);
@@ -400,18 +400,25 @@ public class TextEditing implements FunctionInter {
                 Pattern compile = Pattern.compile(term);
                 File selectFile = new File(selectUrl);
                 List<String> pathList = new ArrayList<String>();
-                List<String> pathTemp = getCountFile(selectFile.getAbsolutePath(),new ArrayList<>());
-                for(int i=0 ; i<pathTemp.size() ; i++){
+                final List<String>[] pathTemp = new List[]{new ArrayList<String>()};
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        pathTemp[0] = getCountFile(selectFile.getAbsolutePath(), new ArrayList<>());
+                    }
+                });
+                thread.run();
+                for(int i = 0; i< pathTemp[0].size() ; i++){
                     String[] pStr = null;
-                    if(pathTemp.get(i).split("//").length > 1){
-                        pStr = pathTemp.get(i).split("//");
-                    }else if(pathTemp.get(i).split("\\\\").length > 1){
-                        pStr = pathTemp.get(i).split("\\\\");
+                    if(pathTemp[0].get(i).split("//").length > 1){
+                        pStr = pathTemp[0].get(i).split("//");
+                    }else if(pathTemp[0].get(i).split("\\\\").length > 1){
+                        pStr = pathTemp[0].get(i).split("\\\\");
                     }
                     String fileName = pStr[pStr.length - 1];
                     Matcher matcher1 = compile.matcher(fileName);
                     if(matcher1.find()){
-                        pathList.add(pathTemp.get(i));
+                        pathList.add(pathTemp[0].get(i));
                     }
                 }
                 // 组装自定义 对话框
@@ -500,6 +507,16 @@ public class TextEditing implements FunctionInter {
                             }
                         }
                         jFileCount.setText("共 "+countFile+" 个文件");
+                    }
+                });
+                // 输入框回车 调用筛选按钮
+                jTextField.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        super.keyTyped(e);
+                        if(10 == e.getKeyCode()){
+                            screenJButton.doClick();
+                        }
                     }
                 });
                 // 显示主面板
