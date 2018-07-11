@@ -124,14 +124,14 @@ public class CreateExcel2 {
         List<String> tswkPlanList = new ArrayList<String>();
         for (int tswk = 0; tswk < tswkRow; tswk++) {
             String conten = contentMap.get(WeekPropertiesEnum.tswMapLine + tswk);
-            if (!StringUtils.isEmpty(conten)) {
+            if (!StringUtils.isEmpty(conten) && !"?&?&&?&&?&?&".equals(conten)) {
                 tswkPlanList.add(conten);
             }
         }
         List<String> nxvWkPlanList = new ArrayList<String>();
         for (int nxvWk = 0; nxvWk < nxvWkRow; nxvWk++) {
             String conten = contentMap.get(WeekPropertiesEnum.nxvWkMapLine + nxvWk);
-            if (!StringUtils.isEmpty(conten)) {
+            if (!StringUtils.isEmpty(conten) && !"?&?&&?&&?&?&".equals(conten)) {
                 nxvWkPlanList.add(conten);
             }
         }

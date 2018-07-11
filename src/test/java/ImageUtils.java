@@ -1,6 +1,6 @@
 import com.swetake.util.Qrcode;
 import jxl.biff.drawing.PNGReader;
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
