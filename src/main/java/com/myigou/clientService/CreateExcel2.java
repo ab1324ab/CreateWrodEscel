@@ -218,9 +218,13 @@ public class CreateExcel2 {
                 // 转换日期
                 dateFormat = new SimpleDateFormat(contentMap.get("excelText"));
                 List<Date> dateList = BusinessTool.getStartDateAndEndDate();
-                foundSheetName = dateFormat.format(dateList.get(0)).replaceFirst("0", "")
-                        + contentMap.get("connectorText")
-                        + dateFormat.format(dateList.get(4)).replaceFirst("0", "");
+                String firStDate = dateFormat.format(dateList.get(0));
+                String endDate = dateFormat.format(dateList.get(4));
+                // 检测月份开头是否含有 “0” 有则去掉
+                if(firStDate.indexOf("0") == 0){
+                    firStDate = firStDate.replaceFirst("0", "");
+                }
+                foundSheetName = firStDate + contentMap.get("connectorText") + endDate;
             }catch (IllegalArgumentException x) {
                 dataSourceResponse.setStatus(HintInformationErrorCode.DateFormatError.getErrorMsg());
                 return dataSourceResponse;
