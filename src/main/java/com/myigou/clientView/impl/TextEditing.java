@@ -299,6 +299,7 @@ public class TextEditing implements FunctionInter {
                         for (int i = 0; i < files.length; i++) {
                             number = readWriteFile(createDirectory, files[i], barrel, number, jPanel, jFrame,fileNumber.size());
                         }
+                        jLabel.setText("<html>一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中 <font  style=\"color:red\"> 搜索结束共: " + number + " 个文件，不包括大小为0kb文件和文件夹</font ></html>");
                         extracting.setEnabled(true);
                     }
                 };
