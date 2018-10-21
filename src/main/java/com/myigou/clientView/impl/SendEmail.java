@@ -43,9 +43,10 @@ public class SendEmail implements FunctionInter {
 
     @Override
     public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
+        jPanel.setLayout(new BorderLayout());
         JLabel title = new JLabel("邮件发送");
         title.setFont(font);
-        jPanel.add(title);
+        jPanel.add(title,BorderLayout.CENTER);
         return jPanel;
     }
 

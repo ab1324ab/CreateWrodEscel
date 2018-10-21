@@ -41,7 +41,7 @@ public class TextEditing implements FunctionInter {
     // 预编译正则表达式
     private static Pattern NUMBER_PATTERN = Pattern.compile("[a-zA-Z]:(\\\\|/)");
     // 文字大小
-    private Font fontTxT = new Font("楷体",Font.BOLD,18);
+    private Font fontTxT = new Font("微软雅黑",Font.PLAIN,14);
     int[]  position = {5,5,5,5};
     // 组件数组
     List<Object> assemblyList = new ArrayList<Object>();
@@ -59,7 +59,7 @@ public class TextEditing implements FunctionInter {
 
     @Override
     public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
-        JLabel title= new JLabel("文件操作");
+        JLabel title = new JLabel("文件操作",JLabel.CENTER);
         title.setFont(font);
         jPanel.add(title);
         return jPanel;
@@ -68,11 +68,12 @@ public class TextEditing implements FunctionInter {
     private void fileConcentrated(JPanel jPanel) {
         Border border = BorderFactory.createEtchedBorder();
         border = BorderFactory.createTitledBorder(border, "",
-                TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 18), Color.BLACK);
+                TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 14), Color.BLACK);
         jPanel.setBorder(border);
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         jLabel = new JLabel("一、取出目录下所有文件集中放置在一个桌面文件夹(Output files)中");
+        jLabel.setFont(fontTxT);
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new Insets(position[0], position[1], position[2], position[3]);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -86,6 +87,7 @@ public class TextEditing implements FunctionInter {
         gridBagConstraints.weightx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 1;
+        address.setFont(fontTxT);
         gridBagLayout.setConstraints(address, gridBagConstraints);
         jPanel.add(address);
         // 文件地址
@@ -98,12 +100,14 @@ public class TextEditing implements FunctionInter {
         jPanel.add(fileAddress);
 
         select = new JButton("选择目录");
+        select.setFont(fontTxT);
         select.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(select, gridBagConstraints);
         jPanel.add(select);
 
         extracting = new JButton("抓取文件");
+        extracting.setFont(fontTxT);
         extracting.setFocusPainted(false);
         gridBagLayout.setConstraints(extracting, gridBagConstraints);
         jPanel.add(extracting);
@@ -114,6 +118,7 @@ public class TextEditing implements FunctionInter {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         JLabel jLabel = new JLabel("二、输入目录创建文件夹");
+        jLabel.setFont(fontTxT);
         gridBagConstraints.gridy = 2;
         gridBagConstraints.insets = new Insets(position[0], position[1], position[2], position[3]);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -124,6 +129,7 @@ public class TextEditing implements FunctionInter {
         jPanel.add(jLabel);
 
         JLabel address = new JLabel("创建地址:");
+        address.setFont(fontTxT);
         gridBagConstraints.weightx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = 1;
@@ -140,6 +146,7 @@ public class TextEditing implements FunctionInter {
         jPanel.add(createFileAddress);
 
         createExtracting = new JButton("创建文件夹");
+        createExtracting.setFont(fontTxT);
         createExtracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(createExtracting, gridBagConstraints);
@@ -151,6 +158,7 @@ public class TextEditing implements FunctionInter {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         JLabel jLabel = new JLabel("三、搜索文件（按条件搜索文件，只搜索文件；不搜索文件内容。）");
+        jLabel.setFont(fontTxT);
         gridBagConstraints.gridy = 4;
         gridBagConstraints.insets = new Insets(position[0], position[1], position[2], position[3]);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -161,6 +169,7 @@ public class TextEditing implements FunctionInter {
         jPanel.add(jLabel);
 
         JLabel address = new JLabel("搜索地址:");
+        address.setFont(fontTxT);
         gridBagConstraints.gridy = 5;
         gridBagConstraints.weightx = 0;
         gridBagConstraints.gridwidth = 1;
@@ -177,6 +186,7 @@ public class TextEditing implements FunctionInter {
         assemblyList.add(fileAddress);
 
         selectExtracting = new JButton("搜索");
+        selectExtracting.setFont(fontTxT);
         selectExtracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(selectExtracting, gridBagConstraints);
@@ -189,12 +199,16 @@ public class TextEditing implements FunctionInter {
         gridBagConstraints.gridy = 6;
         gridBagConstraints.gridwidth = 4;
         JCheckBox searchAll = new JCheckBox("搜索所有文件名");
+        searchAll.setFont(fontTxT);
         assemblyList.add(searchAll);
         JCheckBox searchNumber = new JCheckBox("搜索包含数字文件名");
+        searchNumber.setFont(fontTxT);
         assemblyList.add(searchNumber);
         JCheckBox searchChinese = new JCheckBox("搜索包含中文文件名");
+        searchChinese.setFont(fontTxT);
         assemblyList.add(searchChinese);
         JCheckBox searchEnglish = new JCheckBox("搜索包含英文文件名");
+        searchEnglish.setFont(fontTxT);
         assemblyList.add(searchEnglish);
         select.add(searchAll);
         select.add(searchNumber);
@@ -209,6 +223,7 @@ public class TextEditing implements FunctionInter {
         // 控制按钮显示组件
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
         JLabel jLabel = new JLabel("四、功能开发中。。");
+        jLabel.setFont(fontTxT);
         gridBagConstraints.gridy = 7;
         gridBagConstraints.insets = new Insets(position[0], position[1], position[2], position[3]);
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -219,6 +234,7 @@ public class TextEditing implements FunctionInter {
         jPanel.add(jLabel);
 
         JLabel address = new JLabel("创建地址:");
+        address.setFont(fontTxT);
         gridBagConstraints.gridy = 8;
         gridBagConstraints.weightx = 0;
         gridBagConstraints.gridwidth = 1;
@@ -234,6 +250,7 @@ public class TextEditing implements FunctionInter {
         jPanel.add(fileAddress);
 
         JButton extracting = new JButton("创建文件夹");
+        extracting.setFont(fontTxT);
         extracting.setFocusPainted(false);
         gridBagConstraints.gridwidth = 1;
         gridBagLayout.setConstraints(extracting, gridBagConstraints);

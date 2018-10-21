@@ -51,6 +51,8 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     // 保存
     private JButton save = null;
 
+    private Font font = new Font("微软雅黑",Font.PLAIN,14);
+
     public WeekPlanMake() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
     }
@@ -69,7 +71,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     @Override
     public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
-        JLabel title = new JLabel("周计划生成");
+        JLabel title = new JLabel("周计划生成",JLabel.CENTER);
         title.setFont(font);
         jPanel.add(title);
         return jPanel;
@@ -89,16 +91,19 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         // 文件名 提示标签
         JLabel titleFileName = new JLabel("文件名：",JLabel.RIGHT);
+        titleFileName.setFont(font);
         gridBagLayout.setConstraints(titleFileName, gridBagConstraints);
         pagePanel1.add(titleFileName);
         // 文件名 输入框
         fileName = new JTextField(contentMap.get("fileName"));
         fileName.setColumns(27);
+        fileName.setFont(font);
         gridBagConstraints.gridwidth = 3;
         gridBagLayout.setConstraints(fileName, gridBagConstraints);
         pagePanel1.add(fileName);
         // 按钮保存
         save = new JButton("保存");
+        save.setFont(font);
         save.setFocusPainted(false);
         save.setPreferredSize(new Dimension(80, 25));
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
@@ -107,6 +112,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         pagePanel1.add(save);
         // 按钮保存并写出Escel
         create = new JButton("保存并写出Escel");
+        create.setFont(font);
         create.setFocusPainted(false);
         create.setPreferredSize(new Dimension(190, 25));
         gridBagConstraints.anchor = GridBagConstraints.CENTER;
@@ -129,11 +135,15 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         //gridBagConstraints.anchor = GridBagConstraints.EAST;
         JLabel titleDepartment = new JLabel(contentMap.get("titleDepartment"),JLabel.RIGHT);
+        titleDepartment.setFont(font);
         JLabel titleName = new JLabel(contentMap.get("titleName"),JLabel.RIGHT);
+        titleName.setFont(font);
         // 部门
         department = new JTextField(contentMap.get(WeekPropertiesEnum.department));
+        department.setFont(font);
         // 名字
         name = new JTextField(contentMap.get(WeekPropertiesEnum.name));
+        name.setFont(font);
         gridBagConstraints.gridy = 1;
 
         gridBagLayout.setConstraints(titleDepartment, gridBagConstraints);
@@ -169,6 +179,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                 gridBagConstraints.gridwidth = 3;
             }
             gridBagConstraints.gridy = 2;
+            renwuContents.setFont(font);
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
         }
@@ -194,6 +205,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     gridBagConstraints.gridwidth = 3;
                 }
                 // 添加文本对象到list
+                textField.setFont(font);
                 jTextFields1.add(textField);
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(textField, gridBagConstraints);
@@ -245,6 +257,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                 gridBagConstraints.gridwidth = 6;
             }
             gridBagConstraints.gridy = 5;
+            renwuContents.setFont(font);
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
         }
@@ -284,6 +297,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     weelText.setHorizontalAlignment(JTextField.LEFT);
                     gridBagConstraints.gridwidth = 6;
                 }
+                weelText.setFont(font);
                 jTextFields2.add(weelText);
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(weelText, gridBagConstraints);
@@ -333,6 +347,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                 gridBagConstraints.gridwidth = 1;
             }
             gridBagConstraints.anchor = GridBagConstraints.CENTER;
+            renwuContents.setFont(font);
             gridBagLayout.setConstraints(renwuContents, gridBagConstraints);
             pagePanel1.add(renwuContents);
         }
@@ -354,6 +369,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     textField.setHorizontalAlignment(JTextField.CENTER);
                     textField.setColumns(3);
                 }
+                textField.setFont(font);
                 jTextFields3.add(textField);
                 gridBagConstraints.gridy = i + 1;
                 gridBagLayout.setConstraints(textField, gridBagConstraints);

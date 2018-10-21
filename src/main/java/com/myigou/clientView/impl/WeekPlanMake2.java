@@ -28,7 +28,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     // 网格布局
     private GridBagLayout gridBagLayout = new GridBagLayout();
     // 字体类型
-    private Font font = new Font("楷体", Font.PLAIN, 13);
+    private Font font = new Font("微软雅黑", Font.PLAIN, 12);
     // 内容map
     private Map<String, String> contentMap = null;
     // 存储第一页面板里的部件 本周
@@ -65,7 +65,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
     @Override
     public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
-        JLabel title = new JLabel("周计划生成第二版");
+        JLabel title = new JLabel("周计划生成第二版",JLabel.CENTER);
         title.setFont(font);
         jPanel.add(title);
         return jPanel;

@@ -224,6 +224,9 @@ public class CreateExcel2 {
                 if(firStDate.indexOf("0") == 0){
                     firStDate = firStDate.replaceFirst("0", "");
                 }
+                if(endDate.indexOf("0") == 0){
+                    endDate = endDate.replaceFirst("0","");
+                }
                 foundSheetName = firStDate + contentMap.get("connectorText") + endDate;
             }catch (IllegalArgumentException x) {
                 dataSourceResponse.setStatus(HintInformationErrorCode.DateFormatError.getErrorMsg());

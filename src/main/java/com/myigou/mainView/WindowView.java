@@ -42,8 +42,8 @@ public class WindowView extends JFrame implements Runnable {
      * 初始化窗口所有参数
      */
     public void init() {
-        this.setSize(1020, 650);
-        this.setMinimumSize(new Dimension(1020,650));
+        this.setSize(1080, 630);
+        this.setMinimumSize(new Dimension(1080,630));
         this.setTitle("综合工具" + VERSION_THIS);
         // this.setResizable(false);
         WindowTool.winConter(this);
@@ -87,7 +87,7 @@ public class WindowView extends JFrame implements Runnable {
                 functionInter = new TextEditing();
                 // 邮件发送
             } else if ("fun_3".equals(status)) {
-                functionInter = new SendEmail();
+                functionInter = new SendEmails();
                 //窗口设置
             } else if ("set_1".equals(status)) {
                 functionInter = new WindowSetting();
