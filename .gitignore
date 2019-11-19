@@ -38,6 +38,6 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 *.iml
-!/config.properties
-!/.idea/
-!/.idea/libraries/
+/config.properties
+/.idea/
+/.idea/libraries/
