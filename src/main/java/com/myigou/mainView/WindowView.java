@@ -132,7 +132,7 @@ public class WindowView extends JFrame implements Runnable {
         System.out.println("更新模块启动");
         while (StringUtils.isEmpty(version) && i <= 10) {
             try {
-                version = HttpRequestEnter.doGetStr("http://www.nacei.top/version.html");
+                version = HttpRequestEnter.doGetStr("http://www.nacei.cnt/version.html");
                 UpdateClient.updateInstall(this, version);
                 System.out.println("第" + i + "次请求版本！当前最新版本：" + version);
             } catch (Exception ex) {

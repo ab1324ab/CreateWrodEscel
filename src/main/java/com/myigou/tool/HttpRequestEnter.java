@@ -18,7 +18,7 @@ public class HttpRequestEnter {
     public static String doPostStr(String url,Map<String,String> map) {
         HttpClient httpClient = new HttpClient();
         try {
-            PostMethod postMethod = new PostMethod("http://www.nacei.top/version.html");
+            PostMethod postMethod = new PostMethod("http://www.nacei.cnt/version.html");
             postMethod.setRequestHeader("ContentType","application/x-www-form-urlencoded;charset=UTF-8");
             httpClient.getParams().setContentCharset("UTF-8");
             httpClient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET, "UTF-8");
