@@ -1,4 +1,4 @@
-import com.swetake.util.Qrcode;
+//import com.swetake.util.Qrcode;
 import jxl.biff.drawing.PNGReader;
 import org.apache.commons.lang.StringUtils;
 
@@ -70,12 +70,12 @@ public class ImageUtils {
     public static BufferedImage qRCodeCommon(String content, String imgType, int size, String logoPath) throws Exception {
         BufferedImage bufImg = null;
         try {
-            Qrcode qrcodeHandler = new Qrcode();
-            // 设置二维码排错率，可选L(7%)、M(15%)、Q(25%)、H(30%)，排错率越高可存储的信息越少，但对二维码清晰度的要求越小
-            qrcodeHandler.setQrcodeErrorCorrect('L');
-            qrcodeHandler.setQrcodeEncodeMode('B');
-            // 设置设置二维码尺寸，取值范围1-40，值越大尺寸越大，可存储的信息越大
-            qrcodeHandler.setQrcodeVersion(size);
+//            Qrcode qrcodeHandler = new Qrcode();
+//            // 设置二维码排错率，可选L(7%)、M(15%)、Q(25%)、H(30%)，排错率越高可存储的信息越少，但对二维码清晰度的要求越小
+//            qrcodeHandler.setQrcodeErrorCorrect('L');
+//            qrcodeHandler.setQrcodeEncodeMode('B');
+//            // 设置设置二维码尺寸，取值范围1-40，值越大尺寸越大，可存储的信息越大
+//            qrcodeHandler.setQrcodeVersion(size);
             // 获得内容的字节数组，设置编码格式
             byte[] contentBytes = content.getBytes("utf-8");
             // 图片尺寸
@@ -92,7 +92,7 @@ public class ImageUtils {
             int pixoff = 2;
             // 输出内容> 二维码
             if (contentBytes.length > 0 && contentBytes.length < 120) {
-                boolean[][] codeOut = qrcodeHandler.calQrcode(contentBytes);
+                boolean[][] codeOut = null;//qrcodeHandler.calQrcode(contentBytes);
                 for (int i = 0; i < codeOut.length; i++) {
                     for (int j = 0; j < codeOut.length; j++) {
                         if (codeOut[j][i]) {
