@@ -1051,11 +1051,13 @@ public class TextEditing implements FunctionInter {
                         int toCount = 0;
                         for (TextEditingFileType fileType : pathList) {
                             String parentPath = fileType.getFilePath().toFile().getParent();
-                            String oldPath = parentPath + File.separator + fileType.getFileName();
+                            String oldPath = parentPath + File.separator + fileType.getFileNameField().getText();
                             String newPath = parentPath + File.separator + fileType.getNewFileNameField().getText();
                             if (!oldPath.equals(newPath)){
                                 new File(oldPath).renameTo(new File(newPath));
                                 ++toCount;
+                                fileType.getFileNameField().setText(fileType.getNewFileNameField().getText());
+                                fileType.setFileName(fileType.getNewFileNameField().getText());
                             }
                         }
                         prompt.setText("  全部重命名：已修改" + toCount + "匹配项。");
