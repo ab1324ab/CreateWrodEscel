@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2017/5/7.
+ * Created by ab1324ab on 2017/5/7.
  */
 public class WindowView extends JFrame implements Runnable {
 
@@ -43,7 +43,7 @@ public class WindowView extends JFrame implements Runnable {
      */
     public void init() {
         this.setSize(1080, 630);
-        this.setMinimumSize(new Dimension(1080,630));
+        this.setMinimumSize(new Dimension(1080, 630));
         this.setTitle("综合工具" + VERSION_THIS);
         // this.setResizable(false);
         WindowTool.winConter(this);
@@ -95,9 +95,9 @@ public class WindowView extends JFrame implements Runnable {
             } else if ("fun_1_2".equals(status)) {
                 functionInter = new WeekPlanMake2();
             }
-            Font font = new Font("楷体",Font.BOLD,18);
+            Font font = new Font("楷体", Font.BOLD, 18);
             clientPanel = functionInter.getFunction(clientPanel, this);
-            titlePanel = functionInter.getTitle(titlePanel, this,font);
+            titlePanel = functionInter.getTitle(titlePanel, this, font);
             mapJpanel.put("clientPanel", clientPanel);
             mapJpanel.put("titlePanel", titlePanel);
         } catch (Exception e) {
