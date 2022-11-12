@@ -20,7 +20,8 @@ public class PropertiesTool {
     public static final String READ_SGMTA_SPLIT = "&";
 
     private static Properties properties = new Properties();
-
+    // 配置文件
+    public static String CONFIG_FILE = "config.properties";
     /**
      * 读取配置文件
      *

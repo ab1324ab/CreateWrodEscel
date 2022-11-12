@@ -24,7 +24,7 @@ public class TextEditingFileType {
      * 文件名称*
      */
     private String fileName;
-    private JTextField fileNameField;
+
     /**
      * 文件地址*
      */
@@ -33,17 +33,26 @@ public class TextEditingFileType {
      * 文件类型*
      */
     private String fileType;
-    private JTextField fileTypeField;
+
     /**
      * 文件新名称*
      */
     private String newFileName;
-    private JTextPane newFileNameField;
+
     /**
      * 文件大小*
      */
     private long fileSize;
-    private JTextField fileSizeField;
+
+    private JPanel row;
+
+    public JPanel getRow() {
+        return row;
+    }
+
+    public void setRow(JPanel row) {
+        this.row = row;
+    }
 
     public String getFileName() {
         return fileName;
@@ -53,12 +62,12 @@ public class TextEditingFileType {
         this.fileName = fileName;
     }
 
-    public JTextField getFileNameField() {
-        return fileNameField;
+    public Path getFilePath() {
+        return filePath;
     }
 
-    public void setFileNameField(JTextField fileNameField) {
-        this.fileNameField = fileNameField;
+    public void setFilePath(Path filePath) {
+        this.filePath = filePath;
     }
 
     public String getFileType() {
@@ -69,28 +78,12 @@ public class TextEditingFileType {
         this.fileType = fileType;
     }
 
-    public JTextField getFileTypeField() {
-        return fileTypeField;
-    }
-
-    public void setFileTypeField(JTextField fileTypeField) {
-        this.fileTypeField = fileTypeField;
-    }
-
     public String getNewFileName() {
         return newFileName;
     }
 
     public void setNewFileName(String newFileName) {
         this.newFileName = newFileName;
-    }
-
-    public JTextPane getNewFileNameField() {
-        return newFileNameField;
-    }
-
-    public void setNewFileNameField(JTextPane newFileNameField) {
-        this.newFileNameField = newFileNameField;
     }
 
     public long getFileSize() {
@@ -101,19 +94,4 @@ public class TextEditingFileType {
         this.fileSize = fileSize;
     }
 
-    public JTextField getFileSizeField() {
-        return fileSizeField;
-    }
-
-    public void setFileSizeField(JTextField fileSizeField) {
-        this.fileSizeField = fileSizeField;
-    }
-
-    public Path getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(Path filePath) {
-        this.filePath = filePath;
-    }
 }

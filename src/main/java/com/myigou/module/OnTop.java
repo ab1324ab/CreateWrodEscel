@@ -33,7 +33,7 @@ public class OnTop extends JFrame {
         if (jPanel == null) {
             jPanel = new JPanel();
             // jPanel.setLayout(new GridLayout(num, 1));
-            jPanel.setPreferredSize(new Dimension(100, 0));
+            jPanel.setPreferredSize(new Dimension(150, 0));
             //jPanel.setBackground(new Color(210, 210, 210));
             jPanel.setBorder(BorderFactory.createLineBorder(new Color(190, 190, 190), 1));
             for (int i = 0; i < num; i++) {
@@ -53,11 +53,11 @@ public class OnTop extends JFrame {
         jButton.setFocusPainted(false);
         // jButton.setBounds(new Rectangle(0, 0, 90, 30));
         // 设置尺寸
-        Dimension preferredSize = new Dimension(90,35);
+        Dimension preferredSize = new Dimension(130,35);
         jButton.setPreferredSize(preferredSize);
         // jButton.setSize(100, 15);
         //jButton.setForeground(Color.red);
-        jButton.setFont(new Font("微软雅黑",Font.PLAIN,10));
+        jButton.setFont(new Font("微软雅黑",Font.PLAIN,12));
         String mapKey = "";
         for (String key : parameMap.keySet()) {
             mapKey = key;
