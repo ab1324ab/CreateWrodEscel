@@ -2,6 +2,8 @@ package com.myigou.mainView;
 
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.*;
+import com.myigou.clientView.impl.filesDispose.FilesDispose;
+import com.myigou.clientView.impl.windowSetting.WindowSetting;
 import com.myigou.tool.*;
 import org.apache.commons.lang.StringUtils;
 
@@ -50,13 +52,10 @@ public class WindowView extends JFrame implements Runnable {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 添加菜单项
         muenBar.menuBox(this);
-        if (contentMap.size() != 0) {
-            SHOW_MAIN = contentMap.get("showMain");
-        }
+        if (contentMap.size() != 0) SHOW_MAIN = contentMap.get("showMain");
         MuenBar.displayJpael = this.accessDisplay(SHOW_MAIN);
 
-        // clientPanel.setBackground(Color.CYAN);
-        JButton button2 = new JButton("关于我们");
+        JLabel button2 = new JLabel(" ");
         // 添加标题面板入窗体
         this.add(MuenBar.displayJpael.get("titlePanel"), BorderLayout.NORTH);
         this.add(MuenBar.displayJpael.get("clientPanel"), BorderLayout.CENTER);
@@ -75,26 +74,16 @@ public class WindowView extends JFrame implements Runnable {
     public HashMap<String, JPanel> accessDisplay(String status) {
         HashMap<String, JPanel> mapJpanel = new HashMap<String, JPanel>();
         FunctionInter functionInter = null;
-        // this.setLayout(new GridBagLayout());
         try {
             clientPanel.removeAll();
             titlePanel.removeAll();
-            // 周计划生成
-            if ("fun_1".equals(status)) {
-                functionInter = new WeekPlanMake();
-                // 文件操作
-            } else if ("fun_2".equals(status)) {
-                functionInter = new TextEditing();
-                // 邮件发送
-            } else if ("fun_3".equals(status)) {
-                functionInter = new SendEmails();
-                //窗口设置
-            } else if ("set_1".equals(status)) {
-                functionInter = new WindowSetting();
-                //周计划生成_2
-            } else if ("fun_1_2".equals(status)) {
-                functionInter = new WeekPlanMake2();
-            }
+            // 启动优先显示项
+            if ("fun_1".equals(status)) functionInter = new WeekPlanMake();         //周计划生成
+            else if ("fun_2".equals(status)) functionInter = new FilesDispose();    //文件操作
+            else if ("fun_3".equals(status)) functionInter = new SendMessage();     //消息发送
+            else if ("set_1".equals(status)) functionInter = new WindowSetting();   //窗口设置
+            else if ("fun_1_2".equals(status)) functionInter = new WeekPlanMake2(); //周计划生成_2
+
             Font font = new Font("楷体", Font.BOLD, 18);
             clientPanel = functionInter.getFunction(clientPanel, this);
             titlePanel = functionInter.getTitle(titlePanel, this, font);
@@ -121,9 +110,6 @@ public class WindowView extends JFrame implements Runnable {
         mapJpanel.get("titlePanel").setVisible(true);
         mapJpanel.get("clientPanel").setVisible(false);
         mapJpanel.get("clientPanel").setVisible(true);
-//        this.validate();
-//        this.setVisible(false);
-//        this.setVisible(true);
     }
 
     @Override
@@ -145,7 +131,7 @@ public class WindowView extends JFrame implements Runnable {
 
     public void repair(final JFrame jFrame) {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(600, 100);
+        jFrame.setSize(600, 120);
         jPanelBar = new JPanel();
         bar = new JProgressBar();
         bar.setMinimum(0);
@@ -174,6 +160,8 @@ public class WindowView extends JFrame implements Runnable {
         jPanelBar.add(bar);
         jPanelBar.setVisible(true);
         jFrame.add(jPanelBar, BorderLayout.CENTER);
+        JLabel bottom = new JLabel("");
+        jFrame.add(bottom, BorderLayout.SOUTH);
         WindowTool.winConter(jFrame);
         // System.out.println(new ImageIcon(WindowView.class.getResource("restore.ico").getPath().substring(1)).getImage());
         this.setVisible(false);

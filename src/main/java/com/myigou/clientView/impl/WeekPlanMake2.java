@@ -89,9 +89,11 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         erJpanel.setLayout(new BorderLayout());
         JPanel ctrlonPanel = new JPanel();
         JLabel explain = new JLabel("文档名:");
-        explain.setFont(new Font("仿宋", Font.PLAIN, 25));
+        explain.setFont(new Font("微软雅黑", Font.BOLD, 14));
         ctrlonPanel.add(explain);
         JTextField fileName = new JTextField();
+        fileName.setMinimumSize(new Dimension(350,30));
+        fileName.setPreferredSize(new Dimension(350,30));
         fileName.setForeground(redColor);
         SimpleDateFormat fileFormat = new SimpleDateFormat(contentMap.get("params"));
         String fileDate = fileFormat.format(new Date());
@@ -103,37 +105,35 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         serveButton.setFont(font);
         // 去掉按钮文字周围焦点
         serveButton.setFocusPainted(false);
-        Dimension preferredSize = new Dimension(200, 35);
+        Dimension preferredSize = new Dimension(150, 30);
         serveButton.setPreferredSize(preferredSize);
         ctrlonPanel.add(serveButton);
-        serveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();
-                FileSystemView fsv = FileSystemView.getFileSystemView();
-                File homeFile = fsv.getHomeDirectory();
-                chooser.setCurrentDirectory(homeFile);
+        serveButton.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            FileSystemView fsv = FileSystemView.getFileSystemView();
+            File homeFile = fsv.getHomeDirectory();
+            chooser.setCurrentDirectory(homeFile);
 
-                // 设置只能选择文件 Escel文档
-                chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                FileNameExtensionFilter filter = new FileNameExtensionFilter("Escel文档", "xlsx");
-                chooser.setFileFilter(filter);
-                String directoryURL = null;
-                int returnVal = chooser.showOpenDialog(jFrame);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    directoryURL = chooser.getSelectedFile().getPath();
-                    chooser.hide();
-                }
-                if (directoryURL == null) {
-                    return;
-                }
-                List<String> weekPlanList = new ArrayList<String>();
-                CreateExcel2 excel2 = new CreateExcel2();
-                DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList,directoryURL);
-                if (dataSources.getStatus() != null) {
-                    JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "错误", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+            // 设置只能选择文件 Escel文档
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Escel文档", "xlsx");
+            chooser.setFileFilter(filter);
+            String directoryURL = null;
+            int returnVal = chooser.showOpenDialog(jFrame);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                directoryURL = chooser.getSelectedFile().getPath();
+                chooser.hide();
+            }
+            if (directoryURL == null) {
+                return;
+            }
+            List<String> weekPlanList = new ArrayList<String>();
+            CreateExcel2 excel2 = new CreateExcel2();
+            DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList,directoryURL);
+            if (dataSources.getStatus() != null) {
+                JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "错误", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 //                String string = "功能开发/后台组&配合测询&高&3&30%&侯文康&只有调账功能还不通";
 //                String string1 = "功能开发/后台组&配合测询&中&2&10%&侯文康&只有还不通";
 //                String string2 = "功能开发/后台组&配fasfa询&低&6&20%&侯文康&有调账功能还";
@@ -147,13 +147,12 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 //                weekPlanMap.put(6, string2);
 //                weekPlanMap.put(7, string1);
 //                weekPlanMap.put(8, string2);
-                // 本周
-                editBox(tswkMap, dataSources.getDataSource(), PropertiesTool.READ_SGMTA_SPLIT);
-                // 下周
-                //editBox(nxvWkMap, weekPlanList1, PropertiesTool.READ_SGMTA_SPLIT);
-                // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
-                //editBox(troubleShootingMap, weekPlanMap);
-            }
+            // 本周
+            editBox(tswkMap, dataSources.getDataSource(), PropertiesTool.READ_SGMTA_SPLIT);
+            // 下周
+            //editBox(nxvWkMap, weekPlanList1, PropertiesTool.READ_SGMTA_SPLIT);
+            // 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
+            //editBox(troubleShootingMap, weekPlanMap);
         });
         // 生成文档按钮
         JButton makeButton = new JButton("生成文档");
@@ -413,7 +412,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 tswkMap.put(WeekPropertiesEnum.line + (line - 3), tswkList);
             }
             JScrollPane jScrollPane = new JScrollPane(contentJPanel);
-            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             String[] colorList = contentMap.get("colorExamplesValue").split(",");
             int r = Integer.parseInt(colorList[0]);
             int g = Integer.parseInt(colorList[1]);
@@ -583,7 +583,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 nxvWkMap.put(WeekPropertiesEnum.line + (jLine - 2), nxvWkList);
             }
             JScrollPane jScrollPane = new JScrollPane(contentJPanel);
-            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             contentJPanel.setBackground(panelColor);
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
@@ -613,6 +614,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JTextArea leaveArea = new JTextArea(1, 1);
             leaveArea.setForeground(redColor);
             JScrollPane jScrollPane = new JScrollPane();
+            jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             jScrollPane.setViewportView(leaveArea);
             leaveArea.setFont(new Font("仿宋", Font.BOLD, 20));
             leaveArea.setLineWrap(true);
@@ -657,6 +659,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JTextArea urgentArea = new JTextArea(4, 5);
             urgentArea.setForeground(redColor);
             JScrollPane urgentScrollPane = new JScrollPane();
+            urgentScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             urgentScrollPane.setViewportView(urgentArea);
             urgentArea.setFont(new Font("仿宋", Font.BOLD, 20));
             urgentArea.setLineWrap(true);
@@ -679,6 +682,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JTextArea commonlyArea = new JTextArea(4, 5);
             commonlyArea.setForeground(redColor);
             JScrollPane commonlyScrollPane = new JScrollPane();
+            commonlyScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             commonlyScrollPane.setViewportView(commonlyArea);
             commonlyArea.setFont(new Font("仿宋", Font.BOLD, 20));
             commonlyArea.setLineWrap(true);
@@ -701,6 +705,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JTextArea slowlyArea = new JTextArea(4, 5);
             slowlyArea.setForeground(redColor);
             JScrollPane slowlyScrollPane = new JScrollPane();
+            slowlyScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             slowlyScrollPane.setViewportView(slowlyArea);
             slowlyArea.setFont(new Font("仿宋", Font.BOLD, 20));
             slowlyArea.setLineWrap(true);
@@ -739,6 +744,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             JTextArea improvementJTextArea = new JTextArea(1, 1);
             improvementJTextArea.setForeground(redColor);
             JScrollPane jScrollPane = new JScrollPane();
+            jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
             jScrollPane.setViewportView(improvementJTextArea);
             improvementJTextArea.setFont(new Font("仿宋", Font.BOLD, 20));
             improvementJTextArea.setLineWrap(true);
