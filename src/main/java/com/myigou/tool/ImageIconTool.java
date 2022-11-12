@@ -1,6 +1,6 @@
 package com.myigou.tool;
 
-import com.myigou.mainView.MuenBar;
+import com.myigou.mainView.ViewMain;
 
 
 import javax.swing.*;
@@ -19,7 +19,7 @@ public class ImageIconTool {
      */
     public static ImageIcon gitImageIcon(String fileUrl,int width,int height){
         try {
-        InputStream input= MuenBar.class.getClass().getResourceAsStream(fileUrl);
+        InputStream input= ViewMain.class.getClass().getResourceAsStream(fileUrl);
         byte[] byt = new byte[input.available()];
             input.read(byt);
             input.close();

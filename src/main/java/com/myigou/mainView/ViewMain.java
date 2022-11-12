@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @author ab1324ab
  * Created by ab1324ab on 2017/6/29.
  */
-public class MuenBar {
+public class ViewMain {
 
     public static HashMap<String, JPanel> displayJpael = null;
     public static WindowView windowView = null;

@@ -23,7 +23,7 @@ public class WindowView extends JFrame implements Runnable {
 
     public static final String VERSION_THIS = "V1.0.13";
     public String SHOW_MAIN = "set_1";
-    private MuenBar muenBar = new MuenBar();
+    private ViewMain muenBar = new ViewMain();
     private JPanel clientPanel = new JPanel();
     private JPanel titlePanel = new JPanel();
     private JPanel jPanelBar = null;
@@ -53,12 +53,12 @@ public class WindowView extends JFrame implements Runnable {
         // 添加菜单项
         muenBar.menuBox(this);
         if (contentMap.size() != 0) SHOW_MAIN = contentMap.get("showMain");
-        MuenBar.displayJpael = this.accessDisplay(SHOW_MAIN);
+        ViewMain.displayJpael = this.accessDisplay(SHOW_MAIN);
 
         JLabel button2 = new JLabel(" ");
         // 添加标题面板入窗体
-        this.add(MuenBar.displayJpael.get("titlePanel"), BorderLayout.NORTH);
-        this.add(MuenBar.displayJpael.get("clientPanel"), BorderLayout.CENTER);
+        this.add(ViewMain.displayJpael.get("titlePanel"), BorderLayout.NORTH);
+        this.add(ViewMain.displayJpael.get("clientPanel"), BorderLayout.CENTER);
         // 关于我们 帮助
         this.add(button2, BorderLayout.SOUTH);
 
@@ -92,7 +92,7 @@ public class WindowView extends JFrame implements Runnable {
         } catch (Exception e) {
             // 启动预警
             e.printStackTrace();
-            MuenBar.windowView.repair(new JFrame("自动修复"));
+            ViewMain.windowView.repair(new JFrame("自动修复"));
         }
         return mapJpanel;
     }
@@ -151,7 +151,7 @@ public class WindowView extends JFrame implements Runnable {
                     jFrame.dispose();
                     PropertiesTool.initialization();
                     contentMap = PropertiesTool.redConfigFile("config.properties");
-                    MuenBar.windowView.init();
+                    ViewMain.windowView.init();
                 }
             }
         });
