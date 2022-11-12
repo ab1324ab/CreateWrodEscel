@@ -1,5 +1,6 @@
 package com.myigou.clientView.impl.filesDispose.module;
 
+import com.myigou.tool.BusinessTool;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -123,7 +124,7 @@ public class FilesCollect {
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }
-                            JLabel jLabelSize = new JLabel(temp.length() + "", JLabel.LEFT);
+                            JLabel jLabelSize = new JLabel(BusinessTool.fileSizeCalculation(temp.length()), JLabel.LEFT);
                             jLabelSize.setBorder(border);
                             jLabelSize.setFont(font);
                             jLabelSize.setPreferredSize(new Dimension(10, 30));

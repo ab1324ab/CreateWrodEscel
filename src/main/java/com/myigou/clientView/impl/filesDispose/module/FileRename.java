@@ -1,6 +1,7 @@
 package com.myigou.clientView.impl.filesDispose.module;
 
 import com.myigou.clientService.model.TextEditingFileType;
+import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
 import org.apache.commons.lang.StringUtils;
 import sun.audio.AudioPlayer;
@@ -351,7 +352,7 @@ public class FileRename {
         rowGBL.setConstraints(jLabelType, rowGBC);
         row.add(jLabelType);
         // 大小(KB)
-        JLabel jLabelSize = new JLabel(editingFileType.getFileSize() + "", JLabel.LEFT);
+        JLabel jLabelSize = new JLabel(BusinessTool.fileSizeCalculation(editingFileType.getFileSize()), JLabel.LEFT);
         jLabelSize.setPreferredSize(new Dimension(10, 30));
         jLabelSize.setBorder(borderLR);
         jLabelSize.setFont(font);

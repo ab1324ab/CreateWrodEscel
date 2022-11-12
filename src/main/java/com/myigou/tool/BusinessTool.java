@@ -1,5 +1,6 @@
 package com.myigou.tool;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,7 +9,7 @@ import java.util.List;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2018/3/21.
+ * Created by ab1324ab on 2018/3/21.
  */
 public class BusinessTool {
 
@@ -34,5 +35,27 @@ public class BusinessTool {
             dateList.add(calendar.getTime());
         }
         return dateList;
+    }
+
+    /**
+     * 文件大小计算加上单位
+     *
+     * @param fileSize
+     * @return
+     */
+    public static String fileSizeCalculation(Long fileSize) {
+        BigDecimal fileSizeBig = new BigDecimal(fileSize);
+        BigDecimal kb = new BigDecimal(1024);
+        if (kb.compareTo(fileSizeBig) == 1)
+            return fileSize + "";
+        if (kb.compareTo(fileSizeBig) == -1 && kb.multiply(kb).compareTo(fileSizeBig) == 1)
+            return fileSizeBig.divide(kb).setScale(1, BigDecimal.ROUND_DOWN) + " KB";
+        if (kb.multiply(kb).compareTo(fileSizeBig) == -1 && kb.multiply(kb).multiply(kb).compareTo(fileSizeBig) == 1)
+            return fileSizeBig.divide(kb).divide(kb).setScale(1, BigDecimal.ROUND_DOWN) + " MB";
+        if (kb.multiply(kb).multiply(kb).compareTo(fileSizeBig) == -1 && kb.multiply(kb).multiply(kb).multiply(kb).compareTo(fileSizeBig) == 1)
+            return fileSizeBig.divide(kb).divide(kb).divide(kb).setScale(1, BigDecimal.ROUND_DOWN) + " GB";
+        if (kb.multiply(kb).multiply(kb).multiply(kb).compareTo(fileSizeBig) == -1 && kb.multiply(kb).multiply(kb).multiply(kb).multiply(kb).compareTo(fileSizeBig) == 1)
+            return fileSizeBig.divide(kb).divide(kb).divide(kb).divide(kb).setScale(1, BigDecimal.ROUND_DOWN) + " TB";
+        return fileSize + "";
     }
 }

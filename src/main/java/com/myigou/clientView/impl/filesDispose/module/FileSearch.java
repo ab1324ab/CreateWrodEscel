@@ -1,5 +1,6 @@
 package com.myigou.clientView.impl.filesDispose.module;
 
+import com.myigou.tool.BusinessTool;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -298,7 +299,7 @@ public class FileSearch {
         rowGBL.setConstraints(jLabelType, rowGBC);
         row.add(jLabelType);
         // 大小(KB)
-        JLabel jLabelSize = new JLabel(file.length() + "", JLabel.LEFT);
+        JLabel jLabelSize = new JLabel(BusinessTool.fileSizeCalculation(file.length()), JLabel.LEFT);
         jLabelSize.setPreferredSize(new Dimension(10, 30));
         jLabelSize.setBorder(border);
         jLabelSize.setFont(font);

@@ -309,7 +309,7 @@
                       <maximumSize width="10" height="30"/>
                       <minimumSize width="10" height="30"/>
                       <preferredSize width="10" height="30"/>
-                      <text value="大小(KB)"/>
+                      <text value="大小"/>
                     </properties>
                   </component>
                 </children>
