@@ -1,6 +1,5 @@
 package com.myigou.clientView.impl.windowSetting.module;
 
-import com.myigou.clientService.enums.ColorEnum;
 import com.myigou.clientService.enums.FileDisposeShowMainEnum;
 import com.myigou.tool.PropertiesTool;
 
@@ -10,10 +9,10 @@ import java.util.Map;
 
 public class FileDisposeSetting {
     private JPanel jpanel;
-    private JRadioButton 文件归集RadioButton;
-    private JRadioButton 文件搜索RadioButton;
-    private JRadioButton 批量文件重命名RadioButton;
-    private JRadioButton 创建文件夹RadioButton;
+    private JRadioButton filesCollectRadioButton;
+    private JRadioButton fileSearchRadioButton;
+    private JRadioButton fileRenameRadioButton;
+    private JRadioButton createDirRadioButton;
 
     public JPanel getJpanel() {
         return jpanel;
@@ -25,10 +24,10 @@ public class FileDisposeSetting {
     public FileDisposeSetting(JFrame jFrame) {
         Map<String, String> contentMap = PropertiesTool.redConfigFile(PropertiesTool.CONFIG_FILE);
         ButtonGroup group = new ButtonGroup();
-        group.add(文件归集RadioButton);
-        group.add(文件搜索RadioButton);
-        group.add(批量文件重命名RadioButton);
-        group.add(创建文件夹RadioButton);
+        group.add(filesCollectRadioButton);
+        group.add(fileSearchRadioButton);
+        group.add(fileRenameRadioButton);
+        group.add(createDirRadioButton);
         Enumeration<AbstractButton> elements = group.getElements();
         while (elements.hasMoreElements()) {
             AbstractButton btn = elements.nextElement();

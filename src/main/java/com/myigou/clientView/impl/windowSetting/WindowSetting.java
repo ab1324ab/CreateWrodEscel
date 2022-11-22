@@ -1,19 +1,15 @@
 package com.myigou.clientView.impl.windowSetting;
 
-import com.myigou.clientService.enums.ColorEnum;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.windowSetting.module.FileDisposeSetting;
 import com.myigou.clientView.impl.windowSetting.module.WeekPlanMakeSetting;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
-import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,36 +19,24 @@ import java.util.Map;
  * Created by ab1324ab on 2017/9/6.
  */
 public class WindowSetting implements FunctionInter {
-    // 网格布局
-    private GridBagLayout gridBagLayout = new GridBagLayout();
+
     // 内容部件Map
     private Map<String, String> contentMap = new HashMap<String, String>();
-    // 内容字体
-    Font font = new Font("楷体", Font.PLAIN, 16);
-    // 设置部件Map
-    private Map<String, Object> setMap = new HashMap();
-    // 应用按钮
-    JButton applicationButton = null;
-    // 当前选中颜色
-    String selectColor = null;
     // 配置文件
     final String CONFIG_FILE = "config.properties";
-    // 颜色示咧
-    JLabel colorExamples = null;
 
     Font biaotiziti = new Font("微软雅黑", Font.BOLD, 14);
     Font neirongziti = new Font("微软雅黑", Font.PLAIN, 12);
 
     public WindowSetting() {
-        contentMap = contentMap = PropertiesTool.redConfigFile(CONFIG_FILE);
-        selectColor = contentMap.get("colorPanel");
+        contentMap = PropertiesTool.redConfigFile(CONFIG_FILE);
     }
 
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(new BorderLayout());
         this.settingMain(jPanel, jFrame);
-//        this.registerListener(jFrame);
+
         return jPanel;
     }
 
@@ -116,72 +100,24 @@ public class WindowSetting implements FunctionInter {
 
     public Map<String, JPanel> getJPanelMap(int i, JFrame jFrame) {
         Map<String, JPanel> panelHashMap = new HashMap<String, JPanel>();
+        JPanel panel = new JPanel();
+        Border border = BorderFactory.createEtchedBorder();
+        panel.setLayout(new BorderLayout());
+        String title = "";
         if (i == 0) {
-            JPanel panel = new JPanel();
-            Border border = BorderFactory.createEtchedBorder();
-            border = BorderFactory.createTitledBorder(border, "周计划第二版设置", TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 13), Color.BLACK);
-            panel.setBorder(border);
-            panel.setLayout(new BorderLayout());
             panel.add(new WeekPlanMakeSetting(jFrame).getJpanel());
-            panelHashMap.put("周计划菜单设置", panel);
+            title = "周计划菜单设置";
         } else if (i == 1) {
-            JPanel panel = new JPanel();
-            Border border = BorderFactory.createEtchedBorder();
-            border = BorderFactory.createTitledBorder(border, "文件编辑菜单设置", TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 13), Color.BLACK);
-            panel.setBorder(border);
-            panel.setLayout(new BorderLayout());
             panel.add(new FileDisposeSetting(jFrame).getJpanel());
-            panelHashMap.put("文件编辑菜单设置", panel);
+            title = "文件编辑菜单设置";
         } else if (i == 2) {
-            JPanel panel = new JPanel();
-            Border border = BorderFactory.createEtchedBorder();
-            border = BorderFactory.createTitledBorder(border, "第三页", TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 13), Color.BLACK);
-            panel.setBorder(border);
-            panel.setLayout(new BorderLayout());
-            JLabel jLabel = new JLabel();
-            jLabel.setBounds(new Rectangle(151, 99, 163, 113));
-            jLabel.setFont(new Font("Dialog", Font.BOLD, 24));
-            jLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//            jLabel.setText("第三页，开发中。。。");
-            //panel.setBackground(Color.red);
-            panel.setLayout(new BorderLayout());
-            panel.add(jLabel);
-            panelHashMap.put("第三页", panel);
+//            panel.add(jLabel);
+            title = "第三页";
         }
+        border = BorderFactory.createTitledBorder(border, title, TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 13), Color.BLACK);
+        panel.setBorder(border);
+        panelHashMap.put(title, panel);
         return panelHashMap;
     }
 
-    /**
-     * 按钮事件
-     */
-    public void registerListener(final JFrame jFrame) {
-        applicationButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                for (String key : setMap.keySet()) {
-                    if ("colorPanel".equals(key)) {
-                        String colorValue = ColorEnum.getColorValue(selectColor);
-                        PropertiesTool.writeSet(CONFIG_FILE, key, selectColor);
-                        PropertiesTool.writeSet(CONFIG_FILE, "colorPanelValue", colorValue);
-                    } else if ("facilityValueText".equals(key)) {
-                        JTextField textField = (JTextField) setMap.get(key);
-                        String textFieldText = "," + textField.getText();
-                        PropertiesTool.writeSet(CONFIG_FILE, key, textFieldText);
-                    } else if ("completionRatioText".equals(key)) {
-                        JTextField textField = (JTextField) setMap.get(key);
-                        String textFieldText = "," + textField.getText();
-                        PropertiesTool.writeSet(CONFIG_FILE, key, textFieldText);
-                    } else {
-                        JTextField textField = (JTextField) setMap.get(key);
-                        if (StringUtils.isEmpty(textField.getText())) {
-                            JOptionPane.showMessageDialog(jFrame, "不允许设置内容空值！", "提示", JOptionPane.WARNING_MESSAGE);
-                            return;
-                        }
-                        PropertiesTool.writeSet(CONFIG_FILE, key, textField.getText());
-                    }
-                }
-                JOptionPane.showMessageDialog(jFrame, "应用成功！", "提示", JOptionPane.WARNING_MESSAGE);
-            }
-        });
-    }
 }

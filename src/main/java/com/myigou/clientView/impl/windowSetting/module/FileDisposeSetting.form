@@ -35,7 +35,7 @@
                   <text value="优先显示项"/>
                 </properties>
               </component>
-              <component id="d8cb2" class="javax.swing.JRadioButton" binding="文件归集RadioButton" default-binding="true">
+              <component id="d8cb2" class="javax.swing.JRadioButton" binding="filesCollectRadioButton">
                 <constraints>
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -44,7 +44,7 @@
                   <text value="文件归集"/>
                 </properties>
               </component>
-              <component id="95b1b" class="javax.swing.JRadioButton" binding="文件搜索RadioButton" default-binding="true">
+              <component id="95b1b" class="javax.swing.JRadioButton" binding="fileSearchRadioButton">
                 <constraints>
                   <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -53,7 +53,7 @@
                   <text value="文件夹搜索"/>
                 </properties>
               </component>
-              <component id="6c0a6" class="javax.swing.JRadioButton" binding="批量文件重命名RadioButton" default-binding="true">
+              <component id="6c0a6" class="javax.swing.JRadioButton" binding="fileRenameRadioButton">
                 <constraints>
                   <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -62,7 +62,7 @@
                   <text value="批量文件重命名"/>
                 </properties>
               </component>
-              <component id="68e01" class="javax.swing.JRadioButton" binding="创建文件夹RadioButton" default-binding="true">
+              <component id="68e01" class="javax.swing.JRadioButton" binding="createDirRadioButton">
                 <constraints>
                   <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>

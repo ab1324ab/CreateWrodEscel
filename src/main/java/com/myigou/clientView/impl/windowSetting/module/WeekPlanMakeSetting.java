@@ -38,9 +38,6 @@ public class WeekPlanMakeSetting {
         return jpanel;
     }
 
-    public WeekPlanMakeSetting() {
-    }
-
     public WeekPlanMakeSetting(JFrame jFrame) {
         Map<String, String> contentMap = PropertiesTool.redConfigFile(PropertiesTool.CONFIG_FILE);
         jScrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -87,7 +84,6 @@ public class WeekPlanMakeSetting {
         setMap.put("connectorText", connectorText);
         setMap.put("tswkText", tswkText);
         setMap.put("nxvwkText", nxvwkText);
-//        setMap.put("colorPanel", group);
         setMap.put("facilityValueText", facilityValueText);
         setMap.put("completionRatioText", completionRatioText);
 
@@ -95,18 +91,6 @@ public class WeekPlanMakeSetting {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (String key : setMap.keySet()) {
-//                    if ("colorPanel".equals(key)) {
-//                        Enumeration<AbstractButton> elements = group.getElements();
-//                        while (elements.hasMoreElements()) {
-//                            AbstractButton btn = elements.nextElement();
-//                            if (btn.isSelected()) {
-//                                String colorValue = ColorEnum.getColorValue(btn.getText());
-//                                PropertiesTool.writeSet(PropertiesTool.CONFIG_FILE, key, btn.getText());
-//                                PropertiesTool.writeSet(PropertiesTool.CONFIG_FILE, "colorPanelValue", colorValue);
-//                                break;
-//                            }
-//                        }
-//                    } else
                         if ("facilityValueText".equals(key)) {
                         JTextField textField = (JTextField) setMap.get(key);
                         String textFieldText = "," + textField.getText();
