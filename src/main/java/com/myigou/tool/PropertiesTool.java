@@ -1,5 +1,7 @@
 package com.myigou.tool;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,7 +10,7 @@ import java.util.Properties;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2017/5/6.
+ * Created by ab1324ab on 2017/5/6.
  */
 public class PropertiesTool {
 
@@ -22,6 +24,7 @@ public class PropertiesTool {
     private static Properties properties = new Properties();
     // 配置文件
     public static String CONFIG_FILE = "config.properties";
+
     /**
      * 读取配置文件
      *
@@ -29,9 +32,20 @@ public class PropertiesTool {
      * @return
      */
     public static Map<String, String> redConfigFile(String fileName) {
+        return redConfigFile(null, fileName);
+    }
+
+    /**
+     * 读取配置文件
+     *
+     * @param fileName
+     * @return
+     */
+    public static Map<String, String> redConfigFile(String path, String fileName) {
         Map<String, String> contentMap = new HashMap<String, String>();
         try {
-            properties.load(new FileInputStream(new File(System.getProperty("user.dir") + "/" + fileName)));
+            if (StringUtils.isEmpty(path)) path = System.getProperty("user.dir");
+            properties.load(new FileInputStream(path + "/" + fileName));
             Iterator it = properties.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry entry = (Map.Entry) it.next();
@@ -53,11 +67,23 @@ public class PropertiesTool {
      * @param value
      */
     public static void writeSet(String filename, String key, String value) {
+        writeSet(null, filename, key, value);
+    }
+
+    /**
+     * 写入配置文件
+     *
+     * @param filename
+     * @param key
+     * @param value
+     */
+    public static void writeSet(String path, String filename, String key, String value) {
         try {
-            String pathDir = System.getProperty("user.dir") + "\\" + filename;
-            properties.load(new FileInputStream(new File(pathDir)));
+            if (StringUtils.isEmpty(path)) path = System.getProperty("user.dir");
+            String pathDir = path + "\\" + filename;
+            properties.load(new FileInputStream(pathDir));
             properties.setProperty(key, value);
-            properties.store(new FileOutputStream(new File(pathDir)), key);
+            properties.store(new FileOutputStream(pathDir), key);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -70,11 +96,22 @@ public class PropertiesTool {
      * @param key
      */
     public static void removeKey(String filename, String key) {
+        removeKey(null, filename, key);
+    }
+
+    /**
+     * 删除配置文件相应KEY
+     *
+     * @param filename
+     * @param key
+     */
+    public static void removeKey(String path, String filename, String key) {
         try {
-            String pathDir = System.getProperty("user.dir") + "\\" + filename;
-            properties.load(new FileInputStream(new File(pathDir)));
+            if (StringUtils.isEmpty(path)) path = System.getProperty("user.dir");
+            String pathDir = path + "\\" + filename;
+            properties.load(new FileInputStream(pathDir));
             properties.remove(key);
-            properties.store(new FileOutputStream(new File(pathDir)), key);
+            properties.store(new FileOutputStream(pathDir), key);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
