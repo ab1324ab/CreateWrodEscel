@@ -549,6 +549,7 @@
                               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="红"/>
                             </properties>
                           </component>
@@ -557,6 +558,7 @@
                               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="橙"/>
                             </properties>
                           </component>
@@ -565,6 +567,7 @@
                               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="绿"/>
                             </properties>
                           </component>
@@ -573,6 +576,7 @@
                               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="青"/>
                             </properties>
                           </component>
@@ -581,6 +585,7 @@
                               <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="蓝"/>
                             </properties>
                           </component>
@@ -589,6 +594,7 @@
                               <grid row="1" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="紫"/>
                             </properties>
                           </component>
@@ -597,6 +603,7 @@
                               <grid row="1" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <selected value="true"/>
                               <text value="黑"/>
                             </properties>
@@ -606,6 +613,7 @@
                               <grid row="1" column="8" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <requestFocusEnabled value="false"/>
                               <text value="粉"/>
                             </properties>
                           </component>

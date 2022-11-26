@@ -2,6 +2,7 @@ package com.myigou.clientView.impl.windowSetting;
 
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.windowSetting.module.FileDisposeSetting;
+import com.myigou.clientView.impl.windowSetting.module.SendMessageSetting.SendMessageSetting;
 import com.myigou.clientView.impl.windowSetting.module.WeekPlanMakeSetting;
 import com.myigou.module.OnTop;
 import com.myigou.tool.PropertiesTool;
@@ -56,35 +57,39 @@ public class WindowSetting implements FunctionInter {
         jLabelqidong.setFont(biaotiziti);
         showMain.add(jLabelqidong);
         JRadioButton createExcel = new JRadioButton("周计划生成");
+        createExcel.setRequestFocusEnabled(false);
         createExcel.setFont(neirongziti);
         JRadioButton fileManage = new JRadioButton("文件编辑");
+        fileManage.setRequestFocusEnabled(false);
         fileManage.setFont(neirongziti);
-        JRadioButton sendEmail = new JRadioButton("局域网消息");
-        sendEmail.setFont(neirongziti);
+        JRadioButton sendMessage = new JRadioButton("局域网消息");
+        sendMessage.setRequestFocusEnabled(false);
+        sendMessage.setFont(neirongziti);
         JRadioButton createExcel2 = new JRadioButton("周计划生成第二版");
+        createExcel2.setRequestFocusEnabled(false);
         createExcel2.setFont(neirongziti);
         // 设置周计划生成
         createExcel.addActionListener(e -> PropertiesTool.writeSet("config.properties", "showMain", "fun_1"));
         // 设置文件编辑
         fileManage.addActionListener(e -> PropertiesTool.writeSet("config.properties", "showMain", "fun_2"));
         // 设置局域网消息
-        sendEmail.addActionListener(e -> PropertiesTool.writeSet("config.properties", "showMain", "fun_3"));
+        sendMessage.addActionListener(e -> PropertiesTool.writeSet("config.properties", "showMain", "fun_3"));
         // 设置周计划生成第二版
         createExcel2.addActionListener(e -> PropertiesTool.writeSet("config.properties", "showMain", "fun_1_2"));
 
         if ("fun_1".equals(contentMap.get("showMain"))) createExcel.setSelected(true);
         else if ("fun_2".equals(contentMap.get("showMain"))) fileManage.setSelected(true);
-        else if ("fun_3".equals(contentMap.get("showMain"))) sendEmail.setSelected(true);
+        else if ("fun_3".equals(contentMap.get("showMain"))) sendMessage.setSelected(true);
         else if ("fun_1_2".equals(contentMap.get("showMain"))) createExcel2.setSelected(true);
 
         ButtonGroup group = new ButtonGroup();
         group.add(createExcel);
         group.add(fileManage);
-        group.add(sendEmail);
+        group.add(sendMessage);
         group.add(createExcel2);
         showMain.add(createExcel);
         showMain.add(fileManage);
-        showMain.add(sendEmail);
+        showMain.add(sendMessage);
         showMain.add(createExcel2);
         jPanel1.add(showMain, BorderLayout.NORTH);
 
@@ -111,8 +116,8 @@ public class WindowSetting implements FunctionInter {
             panel.add(new FileDisposeSetting(jFrame).getJpanel());
             title = "文件编辑菜单设置";
         } else if (i == 2) {
-//            panel.add(jLabel);
-            title = "第三页";
+            panel.add(new SendMessageSetting(jFrame).getJpanel());
+            title = "局域网消息设置";
         }
         border = BorderFactory.createTitledBorder(border, title, TitledBorder.LEFT, TitledBorder.CENTER, new Font("楷体", Font.PLAIN, 13), Color.BLACK);
         panel.setBorder(border);
