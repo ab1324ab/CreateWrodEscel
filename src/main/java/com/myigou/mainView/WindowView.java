@@ -3,8 +3,10 @@ package com.myigou.mainView;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.*;
 import com.myigou.clientView.impl.filesDispose.FilesDispose;
+import com.myigou.clientView.impl.sendMessage.SendMessage;
 import com.myigou.clientView.impl.windowSetting.WindowSetting;
 import com.myigou.tool.*;
+import com.tulskiy.keymaster.common.Provider;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
@@ -23,6 +25,7 @@ public class WindowView extends JFrame implements Runnable {
 
     public static final String VERSION_THIS = "V1.0.13";
     public String SHOW_MAIN = "set_1";
+    private JLabel bottomJLabel = new JLabel(" ");
     private ViewMain muenBar = new ViewMain();
     private JPanel clientPanel = new JPanel();
     private JPanel titlePanel = new JPanel();
@@ -55,13 +58,16 @@ public class WindowView extends JFrame implements Runnable {
         if (contentMap.size() != 0) SHOW_MAIN = contentMap.get("showMain");
         ViewMain.displayJpael = this.accessDisplay(SHOW_MAIN);
 
-        JLabel button2 = new JLabel(" ");
         // 添加标题面板入窗体
         this.add(ViewMain.displayJpael.get("titlePanel"), BorderLayout.NORTH);
         this.add(ViewMain.displayJpael.get("clientPanel"), BorderLayout.CENTER);
         // 关于我们 帮助
-        this.add(button2, BorderLayout.SOUTH);
-
+        this.add(bottomJLabel, BorderLayout.SOUTH);
+        // 注册设置热键
+        Provider provider = Provider.getCurrentProvider(true);
+        provider.reset();
+        String screenshotKey = contentMap.get("message.setting.screenshotKey");
+        provider.register(KeyStroke.getKeyStroke("ctrl alt " + screenshotKey), arg0 -> SendMessage.operateScreenshot(this));// 当按下热键时调用截图
         this.setVisible(true);
     }
 
@@ -83,7 +89,10 @@ public class WindowView extends JFrame implements Runnable {
             else if ("fun_3".equals(status)) functionInter = new SendMessage();     //消息发送
             else if ("set_1".equals(status)) functionInter = new WindowSetting();   //窗口设置
             else if ("fun_1_2".equals(status)) functionInter = new WeekPlanMake2(); //周计划生成_2
+            else if ("txt_1".equals(status)) functionInter = new TextWord();        //文本
 
+            if (!status.equals("txt_1")) bottomJLabel.setVisible(true);
+            else bottomJLabel.setVisible(false);
             Font font = new Font("楷体", Font.BOLD, 18);
             clientPanel = functionInter.getFunction(clientPanel, this);
             titlePanel = functionInter.getTitle(titlePanel, this, font);
