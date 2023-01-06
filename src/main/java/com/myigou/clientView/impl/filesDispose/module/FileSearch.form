@@ -227,7 +227,7 @@
               </grid>
             </children>
           </grid>
-          <grid id="b90b0" binding="bottomCtrl" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="b90b0" binding="bottomCtrl" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="5" left="5" bottom="5" right="5"/>
             <constraints border-constraint="South"/>
             <properties/>
@@ -235,7 +235,7 @@
             <children>
               <component id="46832" class="javax.swing.JLabel" binding="countNumber">
                 <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <font name="Microsoft YaHei" size="12"/>
@@ -244,7 +244,7 @@
               </component>
               <hspacer id="393a8">
                 <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
               </hspacer>
               <component id="1fcaf" class="javax.swing.JLabel">
@@ -253,7 +253,17 @@
                 </constraints>
                 <properties>
                   <font name="Microsoft YaHei" size="12"/>
-                  <text value="搜索文件（按条件搜索文件，只搜索文件；不搜索文件内容。）"/>
+                  <text value="按条件搜索文件"/>
+                </properties>
+              </component>
+              <component id="6fa61" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <foreground color="-55266"/>
+                  <text value="只搜索文件、不搜索文件内容"/>
                 </properties>
               </component>
             </children>

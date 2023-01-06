@@ -268,7 +268,7 @@
                 </constraints>
                 <properties>
                   <font name="Microsoft YaHei" size="12"/>
-                  <text value="批量文件重命名"/>
+                  <text value="批量重命名已选择文件夹下的文件"/>
                 </properties>
               </component>
               <hspacer id="688">

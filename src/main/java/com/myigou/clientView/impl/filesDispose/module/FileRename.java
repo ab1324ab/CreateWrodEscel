@@ -1,11 +1,9 @@
 package com.myigou.clientView.impl.filesDispose.module;
 
 import com.myigou.clientService.model.TextEditingFileType;
+import com.myigou.tool.AudioPlayerTool;
 import com.myigou.tool.BusinessTool;
-import com.myigou.tool.PropertiesTool;
 import org.apache.commons.lang.StringUtils;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,7 +14,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -198,14 +195,8 @@ public class FileRename {
                 }
                 progressTips("<html><font  style=\"color:red\"> 查找目标计数: " + matchCount + " 匹配项</font ></html>");
                 if (!check) {
-                    try {
-                        InputStream inputStream = PropertiesTool.class.getResourceAsStream("/audio/WindowsBackground.wav");
-                        AudioStream audioStream = new AudioStream(inputStream);
-                        AudioPlayer.player.start(audioStream);
-                        JOptionPane.showMessageDialog(jFrame, "无法找到文本\"" + findStr + "\"", "提示", JOptionPane.WARNING_MESSAGE);
-                    } catch (Exception ec) {
-                        ec.printStackTrace();
-                    }
+                    AudioPlayerTool.playerStartAudioWav("/audio/Windows Hardware Insert.wav");
+                    JOptionPane.showMessageDialog(jFrame, "无法找到文本\"" + findStr + "\"", "提示", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -442,5 +433,6 @@ public class FileRename {
         centre.setVisible(false);
         centre.setVisible(true);
     }
+
 }
 
