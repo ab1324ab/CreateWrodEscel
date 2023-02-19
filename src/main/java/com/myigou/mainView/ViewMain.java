@@ -6,6 +6,8 @@ import com.myigou.tool.ImageIconTool;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 /**
@@ -54,21 +56,34 @@ public class ViewMain {
         JMenuBar bar = new JMenuBar();
 
         JMenu menu1 = new JMenu("文件", false);
+        JMenuItem saveFile = new JMenuItem("保存文本", ImageIconTool.gitImageIcon("/icons/save.png", ico_Width, ico_Height));
+        saveFile.addActionListener(e -> windowView.selectButton(windowView.accessDisplay("txt_3")));
+        this.muenStyle(saveFile, "1");
+        saveFile.setEnabled(false);
+
+        JMenuItem saveAsFile = new JMenuItem("文本另存", ImageIconTool.gitImageIcon("/icons/saveAs.png", ico_Width, ico_Height));
+        saveAsFile.addActionListener(e -> windowView.selectButton(windowView.accessDisplay("txt_4")));
+        this.muenStyle(saveAsFile, "1");
+        saveAsFile.setEnabled(false);
+
         JMenuItem newFile = new JMenuItem("新建文本", ImageIconTool.gitImageIcon("/icons/new.png", ico_Width, ico_Height));
-        newFile.addActionListener(e -> JOptionPane.showMessageDialog(jFrame, "新建文本", "提示", JOptionPane.WARNING_MESSAGE));
+        newFile.addActionListener(e -> {
+            saveFile.setEnabled(true);
+            saveAsFile.setEnabled(true);
+            windowView.selectButton(windowView.accessDisplay("txt_1"));
+        });
         this.muenStyle(newFile, "1");
         menu1.add(newFile);
+
         JMenuItem openFile = new JMenuItem("打开文本", ImageIconTool.gitImageIcon("/icons/open.png", ico_Width, ico_Height));
-        openFile.addActionListener(e -> JOptionPane.showMessageDialog(jFrame, "打开文本", "提示", JOptionPane.WARNING_MESSAGE));
+        openFile.addActionListener(e -> {
+            saveFile.setEnabled(true);
+            saveAsFile.setEnabled(true);
+            windowView.selectButton(windowView.accessDisplay("txt_2"));
+        });
         this.muenStyle(openFile, "1");
         menu1.add(openFile);
-        JMenuItem saveFile = new JMenuItem("保存文本", ImageIconTool.gitImageIcon("/icons/save.png", ico_Width, ico_Height));
-        saveFile.addActionListener(e -> JOptionPane.showMessageDialog(jFrame, "保存文本", "提示", JOptionPane.WARNING_MESSAGE));
-        this.muenStyle(saveFile, "1");
         menu1.add(saveFile);
-        JMenuItem saveAsFile = new JMenuItem("文本另存", ImageIconTool.gitImageIcon("/icons/saveAs.png", ico_Width, ico_Height));
-        saveAsFile.addActionListener(e -> JOptionPane.showMessageDialog(jFrame, "文本另存", "提示", JOptionPane.WARNING_MESSAGE));
-        this.muenStyle(saveAsFile, "1");
         menu1.add(saveAsFile);
         JMenuItem exitFile = new JMenuItem("退出", ImageIconTool.gitImageIcon("/icons/exit.png", ico_Width, ico_Height));
         exitFile.addActionListener(e -> System.exit(0));
@@ -126,6 +141,16 @@ public class ViewMain {
         this.muenStyle(help, "0");
         bar.add(help);
         jFrame.setJMenuBar(bar);
+        MouseAdapter mouseAdapter = new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                saveFile.setEnabled(false);
+                saveAsFile.setEnabled(false);
+            }
+        };
+        function.addMouseListener(mouseAdapter);
+        window.addMouseListener(mouseAdapter);
+        help.addMouseListener(mouseAdapter);
     }
 
     public void muenStyle(AbstractButton jmuen, String sign) {

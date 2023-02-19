@@ -4,6 +4,7 @@ import com.myigou.clientView.FunctionInter;
 import com.myigou.clientView.impl.*;
 import com.myigou.clientView.impl.filesDispose.FilesDispose;
 import com.myigou.clientView.impl.sendMessage.SendMessage;
+import com.myigou.clientView.impl.textWord.TextWord;
 import com.myigou.clientView.impl.windowSetting.WindowSetting;
 import com.myigou.tool.*;
 import com.tulskiy.keymaster.common.Provider;
@@ -23,7 +24,7 @@ import java.util.Map;
  */
 public class WindowView extends JFrame implements Runnable {
 
-    public static final String VERSION_THIS = "V1.0.13";
+    public static final String VERSION_THIS = "V1.0.15";
     public String SHOW_MAIN = "set_1";
     private JLabel bottomJLabel = new JLabel(" ");
     private ViewMain muenBar = new ViewMain();
@@ -37,6 +38,7 @@ public class WindowView extends JFrame implements Runnable {
     // 请求版本
     private String version = "";
     public static Map<String, String> contentMap = new HashMap<String, String>();
+    public TextWord textWord = null; // 辅助操作文档文本对象
 
     public WindowView() {
         super();
@@ -80,6 +82,7 @@ public class WindowView extends JFrame implements Runnable {
     public HashMap<String, JPanel> accessDisplay(String status) {
         HashMap<String, JPanel> mapJpanel = new HashMap<String, JPanel>();
         FunctionInter functionInter = null;
+        String content = "";
         try {
             clientPanel.removeAll();
             titlePanel.removeAll();
@@ -89,15 +92,21 @@ public class WindowView extends JFrame implements Runnable {
             else if ("fun_3".equals(status)) functionInter = new SendMessage();     //消息发送
             else if ("set_1".equals(status)) functionInter = new WindowSetting();   //窗口设置
             else if ("fun_1_2".equals(status)) functionInter = new WeekPlanMake2(); //周计划生成_2
-            else if ("txt_1".equals(status)) functionInter = new TextWord();        //文本
-
-            if (!status.equals("txt_1")) bottomJLabel.setVisible(true);
-            else bottomJLabel.setVisible(false);
+            else if ("txt_1".equals(status)) functionInter = textWord = new TextWord(); //文本
+            else if ("txt_2".equals(status)) functionInter = textWord = new TextWord(this, "open_txt"); //打开文本
+            else if ("txt_3".equals(status)) content = textWord.saveFileTxt(this); /*保存新建和打开的文本*/
+            else if ("txt_4".equals(status)) content = textWord.asSaveFileTxt(this); /*另保存新建和打开的文本*/
+            // 特殊条件的菜单处理项
+            bottomJLabel.setVisible(!status.equals("txt_1") && !status.equals("txt_2") && !status.equals("txt_3") && !status.equals("txt_4"));
+            if (status.equals("txt_3") || status.equals("txt_4")) functionInter = textWord;
+            // 存入切换显示对象
             Font font = new Font("楷体", Font.BOLD, 18);
             clientPanel = functionInter.getFunction(clientPanel, this);
             titlePanel = functionInter.getTitle(titlePanel, this, font);
             mapJpanel.put("clientPanel", clientPanel);
             mapJpanel.put("titlePanel", titlePanel);
+            // 写入文本框内容放在元素重新创建之后
+            if (status.equals("txt_3") || status.equals("txt_4")) textWord.anewAssignment(content);
         } catch (Exception e) {
             // 启动预警
             e.printStackTrace();

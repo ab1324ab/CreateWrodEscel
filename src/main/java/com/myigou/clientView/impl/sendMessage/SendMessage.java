@@ -216,7 +216,7 @@ public class SendMessage extends Thread implements FunctionInter {
                     SocketAddress socketAddress = new InetSocketAddress(hostIp, port);
                     Socket socket = new Socket();
                     socket.connect(socketAddress, 100);
-                    list.add(socket);
+                    if (socket.isConnected()) list.add(socket);
                 } catch (IOException e) {
                 } finally {
                     downLatch.countDown();
