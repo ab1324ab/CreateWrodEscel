@@ -5,7 +5,11 @@ import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,6 +18,7 @@ public class FileRenameInsertDialog {
     private JPanel jpanel;
     private JRadioButton insertTextJRadioButton;
     private JRadioButton insertNumberJRadioButton;
+    private JRadioButton insertAttributeJRadioButton;
     private JTextField insertTextField;
     private JTextField initValueJTextField;
     private JTextField incrementValueJTextField;
@@ -23,6 +28,10 @@ public class FileRenameInsertDialog {
     private JSlider characterBitsJSlider;
     private JTextField exampleInsertTextField;
     private JLabel messageJLabel;
+    private JCheckBox hoursMinutesSecondsJCheckBox;
+    private JRadioButton createTimeJRadioButton;
+    private JRadioButton modifyTimeJRadioButton;
+    private JRadioButton accessTimeJRadioButton;
     // 模拟光标定时器
     private TimerTask displayCursorRunnable = null;
     private TimerTask hideCursorRunnable = null;
@@ -38,13 +47,18 @@ public class FileRenameInsertDialog {
         ButtonGroup group = new ButtonGroup();
         group.add(insertTextJRadioButton);
         group.add(insertNumberJRadioButton);
+        group.add(insertAttributeJRadioButton);
+        ButtonGroup CMAGroup = new ButtonGroup();
+        CMAGroup.add(createTimeJRadioButton);
+        CMAGroup.add(modifyTimeJRadioButton);
+        CMAGroup.add(accessTimeJRadioButton);
         exampleInsertTextField.setText(example);
         confirmJButton.addActionListener(e -> {
             boolean textRadio = group.isSelected(insertTextJRadioButton.getModel());
             boolean numberRadio = group.isSelected(insertNumberJRadioButton.getModel());
+            boolean attributeRadio = group.isSelected(insertAttributeJRadioButton.getModel());
             int toCount = 0;
-            String text = insertTextField.getText();
-            int incrementValue, initValue;
+            int incrementValue, initValue, cumulativeValue;
             try {
                 incrementValue = Integer.parseInt(incrementValueJTextField.getText());
                 initValue = Integer.parseInt(initValueJTextField.getText());
@@ -52,35 +66,45 @@ public class FileRenameInsertDialog {
                 incrementValue = 0;
                 initValue = 0;
             }
-            List<String> list = new ArrayList<>();
+            cumulativeValue = initValue;
             for (int i = 0; i < pathList.size(); i++) {
+                StringBuilder insertString = new StringBuilder();
                 if (textRadio) {
-                    if (StringUtils.isEmpty(text)) {
+                    insertString = new StringBuilder(insertTextField.getText());
+                    if (StringUtils.isEmpty(insertString.toString())) {
                         messageJLabel.setText("<html><font  style=\"color:red\"> 请填写插入文本</font ></html>");
                         return;
                     }
-                    list.add(text);
                 } else if (numberRadio) {
+                    cumulativeValue += incrementValue;
+                    insertString = new StringBuilder(String.valueOf(cumulativeValue));
                     if (initValue == 0 && incrementValue == 0) {
                         messageJLabel.setText("<html><font  style=\"color:red\"> 请填写初始值和增量值</font ></html>");
                         return;
                     }
-                    list.add(String.valueOf((initValue += incrementValue) - incrementValue));
-                }
-            }
-            if (numberRadio && supplementZeroJCheckBox.isSelected()) {
-                String lastly = list.get(list.size() - 1);
-                for (int i = 0; i < list.size(); i++) {
-                    int length = lastly.length() - list.get(i).length();
-                    String complement = "";
-                    for (int j = 0; j < length; j++) {
-                        complement += "0";
+                    if (supplementZeroJCheckBox.isSelected()) {
+                        int pathLength = String.valueOf(pathList.size() + initValue).split("").length;
+                        for (int j = 0; j < pathLength - insertString.length(); j++) {
+                            insertString.insert(0, "0");
+                        }
                     }
-                    list.set(i,complement + list.get(i));
+                } else if (attributeRadio) {
+                    String actionCommand = CMAGroup.getSelection().getActionCommand();
+                    try {
+                        BasicFileAttributes basicFileAttributes = Files.readAttributes(pathList.get(i).getFilePath(), BasicFileAttributes.class);
+                        SimpleDateFormat dateFormat;
+                        FileTime fileTime = null;
+                        if ("创建时间".equals(actionCommand)) fileTime = basicFileAttributes.creationTime();
+                        else if ("修改时间".equals(actionCommand)) fileTime = basicFileAttributes.lastModifiedTime();
+                        else if ("访问时间".equals(actionCommand)) fileTime = basicFileAttributes.lastAccessTime();
+                        if (hoursMinutesSecondsJCheckBox.isSelected()) dateFormat = new SimpleDateFormat("yyyy-MM-dd HH时mm分");
+                        else dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        insertString = new StringBuilder(dateFormat.format(fileTime.toMillis()));
+                        insertString = new StringBuilder("（" + insertString + "）");
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                 }
-            }
-            for (int i = 0; i < pathList.size(); i++) {
-                String insertString = list.get(i);
                 JPanel jPanel = pathList.get(i).getRow();
                 JTextPane jTextPane = ((JTextPane) jPanel.getComponent(1));
                 if (characterBitsJSlider.getValue() <= jTextPane.getText().length()) {
@@ -99,20 +123,30 @@ public class FileRenameInsertDialog {
             jDialog.setVisible(false);
         });
         ActionListener radioListener = e -> {
+            insertTextField.setEnabled(false);
+            initValueJTextField.setEnabled(false);
+            incrementValueJTextField.setEnabled(false);
+            supplementZeroJCheckBox.setEnabled(false);
+            hoursMinutesSecondsJCheckBox.setEnabled(false);
+            createTimeJRadioButton.setEnabled(false);
+            modifyTimeJRadioButton.setEnabled(false);
+            accessTimeJRadioButton.setEnabled(false);
             if (e.getActionCommand().equals("插入文本")) {
                 insertTextField.setEnabled(true);
-                initValueJTextField.setEnabled(false);
-                incrementValueJTextField.setEnabled(false);
-                supplementZeroJCheckBox.setEnabled(false);
             } else if (e.getActionCommand().equals("插入数字")) {
-                insertTextField.setEnabled(false);
                 initValueJTextField.setEnabled(true);
                 incrementValueJTextField.setEnabled(true);
                 supplementZeroJCheckBox.setEnabled(true);
+            } else if (e.getActionCommand().equals("插入属性")) {
+                hoursMinutesSecondsJCheckBox.setEnabled(true);
+                createTimeJRadioButton.setEnabled(true);
+                modifyTimeJRadioButton.setEnabled(true);
+                accessTimeJRadioButton.setEnabled(true);
             }
         };
         insertTextJRadioButton.addActionListener(radioListener);
         insertNumberJRadioButton.addActionListener(radioListener);
+        insertAttributeJRadioButton.addActionListener(radioListener);
         // 模拟输入光标
         enterCursor(example);
         int majorTickSpacing = 1;

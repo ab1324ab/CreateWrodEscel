@@ -195,7 +195,7 @@ public class FileRename {
                 }
                 progressTips("<html><font  style=\"color:red\"> 查找目标计数: " + matchCount + " 匹配项</font ></html>");
                 if (!check) {
-                    AudioPlayerTool.playerStartAudioWav("/audio/Windows Hardware Insert.wav");
+                    AudioPlayerTool.playerStartAudioWav("/audio/Hardware Insert.wav");
                     JOptionPane.showMessageDialog(jFrame, "无法找到文本\"" + findStr + "\"", "提示", JOptionPane.WARNING_MESSAGE);
                 }
             }
@@ -289,8 +289,8 @@ public class FileRename {
             // 组装自定义 对话框
             JDialog dialog = new JDialog(jFrame, "列编辑");
             dialog.setResizable(true);
-            dialog.setSize(500, 325);
-            dialog.setMinimumSize(new Dimension(500, 325));
+            dialog.setSize(525, 295);
+            dialog.setMinimumSize(new Dimension(525, 295));
             Container container = dialog.getContentPane();
             container.setLayout(new BorderLayout());
             container.add(new FileRenameInsertDialog(dialog, progress, pathList, example).getJpanel(), BorderLayout.CENTER);
