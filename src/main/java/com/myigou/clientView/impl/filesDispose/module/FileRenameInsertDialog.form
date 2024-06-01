@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.myigou.clientView.impl.filesDispose.module.FileRenameInsertDialog">
+  <grid id="27dc6" default-binding="true" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="720" height="414"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="bb547" binding="jpanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="5">
+        <margin top="10" left="10" bottom="10" right="10"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="c2196" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="35"/>
+                <preferred-size width="-1" height="35"/>
+                <maximum-size width="-1" height="35"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="empty"/>
+            <children>
+              <component id="772d0" class="javax.swing.JRadioButton" binding="insertTextJRadioButton">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <selected value="true"/>
+                  <text value="插入文本"/>
+                </properties>
+              </component>
+              <component id="127f1" class="javax.swing.JButton" binding="confirmJButton">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="-1"/>
+                    <preferred-size width="100" height="-1"/>
+                    <maximum-size width="100" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <margin top="5" left="5" bottom="5" right="5"/>
+                  <requestFocusEnabled value="false"/>
+                  <text value="确定"/>
+                </properties>
+              </component>
+              <component id="c5d0" class="javax.swing.JTextField" binding="insertTextField">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="30"/>
+                    <preferred-size width="-1" height="30"/>
+                    <maximum-size width="-1" height="30"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+            </children>
+          </grid>
+          <grid id="dedc3" layout-manager="GridLayoutManager" row-count="1" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="5">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="empty"/>
+            <children>
+              <component id="5764" class="javax.swing.JRadioButton" binding="insertNumberJRadioButton">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <text value="插入数字"/>
+                </properties>
+              </component>
+              <component id="a32a9" class="javax.swing.JButton" binding="cancelJButton">
+                <constraints>
+                  <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="-1"/>
+                    <preferred-size width="100" height="-1"/>
+                    <maximum-size width="100" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <margin top="5" left="5" bottom="5" right="5"/>
+                  <requestFocusEnabled value="false"/>
+                  <text value="取消"/>
+                </properties>
+              </component>
+              <grid id="5cbe2" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="841d8" class="javax.swing.JCheckBox" binding="supplementZeroJCheckBox">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                      <font name="Microsoft YaHei" size="12"/>
+                      <requestFocusEnabled value="false"/>
+                      <selected value="true"/>
+                      <text value="开头补零"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <component id="bd1d3" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <foreground color="-8158333"/>
+                  <text value="初始值"/>
+                </properties>
+              </component>
+              <component id="422f3" class="javax.swing.JTextField" binding="initValueJTextField">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="30"/>
+                    <preferred-size width="50" height="30"/>
+                    <maximum-size width="-1" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <horizontalAlignment value="0"/>
+                  <text value="1"/>
+                </properties>
+              </component>
+              <component id="82f1d" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <foreground color="-8158333"/>
+                  <text value="增量值"/>
+                </properties>
+              </component>
+              <component id="11270" class="javax.swing.JTextField" binding="incrementValueJTextField">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="30"/>
+                    <preferred-size width="50" height="30"/>
+                    <maximum-size width="-1" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <horizontalAlignment value="0"/>
+                  <text value="1"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="22f5a" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="empty">
+              <size top="0" left="5" bottom="0" right="0"/>
+            </border>
+            <children>
+              <component id="d059c" class="javax.swing.JLabel" binding="messageJLabel">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                </properties>
+              </component>
+              <component id="c6ae8" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <foreground color="-8158333"/>
+                  <text value="请选择插入内容的方式"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="3097" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="empty"/>
+            <children>
+              <component id="8d3c1" class="javax.swing.JSlider" binding="characterBitsJSlider">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <inverted value="false"/>
+                  <opaque value="true"/>
+                  <orientation value="0"/>
+                  <paintLabels value="true"/>
+                  <paintTicks value="true"/>
+                  <paintTrack value="true"/>
+                  <requestFocusEnabled value="false"/>
+                  <snapToTicks value="false"/>
+                  <value value="0"/>
+                  <valueIsAdjusting value="false"/>
+                </properties>
+              </component>
+              <component id="57521" class="javax.swing.JTextField" binding="exampleInsertTextField">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <minimum-size width="-1" height="30"/>
+                    <preferred-size width="150" height="30"/>
+                    <maximum-size width="-1" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <disabledTextColor color="-16777216"/>
+                  <editable value="false"/>
+                  <enabled value="true"/>
+                  <text value="123456789|1111"/>
+                </properties>
+              </component>
+              <component id="69176" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <text value="示例插入位置"/>
+                </properties>
+              </component>
+              <component id="24a19" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <text value="字符位"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <vspacer id="6ce3c">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <grid id="88c57" layout-manager="GridLayoutManager" row-count="1" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="35"/>
+                <preferred-size width="-1" height="35"/>
+                <maximum-size width="-1" height="35"/>
+              </grid>
+            </constraints>
+            <properties/>
+            <border type="empty"/>
+            <children>
+              <component id="9ca69" class="javax.swing.JRadioButton" binding="insertAttributeJRadioButton">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <selected value="false"/>
+                  <text value="插入属性"/>
+                </properties>
+              </component>
+              <component id="37bd5" class="javax.swing.JRadioButton" binding="accessTimeJRadioButton">
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="访问时间"/>
+                  <enabled value="false"/>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <selected value="false"/>
+                  <text value="访问时间"/>
+                </properties>
+              </component>
+              <hspacer id="37619">
+                <constraints>
+                  <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </hspacer>
+              <component id="c976d" class="javax.swing.JRadioButton" binding="createTimeJRadioButton">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="创建时间"/>
+                  <enabled value="false"/>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <selected value="true"/>
+                  <text value="创建时间"/>
+                </properties>
+              </component>
+              <component id="9b5ec" class="javax.swing.JRadioButton" binding="modifyTimeJRadioButton">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <actionCommand value="修改时间"/>
+                  <enabled value="false"/>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <text value="修改时间"/>
+                </properties>
+              </component>
+              <component id="664a9" class="javax.swing.JCheckBox" binding="hoursMinutesSecondsJCheckBox">
+                <constraints>
+                  <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <minimum-size width="100" height="-1"/>
+                    <preferred-size width="100" height="-1"/>
+                    <maximum-size width="100" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <enabled value="false"/>
+                  <font name="Microsoft YaHei" size="12"/>
+                  <requestFocusEnabled value="false"/>
+                  <selected value="false"/>
+                  <text value="时分秒"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+    </children>
+  </grid>
+</form>
