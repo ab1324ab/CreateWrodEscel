@@ -1,17 +1,20 @@
 package com.myigou.mainView;
 
 import com.myigou.clientView.FunctionInter;
-import com.myigou.clientView.impl.*;
+import com.myigou.clientView.impl.WeekPlanMake;
+import com.myigou.clientView.impl.WeekPlanMake2;
 import com.myigou.clientView.impl.filesDispose.FilesDispose;
 import com.myigou.clientView.impl.sendMessage.SendMessage;
 import com.myigou.clientView.impl.textWord.TextWord;
 import com.myigou.clientView.impl.windowSetting.WindowSetting;
-import com.myigou.tool.*;
+import com.myigou.tool.HttpRequestEnter;
+import com.myigou.tool.PropertiesTool;
+import com.myigou.tool.UpdateClient;
+import com.myigou.tool.WindowTool;
 import com.tulskiy.keymaster.common.Provider;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
-import javax.swing.Timer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,7 +60,7 @@ public class WindowView extends JFrame implements Runnable {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         // 添加菜单项
         muenBar.menuBox(this);
-        if (contentMap.size() != 0) SHOW_MAIN = contentMap.get("showMain");
+        if (!contentMap.isEmpty()) SHOW_MAIN = contentMap.get("showMain");
         ViewMain.displayJpael = this.accessDisplay(SHOW_MAIN);
 
         // 添加标题面板入窗体
@@ -75,7 +78,6 @@ public class WindowView extends JFrame implements Runnable {
 
     /**
      * 替换当前面板显示功能
-     *
      * @param status
      * @return
      */
@@ -96,6 +98,7 @@ public class WindowView extends JFrame implements Runnable {
             else if ("txt_2".equals(status)) functionInter = textWord = new TextWord(this, "open_txt"); //打开文本
             else if ("txt_3".equals(status)) content = textWord.saveFileTxt(this); /*保存新建和打开的文本*/
             else if ("txt_4".equals(status)) content = textWord.asSaveFileTxt(this); /*另保存新建和打开的文本*/
+            else functionInter = new FilesDispose();         //文件操作
             // 特殊条件的菜单处理项
             bottomJLabel.setVisible(!status.equals("txt_1") && !status.equals("txt_2") && !status.equals("txt_3") && !status.equals("txt_4"));
             if (status.equals("txt_3") || status.equals("txt_4")) functionInter = textWord;
@@ -117,7 +120,6 @@ public class WindowView extends JFrame implements Runnable {
 
     /**
      * 菜单选择功能入口
-     *
      * @param mapJpanel
      */
     public void selectButton(HashMap<String, JPanel> mapJpanel) {
@@ -140,7 +142,7 @@ public class WindowView extends JFrame implements Runnable {
                 UpdateClient.updateInstall(this, version);
                 System.out.println("第" + i + "次请求版本！当前最新版本：" + version);
             } catch (Exception ex) {
-                System.out.println("第" + i + "次请求版本！" + ex.getMessage());
+                System.out.println("第" + i + "次请求版本！" + ex);
             }
             i++;
         }

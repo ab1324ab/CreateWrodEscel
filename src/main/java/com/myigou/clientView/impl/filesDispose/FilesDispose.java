@@ -19,12 +19,12 @@ public class FilesDispose implements FunctionInter {
     private JButton fileCollectionMenu;
     private JButton fileSearchMenu;
     private JButton fileBatchRenameMenu;
-    private JButton 创建文件夹Button;
+    private JButton createFileNameButton;
 
     @Override
     public JPanel getFunction(JPanel jPanel, JFrame jFrame) {
         jPanel.setLayout(new BorderLayout());
-        jPanel.add(jpanel,BorderLayout.CENTER);
+        jPanel.add(jpanel, BorderLayout.CENTER);
         Map<String, String> contentMap = PropertiesTool.redConfigFile(PropertiesTool.CONFIG_FILE);
         // 文件收集
         fileCollectionMenu.addActionListener(e -> showContentJPanel(new FilesCollect(jFrame).getJpanel()));
@@ -34,10 +34,10 @@ public class FilesDispose implements FunctionInter {
         fileBatchRenameMenu.addActionListener(e -> showContentJPanel(new FileRename(jFrame).getJpanel()));
 
         String btn = FileDisposeShowMainEnum.getName(contentMap.get("fileDispose.showMain"));
-        if(fileCollectionMenu.getText().equals(btn)) fileCollectionMenu.doClick();
-        if(fileSearchMenu.getText().equals(btn)) fileSearchMenu.doClick();
-        if(fileBatchRenameMenu.getText().equals(btn)) fileBatchRenameMenu.doClick();
-        if(创建文件夹Button.getText().equals(btn)) 创建文件夹Button.doClick();
+        if (fileCollectionMenu.getText().equals(btn)) fileCollectionMenu.doClick();
+        if (fileSearchMenu.getText().equals(btn)) fileSearchMenu.doClick();
+        if (fileBatchRenameMenu.getText().equals(btn)) fileBatchRenameMenu.doClick();
+        if (createFileNameButton.getText().equals(btn)) createFileNameButton.doClick();
         return jPanel;
     }
 
@@ -52,7 +52,7 @@ public class FilesDispose implements FunctionInter {
      * 显示切换面板
      * @param jPanel
      */
-    public void showContentJPanel(JPanel jPanel){
+    public void showContentJPanel(JPanel jPanel) {
         content.removeAll();
         content.add(jPanel);
         content.setVisible(false);
@@ -60,4 +60,5 @@ public class FilesDispose implements FunctionInter {
         content.setVisible(false);
         content.setVisible(true);
     }
+
 }

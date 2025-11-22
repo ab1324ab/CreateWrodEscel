@@ -7,10 +7,10 @@ import com.myigou.clientView.impl.sendMessage.model.MessageBody;
 import com.myigou.clientView.impl.sendMessage.module.AutomaticManual.AutomaticManual;
 import com.myigou.clientView.impl.sendMessage.module.Interlocutor;
 import com.myigou.clientView.impl.sendMessage.module.Screenshot;
-import com.myigou.clientView.impl.sendMessage.service.ThreadServiceTOClient;
 import com.myigou.clientView.impl.sendMessage.service.AidedJPanelService;
 import com.myigou.clientView.impl.sendMessage.service.MessageDispose;
 import com.myigou.clientView.impl.sendMessage.service.ThreadClientTOService;
+import com.myigou.clientView.impl.sendMessage.service.ThreadServiceTOClient;
 import com.myigou.clientView.impl.sendMessage.tool.MessageFileTool;
 import com.myigou.tool.BusinessTool;
 import com.myigou.tool.DateTimeTool;
@@ -28,7 +28,9 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -156,7 +158,8 @@ public class SendMessage extends Thread implements FunctionInter {
                         System.out.println(messagePath);
                     }
                 } else if (MessConstant.MESSAGE_SETTING_MESSAGEFILE_IMMEDIATE.equals(messageFile)) {
-                    for (String key : soloIds) MessageFileTool.deleteMessagePath(MessageFileTool.getSaveMessagePath(key));
+                    for (String key : soloIds)
+                        MessageFileTool.deleteMessagePath(MessageFileTool.getSaveMessagePath(key));
                 }
             }
         });
@@ -177,7 +180,8 @@ public class SendMessage extends Thread implements FunctionInter {
         while (true) {
             try {
                 // 不停的扫描ip
-                if (MessConstant.MESSAGE_SETTING_FOUNDTYPE_ACTIVE.equals(contentMap.get("message.setting.foundType"))) connectServer();
+                if (MessConstant.MESSAGE_SETTING_FOUNDTYPE_ACTIVE.equals(contentMap.get("message.setting.foundType")))
+                    connectServer();
                 Socket socket = serverSocket.accept();
                 ThreadServiceTOClient client = new ThreadServiceTOClient(socket, initInterlocutorsMap, this);
                 client.start(); // 开启对此客户端服务的线程
@@ -216,6 +220,7 @@ public class SendMessage extends Thread implements FunctionInter {
                     SocketAddress socketAddress = new InetSocketAddress(hostIp, port);
                     Socket socket = new Socket();
                     socket.connect(socketAddress, 100);
+                    System.out.println("连接到：" + hostIp + " 结果:" + socket.isConnected());
                     if (socket.isConnected()) list.add(socket);
                 } catch (IOException e) {
                 } finally {
@@ -235,7 +240,6 @@ public class SendMessage extends Thread implements FunctionInter {
 
     /**
      * 创建连接线程*
-     *
      * @param socket
      */
     public void createConnectThread(Socket socket) {
@@ -309,7 +313,7 @@ public class SendMessage extends Thread implements FunctionInter {
                             List<File> transferData = (List<File>) cc.getTransferData(DataFlavor.javaFileListFlavor);
                             for (int i = 0; i < transferData.size(); i++) {
                                 File file = transferData.get(i);
-                                if(!file.isFile()){
+                                if (!file.isFile()) {
                                     aidedJPanelService.timerErrorMessJLabel("只能发送文件!", 3000);
                                     sendJTextPane.setText("");
                                     return;
@@ -318,7 +322,7 @@ public class SendMessage extends Thread implements FunctionInter {
                                 if (probeContentType != null && probeContentType.contains("image")) {
                                     imgFilePaste(ImageIO.read(file), "IMG", file.getName(), file.getPath());
                                 } else {
-                                    ImageIcon imageIcon = new ImageIcon(sun.awt.shell.ShellFolder.getShellFolder(file).getIcon(true));
+                                    ImageIcon imageIcon = ImageIconTool.gitImageIcon(file);
                                     String filename = file.getName() + " " + BusinessTool.fileSizeCalculation(file.length());
                                     imgFilePaste(imageIcon.getImage(), "FILE", filename, file.getPath());
                                 }
@@ -334,72 +338,72 @@ public class SendMessage extends Thread implements FunctionInter {
         expressionButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/expression3.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/expression3.png", 30, 30));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/expression2.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/expression2.png", 30, 30));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/expression.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/expression.png", 30, 30));
             }
         });
         updateFileButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/updateFile3.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/updateFile3.png", 30, 30));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/updateFile2.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/updateFile2.png", 30, 30));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/updateFile.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/updateFile.png", 30, 30));
             }
         });
         messageButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/message3.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/message3.png", 30, 30));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/message2.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/message2.png", 30, 30));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/message.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/message.png", 30, 30));
             }
         });
         screenshotButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/screenshot3.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/screenshot3.png", 30, 30));
                 operateScreenshot(jFrame);
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/screenshot2.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/screenshot2.png", 30, 30));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/screenshot.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/screenshot.png", 30, 30));
             }
         });
         adduserButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/adduser3.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/adduser3.png", 30, 30));
                 // 组装自定义 对话框
                 JDialog dialog = new JDialog(jFrame, "  待添加用户");
 
@@ -418,12 +422,12 @@ public class SendMessage extends Thread implements FunctionInter {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/adduser2.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/adduser2.png", 30, 30));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/adduser.png", 30, 30));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/adduser.png", 30, 30));
             }
         });
     }
@@ -515,7 +519,6 @@ public class SendMessage extends Thread implements FunctionInter {
 
     /**
      * 截图操作*
-     *
      * @param jFrame
      */
     public static void operateScreenshot(JFrame jFrame) {
@@ -571,6 +574,8 @@ public class SendMessage extends Thread implements FunctionInter {
             jLabel.setName(type + "---" + filePath);
         }
         vk_vimgcount++;
-        if (vk_vimgcount % 5 == 0) sendJTextPaneDoc.insertString(sendJTextPaneDoc.getLength(), " ", new SimpleAttributeSet());
+        if (vk_vimgcount % 5 == 0)
+            sendJTextPaneDoc.insertString(sendJTextPaneDoc.getLength(), " ", new SimpleAttributeSet());
     }
+
 }

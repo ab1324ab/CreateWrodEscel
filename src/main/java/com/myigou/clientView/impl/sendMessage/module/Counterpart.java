@@ -22,8 +22,8 @@ public class Counterpart {
         return jpanel;
     }
 
-    public Counterpart(String avatarUrl, String name,  MessageBody messagerct){
-        avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+    public Counterpart(String avatarUrl, String name, MessageBody messagerct) {
+        avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
         nameJLabel.setText(name);
         messageSimple.setText(messagerct.getMessage());
         messageSimple.addMouseListener(new ContentMouseAdapter(messagerct.getMessage(), "COM", contentjpanel, null));

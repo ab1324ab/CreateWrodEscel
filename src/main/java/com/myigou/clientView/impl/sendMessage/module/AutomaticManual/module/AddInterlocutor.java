@@ -36,10 +36,10 @@ public class AddInterlocutor {
         this.avatarUrl = avatarUrl;
         this.name = name;
         this.soloId = soloId;
-        avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+        avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
         nameJLabel.setText(name);
         avatarTime.setText(time);
-        xButton.setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/close.png", 25, 25));
+        xButton.setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/close.png", 25, 25));
         MouseAdapter mouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -72,36 +72,35 @@ public class AddInterlocutor {
         xButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/close3.png", 25, 25));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/close3.png", 25, 25));
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/close2.png", 25, 25));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/close2.png", 25, 25));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/close.png", 25, 25));
+                ((JButton) e.getComponent()).setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/close.png", 25, 25));
             }
         });
     }
 
     /**
      * 分离点击事件*
-     *
      * @param avatarUrl
      * @param name
      * @param time
      * @param manual
      */
-    public void addToBeSelectListener(String soloId,String avatarUrl, String name, String time, String addressIp, AutomaticManual manual) {
+    public void addToBeSelectListener(String soloId, String avatarUrl, String name, String time, String addressIp, AutomaticManual manual) {
         MouseAdapter mouseAdapter = new MouseInputAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (!(e.getComponent() instanceof JCheckBox)) checkBox1.setSelected(!checkBox1.isSelected());
                 if (checkBox1.isSelected()) {
-                    addInterlocutorc = new AddInterlocutor(soloId,avatarUrl, name, time);
+                    addInterlocutorc = new AddInterlocutor(soloId, avatarUrl, name, time);
                     addInterlocutorc.checkBox1.setVisible(false);
                     addInterlocutorc.xButton.setVisible(true);
                     addInterlocutorc.setAddressIp(addressIp);
@@ -123,7 +122,6 @@ public class AddInterlocutor {
 
     /**
      * 更新选中的列表*
-     *
      * @param manual
      */
     public void updateChecked(AutomaticManual manual) {
@@ -141,7 +139,7 @@ public class AddInterlocutor {
         if (list.size() != 0) {
             manual.checkPromptJLabel.setText("已选择了 " + list.size() + " 个对象");
             manual.confirmButton.setEnabled(true);
-        } else{
+        } else {
             manual.checkPromptJLabel.setText("请勾选需要添加的人");
             manual.confirmButton.setEnabled(false);
         }

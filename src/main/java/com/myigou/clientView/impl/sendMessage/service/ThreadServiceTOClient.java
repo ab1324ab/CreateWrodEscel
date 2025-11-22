@@ -1,5 +1,6 @@
 package com.myigou.clientView.impl.sendMessage.service;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
 import com.myigou.clientView.impl.sendMessage.SendMessage;
 import com.myigou.clientView.impl.sendMessage.model.Customer;
@@ -8,13 +9,16 @@ import com.myigou.clientView.impl.sendMessage.module.Interlocutor;
 import com.myigou.clientView.impl.sendMessage.tool.MessageFileTool;
 import com.myigou.tool.PropertiesTool;
 import org.apache.commons.lang.StringUtils;
-import com.alibaba.fastjson2.JSON;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 交互对象维护线程

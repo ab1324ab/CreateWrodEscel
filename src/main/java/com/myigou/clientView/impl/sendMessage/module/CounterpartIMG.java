@@ -27,12 +27,12 @@ public class CounterpartIMG {
 
     public CounterpartIMG(String avatarUrl, String name, MessageBody messagerct) {
         try {
-            avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+            avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
             nameJLabel.setText(name);
             File file = new File(messagerct.getMessage());
             if (!file.exists()) {
                 fileimg.setText("图片加载失败!");
-                fileimg.setIcon(ImageIconTool.gitImageIcon("/icons/ImageFailedLoad.png", 64, 64));
+                fileimg.setIcon(ImageIconTool.gitImageIcon("icons/ImageFailedLoad.png", 64, 64));
             } else {
                 Image transferData = ImageIO.read(file);
                 int height = transferData.getHeight(null);

@@ -25,7 +25,6 @@ public class AidedJPanelService {
 
     /**
      * 获取用户古列表里的下一位的位置*
-     *
      * @return
      */
     public int interlocutorsCentreCount() {
@@ -60,7 +59,7 @@ public class AidedJPanelService {
     public void timerErrorMessJLabel(String errmess, long delay) {
         if (errorTimer != null) errorTimer.cancel();
         errorMessJlabel.setText(errmess);
-        errorMessJlabel.setIcon(ImageIconTool.gitImageIcon("/images/errmess.png", 150, 44));
+        errorMessJlabel.setIcon(ImageIconTool.gitImageIcon("images/errmess.png", 150, 44));
         errorMessJlabel.setVisible(true);
         errorTimer = new Timer();
         errorTimer.schedule(new TimerTask() {

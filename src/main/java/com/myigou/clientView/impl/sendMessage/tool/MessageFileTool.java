@@ -5,7 +5,10 @@ import com.alibaba.fastjson2.JSONObject;
 import com.myigou.tool.JSONConvertTool;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -16,12 +19,11 @@ public class MessageFileTool {
 
     /**
      * 设置基础用户信息*
-     *
      * @param mapObject
      */
-    public static void setBasic(Map<String,String> mapObject) throws IOException {
-        String avatarUrl = mapObject.get("avatarUrl") ;
-        String name = mapObject.get("name") ;
+    public static void setBasic(Map<String, String> mapObject) throws IOException {
+        String avatarUrl = mapObject.get("avatarUrl");
+        String name = mapObject.get("name");
         String soloId = mapObject.get("soloId");
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         Map<String, String> basicMapPath = getSaveBasicPath(soloId);
@@ -44,7 +46,6 @@ public class MessageFileTool {
 
     /**
      * 获取用户基础信息*
-     *
      * @param soloId
      * @return
      */
@@ -74,7 +75,6 @@ public class MessageFileTool {
 
     /**
      * 获取基础信息*
-     *
      * @param soloId
      * @return
      */
@@ -101,7 +101,6 @@ public class MessageFileTool {
 
     /**
      * 获取目录下的用户信息*
-     *
      * @return
      */
     @SuppressWarnings("all")
@@ -113,6 +112,7 @@ public class MessageFileTool {
         List<Map<String, String>> alluser = new ArrayList();
         for (File user : allFile) {
             File[] u = user.listFiles(pathname -> pathname.isFile());
+            if (u.length == 0) continue;
             Map<String, String> contentMap = new HashMap<String, String>();
             Properties properties = new Properties();
             properties.load(new FileInputStream(u[0].getPath()));
@@ -151,7 +151,6 @@ public class MessageFileTool {
 
     /**
      * 消息文件路径获取*
-     *
      * @param soloId
      * @return
      */
@@ -168,7 +167,6 @@ public class MessageFileTool {
 
     /**
      * 消息文件路径获取*
-     *
      * @param soloId
      * @return
      */
@@ -182,7 +180,6 @@ public class MessageFileTool {
 
     /**
      * 消息文件路径获取*
-     *
      * @param soloId
      * @return
      */
@@ -196,7 +193,6 @@ public class MessageFileTool {
 
     /**
      * 消息图片路径获取*
-     *
      * @param soloId
      * @return
      */
@@ -210,7 +206,6 @@ public class MessageFileTool {
 
     /**
      * 清除消息文件夹*
-     *
      * @param path
      * @return
      */

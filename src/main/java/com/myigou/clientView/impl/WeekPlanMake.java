@@ -1,8 +1,8 @@
 package com.myigou.clientView.impl;
 
+import com.myigou.clientService.CreateExcel;
 import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.clientView.FunctionInter;
-import com.myigou.clientService.CreateExcel;
 import com.myigou.tool.PropertiesTool;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2017/6/25.
+ * Created by ab1324ab on 2017/6/25.
  */
 public class WeekPlanMake extends JPanel implements FunctionInter {
     // 第一页文本
@@ -51,7 +51,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     // 保存
     private JButton save = null;
 
-    private Font font = new Font("微软雅黑",Font.PLAIN,14);
+    private Font font = new Font("微软雅黑", Font.PLAIN, 14);
 
     public WeekPlanMake() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
@@ -70,8 +70,8 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
     }
 
     @Override
-    public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
-        JLabel title = new JLabel("周计划生成",JLabel.CENTER);
+    public JPanel getTitle(JPanel jPanel, JFrame jFrame, Font font) {
+        JLabel title = new JLabel("周计划生成", JLabel.CENTER);
         title.setFont(font);
         jPanel.add(title);
         return jPanel;
@@ -79,7 +79,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 控制面板组件
-     *
      * @param pagePanel1
      */
     public void controlCenter(JPanel pagePanel1) {
@@ -90,7 +89,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         gridBagConstraints.weighty = 1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         // 文件名 提示标签
-        JLabel titleFileName = new JLabel("文件名：",JLabel.RIGHT);
+        JLabel titleFileName = new JLabel("文件名：", JLabel.RIGHT);
         titleFileName.setFont(font);
         gridBagLayout.setConstraints(titleFileName, gridBagConstraints);
         pagePanel1.add(titleFileName);
@@ -123,7 +122,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 周计划第一页内容
-     *
      * @param pagePanel1
      */
     public void page1(JPanel pagePanel1) {
@@ -134,9 +132,9 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         gridBagConstraints.weighty = 1;
         gridBagConstraints.insets = new Insets(5, 5, 5, 5);
         //gridBagConstraints.anchor = GridBagConstraints.EAST;
-        JLabel titleDepartment = new JLabel(contentMap.get("titleDepartment"),JLabel.RIGHT);
+        JLabel titleDepartment = new JLabel(contentMap.get("titleDepartment"), JLabel.RIGHT);
         titleDepartment.setFont(font);
-        JLabel titleName = new JLabel(contentMap.get("titleName"),JLabel.RIGHT);
+        JLabel titleName = new JLabel(contentMap.get("titleName"), JLabel.RIGHT);
         titleName.setFont(font);
         // 部门
         department = new JTextField(contentMap.get(WeekPropertiesEnum.department));
@@ -165,11 +163,11 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         String[] title1 = contentMap.get("title1").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 9; j++) {
             JLabel renwuContents = null;
-            if(j == 9){
-                renwuContents = new JLabel(title1[j],JLabel.LEFT);
+            if (j == 9) {
+                renwuContents = new JLabel(title1[j], JLabel.LEFT);
                 gridBagConstraints.weightx = 0;
-            }else{
-                renwuContents = new JLabel(title1[j],JLabel.CENTER);
+            } else {
+                renwuContents = new JLabel(title1[j], JLabel.CENTER);
             }
             if (j == 2 || j == 3 || j == 4 || j == 6 || j == 7 || j == 8) {
                 gridBagConstraints.gridwidth = 1;
@@ -228,7 +226,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 周计划第二页内容
-     *
      * @param pagePanel1
      */
     public void page2(JPanel pagePanel1) {
@@ -241,11 +238,11 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         String[] title2 = contentMap.get("title2").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 6; j++) {
             JLabel renwuContents = null;
-            if(j == 6){
-                renwuContents = new JLabel(title2[j],JLabel.LEFT);
+            if (j == 6) {
+                renwuContents = new JLabel(title2[j], JLabel.LEFT);
                 gridBagConstraints.weightx = 0;
-            }else{
-                renwuContents = new JLabel(title2[j],JLabel.CENTER);
+            } else {
+                renwuContents = new JLabel(title2[j], JLabel.CENTER);
             }
             if (j == 0) {
                 gridBagConstraints.gridwidth = 1;
@@ -321,7 +318,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 周计划第三页内容
-     *
      * @param pagePanel1
      */
     public void page3(JPanel pagePanel1) {
@@ -334,11 +330,11 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
         String[] title3 = contentMap.get("title3").split(PropertiesTool.SGMTA_SPLIT);
         for (int j = 0; j <= 5; j++) {
             JLabel renwuContents = null;
-            if(j == 5){
-                renwuContents = new JLabel(title3[j],JLabel.LEFT);
+            if (j == 5) {
+                renwuContents = new JLabel(title3[j], JLabel.LEFT);
                 gridBagConstraints.weightx = 0;
-            }else{
-                renwuContents = new JLabel(title3[j],JLabel.CENTER);
+            } else {
+                renwuContents = new JLabel(title3[j], JLabel.CENTER);
             }
             gridBagConstraints.gridy = 13;
             if (j == 1) {
@@ -391,7 +387,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 按钮事件
-     *
      * @param jPanel
      */
     public void registerListener(final JPanel jPanel) {
@@ -424,7 +419,7 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
                     Map<String, Object> controlMap = new HashMap<String, Object>();
                     boolean[] hiddenPage1 = new boolean[jCheckBoxsPage1.size()];
                     for (int i = 0; i < jCheckBoxsPage1.size(); i++) {
-                        hiddenPage1[i] = jCheckBoxsPage1.get(i).isSelected() ? false : true;
+                        hiddenPage1[i] = !jCheckBoxsPage1.get(i).isSelected();
                     }
                     controlMap.put("hiddenPage1", hiddenPage1);
                     boolean[] hidden = new boolean[jCheckBoxsPage2.size()];
@@ -449,7 +444,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 写入配置文件第一页内容
-     *
      * @return String
      */
     public String writePage1() {
@@ -483,7 +477,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 写入第二页配置内容
-     *
      * @return String
      */
     public String writePage2() {
@@ -505,7 +498,6 @@ public class WeekPlanMake extends JPanel implements FunctionInter {
 
     /**
      * 写入第三页配置内容
-     *
      * @return String
      */
     public String writePage3() {

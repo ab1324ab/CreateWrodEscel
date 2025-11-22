@@ -29,18 +29,17 @@ public class CounterpartFile {
 
     public CounterpartFile(String avatarUrl, String name, MessageBody messagerct) {
         try {
-            avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+            avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
             nameJLabel.setText(name);
             File file = new File(messagerct.getMessage());
             if (!file.exists()) {
                 filepace.setVisible(true);
                 if (StringUtils.isNotBlank(messagerct.getMessageRemark())) filepace.setText(messagerct.getMessageRemark());
                 else filepace.setText("文件已被清理!");
-                fileico.setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/close.png", 30, 30));
+                fileico.setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/close.png", 30, 30));
             }
             if (file.exists()) {
-                ImageIcon imageIcon = new ImageIcon(sun.awt.shell.ShellFolder.getShellFolder(file).getIcon(true));
-                fileico.setIcon(imageIcon);
+                fileico.setIcon(ImageIconTool.gitImageIcon(file));
                 filelength.setText(BusinessTool.fileSizeCalculation(file.length()));
             }
             filename.setText(file.getName());

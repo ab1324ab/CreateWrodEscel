@@ -1,12 +1,6 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientView.FunctionInter;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -16,9 +10,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2017-10-7.
+ * Created by ab1324ab on 2017-10-7.
  */
 public class SendEmail implements FunctionInter {
 
@@ -42,17 +41,16 @@ public class SendEmail implements FunctionInter {
     }
 
     @Override
-    public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
+    public JPanel getTitle(JPanel jPanel, JFrame jFrame, Font font) {
         jPanel.setLayout(new BorderLayout());
         JLabel title = new JLabel("邮件发送");
         title.setFont(font);
-        jPanel.add(title,BorderLayout.CENTER);
+        jPanel.add(title, BorderLayout.CENTER);
         return jPanel;
     }
 
     /**
      * 编辑邮件发送信息
-     *
      * @param jPanel
      */
     public void editMsg(JPanel jPanel) {

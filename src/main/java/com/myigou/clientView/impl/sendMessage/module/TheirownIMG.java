@@ -28,13 +28,13 @@ public class TheirownIMG {
 
     public TheirownIMG(String avatarUrl, String name, MessageBody messageBody) {
         try {
-            avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+            avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
             nameJLabel.setText(name);
             File file = new File(messageBody.getMessage());
             if (!file.exists()) {
                 fileimg.setText("图片加载失败!");
-                fileimg.setIcon(ImageIconTool.gitImageIcon("/icons/ImageFailedLoad.png", 64, 64));
-            }else {
+                fileimg.setIcon(ImageIconTool.gitImageIcon("icons/ImageFailedLoad.png", 64, 64));
+            } else {
                 Image transferData = ImageIO.read(file);
                 int height = transferData.getHeight(null);
                 int width = transferData.getWidth(null);

@@ -17,7 +17,7 @@ public class AboutProgramDialog extends JDialog {
     public AboutProgramDialog(JFrame owner, String title) {
         super(owner, title);
         jscrollpane.getVerticalScrollBar().setUnitIncrement(16);
-        tubiao.setIcon(ImageIconTool.gitImageIcon("/icons/tubiao.png", 70, 70));
+        tubiao.setIcon(ImageIconTool.gitImageIcon("icons/tubiao.png", 70, 70));
         thisProgramIsFreeTextPane.setCaretPosition(0);
         version.setText(WindowView.VERSION_THIS);
 

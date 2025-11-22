@@ -161,7 +161,6 @@ public class FileRenameInsertDialog {
 
     /**
      * 模拟输入光标演示示例
-     *
      * @param example
      */
     public void enterCursor(String example) {
@@ -185,4 +184,5 @@ public class FileRenameInsertDialog {
         };
         timer.schedule(displayCursorRunnable, 500, 1000);
     }
+
 }

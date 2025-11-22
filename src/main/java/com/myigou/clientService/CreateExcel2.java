@@ -1,23 +1,26 @@
 package com.myigou.clientService;
 
-import com.myigou.clientService.response.DataSourceResponse;
-import com.myigou.clientService.errorcode.HintInformationErrorCode;
 import com.myigou.clientService.enums.WeekPropertiesEnum;
+import com.myigou.clientService.errorcode.HintInformationErrorCode;
+import com.myigou.clientService.response.DataSourceResponse;
+import com.myigou.mainView.ViewMain;
 import com.myigou.tool.BusinessTool;
 import com.myigou.tool.PropertiesTool;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2018/3/17.
+ * Created by ab1324ab on 2018/3/17.
  */
 public class CreateExcel2 {
     // 读取所有配置项
@@ -31,7 +34,8 @@ public class CreateExcel2 {
 
     public CreateExcel2() {
         try {
-            wb = new XSSFWorkbook(CreateExcel2.class.getClass().getResourceAsStream("/template2.xlsx"));
+            InputStream template = Objects.requireNonNull(CreateExcel2.class.getClassLoader().getResource("template2.xlsx")).openStream();
+            wb = new XSSFWorkbook(template);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,7 +43,6 @@ public class CreateExcel2 {
 
     /**
      * 写入本周及下周部件内容到配置文件
-     *
      * @param tswkNxvWkMap 存储(本周\下周)面板里的部件
      * @param line         存入配置文件键名
      */
@@ -81,7 +84,6 @@ public class CreateExcel2 {
 
     /**
      * 写入其余个别部件
-     *
      * @param troubleShootingMap 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处部件
      */
     public void serveTroubleShootingProperties(Map<String, Object> troubleShootingMap) {
@@ -116,10 +118,9 @@ public class CreateExcel2 {
 
     /**
      * 创建周计划
-     *
      * @return String 返回状态
      */
-    public String createExcel(int tswkRow, int nxvWkRow,String fileName) {
+    public String createExcel(int tswkRow, int nxvWkRow, String fileName) {
         contentMap = PropertiesTool.redConfigFile("config.properties");
         List<String> tswkPlanList = new ArrayList<String>();
         for (int tswk = 0; tswk < tswkRow; tswk++) {
@@ -205,30 +206,29 @@ public class CreateExcel2 {
 
     /**
      * 获取数据源内容写入部件
-     *
      * @param weekPlanList
      * @return DataSourceResponse
      */
-    public DataSourceResponse obtainingDataSources(List<String> weekPlanList,String xlsxFileUrl) {
+    public DataSourceResponse obtainingDataSources(List<String> weekPlanList, String xlsxFileUrl) {
         DataSourceResponse dataSourceResponse = new DataSourceResponse(weekPlanList);
         String foundSheetName = "";
         try {
             contentMap = PropertiesTool.redConfigFile("config.properties");
-            try{
+            try {
                 // 转换日期
                 dateFormat = new SimpleDateFormat(contentMap.get("excelText"));
                 List<Date> dateList = BusinessTool.getStartDateAndEndDate();
                 String firStDate = dateFormat.format(dateList.get(0));
                 String endDate = dateFormat.format(dateList.get(4));
                 // 检测月份开头是否含有 “0” 有则去掉
-                if(firStDate.indexOf("0") == 0){
+                if (firStDate.indexOf("0") == 0) {
                     firStDate = firStDate.replaceFirst("0", "");
                 }
-                if(endDate.indexOf("0") == 0){
-                    endDate = endDate.replaceFirst("0","");
+                if (endDate.indexOf("0") == 0) {
+                    endDate = endDate.replaceFirst("0", "");
                 }
                 foundSheetName = firStDate + contentMap.get("connectorText") + endDate;
-            }catch (IllegalArgumentException x) {
+            } catch (IllegalArgumentException x) {
                 dataSourceResponse.setStatus(HintInformationErrorCode.DateFormatError.getErrorMsg());
                 return dataSourceResponse;
             }
@@ -236,7 +236,7 @@ public class CreateExcel2 {
             Workbook newWb = null;
             try {
                 newWb = new XSSFWorkbook(new FileInputStream(new File(xlsxFileUrl)));
-            }catch(IOException x){
+            } catch (IOException x) {
                 dataSourceResponse.setStatus(HintInformationErrorCode.FileError.getErrorMsg());
                 return dataSourceResponse;
             }
@@ -247,7 +247,7 @@ public class CreateExcel2 {
                 if (null == sheet) {
                     throw new RuntimeException();
                 }
-            }catch(RuntimeException x){
+            } catch (RuntimeException x) {
                 dataSourceResponse.setStatus(String.format(HintInformationErrorCode.DateFormatMismatch.getErrorMsg(), foundSheetName));
                 return dataSourceResponse;
             }
@@ -266,10 +266,10 @@ public class CreateExcel2 {
                     } else if (cellLineNum == 3) {
                         rowContent = rowContent.replace(".0", "");
                     } else if (cellLineNum == 4) {
-                        try{
+                        try {
                             rowContent = (int) (Double.parseDouble(rowContent) * 100) + "%";
-                        }catch(Exception x){
-                            dataSourceResponse.setStatus(HintInformationErrorCode.getParamError.getErrorMsg()+rowContent);
+                        } catch (Exception x) {
+                            dataSourceResponse.setStatus(HintInformationErrorCode.getParamError.getErrorMsg() + rowContent);
                             return dataSourceResponse;
                         }
                     }
@@ -279,7 +279,7 @@ public class CreateExcel2 {
                     weekPlanList.add(string);
                 }
             }
-        }   catch (Exception e) {
+        } catch (Exception e) {
             dataSourceResponse.setStatus(HintInformationErrorCode.SystemError.getErrorMsg());
             return dataSourceResponse;
         }

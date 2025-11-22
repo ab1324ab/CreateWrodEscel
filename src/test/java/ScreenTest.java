@@ -1,20 +1,11 @@
-
 import com.myigou.tool.WindowTool;
 
-import javax.imageio.ImageIO;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class ScreenTest extends JFrame {
 
@@ -31,7 +22,7 @@ public class ScreenTest extends JFrame {
 
         JFrame jFrame = new JFrame();
 
-        JPanel beijing = new JPanel(){
+        JPanel beijing = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 g.drawImage(bufImage, 0, 0, screenSize.width, screenSize.height, this);
@@ -52,7 +43,7 @@ public class ScreenTest extends JFrame {
                 g.fillRect((startX + endX) / 2 - 5, startY - 5, 10, 10); // 上线的 中间描点
                 g.fillRect(endX - 5, startY - 5, 10, 10); // 上线的 终点描点
 
-                g.fillRect(startX -5, endY -5, 10, 10); // 上线的 起点描点
+                g.fillRect(startX - 5, endY - 5, 10, 10); // 上线的 起点描点
 //                g.fillRect(endX - 2, (startX + endX) / 2 - 2, 5, 5);
 //                g.fillRect(startX - 2, startY - 2, 5, 5);
 //                g.fillRect(startX - 2, endY - 2, 5, 5);
@@ -93,9 +84,9 @@ public class ScreenTest extends JFrame {
         jPanel.setOpaque(false);
 
 
-        beijing.add(jPanel,BorderLayout.CENTER);
+        beijing.add(jPanel, BorderLayout.CENTER);
 
-        jFrame.getContentPane().add(beijing,BorderLayout.CENTER);
+        jFrame.getContentPane().add(beijing, BorderLayout.CENTER);
 //        jFrame.setUndecorated(true);
         jFrame.setSize(800, 500);
 //        jFrame.setBackground(new Color(0,0,0, 142));

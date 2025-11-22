@@ -15,13 +15,12 @@ import java.awt.*;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.TimerTask;
 import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 文件文本操作
  * 2023年2月18日15点31分
- *
  * @author hawk
  */
 public class TextWord implements FunctionInter {
@@ -93,7 +92,7 @@ public class TextWord implements FunctionInter {
                 directoryURL = savePath = file.getParent() + File.separator + fileName;
             }
         }
-        if (StringUtils.isNotEmpty(savePath)){
+        if (StringUtils.isNotEmpty(savePath)) {
             OutputStreamWriter fos = null;
             OutputStream os = null;
             try {
@@ -251,7 +250,6 @@ public class TextWord implements FunctionInter {
 
     /**
      * 统计字符长度以及行数*
-     *
      * @param ex
      */
     public void setRowsCount(DocumentEvent ex) {
@@ -302,7 +300,7 @@ public class TextWord implements FunctionInter {
                             }
                         }
                         String text = document.getText(e.getOffset(), e.getLength());
-                        long enterCount = text.split("\n").length -1;
+                        long enterCount = text.split("\n").length - 1;
                         if (text.equals("\n")) enterCount = 1;
                         for (int i = 0; i < enterCount; i++)
                             setRowNumJPanel(vBox.getComponentCount() + 1);

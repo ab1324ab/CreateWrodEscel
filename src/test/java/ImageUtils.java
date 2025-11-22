@@ -1,5 +1,5 @@
 //import com.swetake.util.Qrcode;
-import jxl.biff.drawing.PNGReader;
+
 import org.apache.commons.lang.StringUtils;
 
 import javax.imageio.ImageIO;
@@ -59,7 +59,6 @@ public class ImageUtils {
 
     /**
      * 生成二维码(QRCode)图片的公共方法
-     *
      * @param content  存储内容
      * @param imgType  图片类型
      * @param size     二维码尺寸
@@ -161,7 +160,6 @@ public class ImageUtils {
 
     /**
      * 二维码添加 商户号水印
-     *
      * @param backgroundPic
      * @param qrCodePic
      * @param content

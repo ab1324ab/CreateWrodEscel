@@ -91,7 +91,7 @@ public class WeekPlanMakeSetting {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (String key : setMap.keySet()) {
-                        if ("facilityValueText".equals(key)) {
+                    if ("facilityValueText".equals(key)) {
                         JTextField textField = (JTextField) setMap.get(key);
                         String textFieldText = "," + textField.getText();
                         PropertiesTool.writeSet(PropertiesTool.CONFIG_FILE, key, textFieldText);
@@ -112,4 +112,5 @@ public class WeekPlanMakeSetting {
             }
         });
     }
+
 }

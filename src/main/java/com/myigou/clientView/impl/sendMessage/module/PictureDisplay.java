@@ -12,7 +12,7 @@ public class PictureDisplay {
     private JPanel jpanel;
     private JLabel imgdisplay;
     private Image transferData = null;
-    private int height,width;
+    private int height, width;
 
     public JPanel getJpanel() {
         return jpanel;
@@ -38,13 +38,13 @@ public class PictureDisplay {
         imgdisplay.addMouseWheelListener(new MouseAdapter() {
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                if(e.getWheelRotation()==1){
+                if (e.getWheelRotation() == 1) {
                     height = height - 30;
                     width = width - 30;
                     ImageIcon imageIcon = new ImageIcon(transferData.getScaledInstance(width, height, Image.SCALE_SMOOTH));
                     imgdisplay.setIcon(imageIcon);
                 }
-                if(e.getWheelRotation()==-1){
+                if (e.getWheelRotation() == -1) {
                     height = height + 30;
                     width = width + 30;
                     ImageIcon imageIcon = new ImageIcon(transferData.getScaledInstance(width, height, Image.SCALE_SMOOTH));

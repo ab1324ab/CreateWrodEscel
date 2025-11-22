@@ -2,17 +2,21 @@ package com.myigou.clientService;
 
 import com.myigou.clientService.enums.WeekPropertiesEnum;
 import com.myigou.tool.PropertiesTool;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2017/4/25.
+ * Created by ab1324ab on 2017/4/25.
  */
 public class CreateExcel {
     // 读取所有配置项
@@ -32,7 +36,8 @@ public class CreateExcel {
             // String runPath=new File(System.getProperty("user.dir")).getParent();
             Cell cell = null;
             // 获取表格模板
-            Workbook wb = new XSSFWorkbook(CreateExcel.class.getClass().getResourceAsStream("/template.xlsx"));
+            InputStream template = Objects.requireNonNull(CreateExcel.class.getClassLoader().getResource("template.xlsx")).openStream();
+            Workbook wb = new XSSFWorkbook(template);
             // 第一页
             page1(wb, (boolean[]) controlMap.get("hiddenPage1"));
             // 第二页
@@ -65,7 +70,6 @@ public class CreateExcel {
 
     /**
      * 第一页excel
-     *
      * @param wb
      */
     public static void page1(Workbook wb, boolean[] hidden) {
@@ -120,7 +124,6 @@ public class CreateExcel {
 
     /**
      * 第二页
-     *
      * @param wb
      */
     public static void page2(Workbook wb, boolean[] hidden) throws ParseException {
@@ -172,7 +175,6 @@ public class CreateExcel {
 
     /**
      * 第三页
-     *
      * @param wb
      */
     public static void page3(Workbook wb, boolean[] hidden) throws ParseException {

@@ -88,7 +88,7 @@ public class AutomaticManual {
                     try {
                         String addressIp = it.getAddressIp();
                         String soloId = it.getSoloId();
-                        Map<String,String> stringMap = new HashMap<>();
+                        Map<String, String> stringMap = new HashMap<>();
                         stringMap.put("avatarUrl", it.getAvatarUrl());
                         stringMap.put("name", it.getName());
                         stringMap.put("soloId", soloId);

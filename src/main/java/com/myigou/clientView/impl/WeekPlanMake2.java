@@ -1,8 +1,8 @@
 package com.myigou.clientView.impl;
 
 import com.myigou.clientService.CreateExcel2;
-import com.myigou.clientService.response.DataSourceResponse;
 import com.myigou.clientService.enums.WeekPropertiesEnum;
+import com.myigou.clientService.response.DataSourceResponse;
 import com.myigou.clientView.FunctionInter;
 import com.myigou.module.OnTop;
 import com.myigou.tool.BusinessTool;
@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2018/1/22.
+ * Created by ab1324ab on 2018/1/22.
  */
 public class WeekPlanMake2 extends JPanel implements FunctionInter {
     // 网格布局
@@ -45,14 +45,14 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     public WeekPlanMake2() {
         contentMap = PropertiesTool.redConfigFile("config.properties");
         // 面板文字颜色
-        String[] colorPanelValue= contentMap.get("colorPanelValue").split(",");
+        String[] colorPanelValue = contentMap.get("colorPanelValue").split(",");
         redColor = new Color(Integer.parseInt(colorPanelValue[0]), Integer.parseInt(colorPanelValue[1]), Integer.parseInt(colorPanelValue[2]));
         // 面板颜色
         String[] colorList = contentMap.get("colorExamplesValue").split(",");
         int r = Integer.parseInt(colorList[0]);
         int g = Integer.parseInt(colorList[1]);
         int b = Integer.parseInt(colorList[2]);
-        panelColor = new Color(r,g,b);
+        panelColor = new Color(r, g, b);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
     }
 
     @Override
-    public JPanel getTitle(JPanel jPanel, JFrame jFrame,Font font) {
-        JLabel title = new JLabel("周计划生成第二版",JLabel.CENTER);
+    public JPanel getTitle(JPanel jPanel, JFrame jFrame, Font font) {
+        JLabel title = new JLabel("周计划生成第二版", JLabel.CENTER);
         title.setFont(font);
         jPanel.add(title);
         return jPanel;
@@ -73,7 +73,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
     /**
      * 控制界面
-     *
      * @param jPanel
      * @param jFrame
      * @return
@@ -92,12 +91,12 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
         explain.setFont(new Font("微软雅黑", Font.BOLD, 14));
         ctrlonPanel.add(explain);
         JTextField fileName = new JTextField();
-        fileName.setMinimumSize(new Dimension(350,30));
-        fileName.setPreferredSize(new Dimension(350,30));
+        fileName.setMinimumSize(new Dimension(350, 30));
+        fileName.setPreferredSize(new Dimension(350, 30));
         fileName.setForeground(redColor);
         SimpleDateFormat fileFormat = new SimpleDateFormat(contentMap.get("params"));
         String fileDate = fileFormat.format(new Date());
-        String fName = contentMap.get("fileJText").replaceFirst("%t",fileDate).replaceFirst("%n",contentMap.get("name"));
+        String fName = contentMap.get("fileJText").replaceFirst("%t", fileDate).replaceFirst("%n", contentMap.get("name"));
         fileName.setFont(font);
         fileName.setText(fName);
         ctrlonPanel.add(fileName);
@@ -129,7 +128,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             }
             List<String> weekPlanList = new ArrayList<String>();
             CreateExcel2 excel2 = new CreateExcel2();
-            DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList,directoryURL);
+            DataSourceResponse dataSources = excel2.obtainingDataSources(weekPlanList, directoryURL);
             if (dataSources.getStatus() != null) {
                 JOptionPane.showMessageDialog(jPanel, dataSources.getStatus(), "错误", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -172,7 +171,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
                 // 其余 写入配置文件
                 createExcel2.serveTroubleShootingProperties(troubleShootingMap);
                 // 生成Excel
-                String msg = createExcel2.createExcel(tswkMap.size(), nxvWkMap.size(),fName);
+                String msg = createExcel2.createExcel(tswkMap.size(), nxvWkMap.size(), fName);
                 JOptionPane.showMessageDialog(jPanel, msg, "提示", JOptionPane.WARNING_MESSAGE);
             }
         });
@@ -335,7 +334,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             String tswkText = contentMap.get("tswkText");
             int tswkTextLine = Integer.parseInt(tswkText) + 3;
             // 最高显示100行
-            if(103 < tswkTextLine){
+            if (103 < tswkTextLine) {
                 tswkTextLine = 103;
             }
             tswkMap = new HashMap<String, List<Object>>();
@@ -418,7 +417,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             int r = Integer.parseInt(colorList[0]);
             int g = Integer.parseInt(colorList[1]);
             int b = Integer.parseInt(colorList[2]);
-            Color color = new Color(r,g,b);
+            Color color = new Color(r, g, b);
             contentJPanel.setBackground(color);
             panel.setLayout(new BorderLayout());
             panel.add(jScrollPane, BorderLayout.CENTER);
@@ -507,7 +506,7 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
             String nxvwkText = contentMap.get("nxvwkText");
             int nxvwkTextLine = Integer.parseInt(nxvwkText) + 2;
             // 最高显示100行
-            if(102 < nxvwkTextLine){
+            if (102 < nxvwkTextLine) {
                 nxvwkTextLine = 102;
             }
             for (int j = 2; j < nxvwkTextLine; j++) {
@@ -781,7 +780,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
     /**
      * （下周、本周）计划写入编辑框
-     *
      * @param contentColumnMap 内容行
      * @param contentLineList  内容列
      * @param decollator       分隔符
@@ -819,7 +817,6 @@ public class WeekPlanMake2 extends JPanel implements FunctionInter {
 
     /**
      * 余留问题；需其它部门或领导协助解决的事宜；工作中的不足和需改进之处
-     *
      * @param contentColumnMap 故障排除部件
      * @param contentLineMap   内容列表
      */

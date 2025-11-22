@@ -22,8 +22,8 @@ public class Theirown {
         return jpanel;
     }
 
-    public Theirown(String avatarUrl, String name, MessageBody messageBody){
-        avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+    public Theirown(String avatarUrl, String name, MessageBody messageBody) {
+        avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
         nameJLabel.setText(name);
         messageSimple.setText(messageBody.getMessage());
         messageSimple.addMouseListener(new ContentMouseAdapter(messageBody.getMessage(), "COM", contentjpanel, null));

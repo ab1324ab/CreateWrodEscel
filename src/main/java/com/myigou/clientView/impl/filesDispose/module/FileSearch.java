@@ -200,7 +200,6 @@ public class FileSearch {
 
     /**
      * 文件夹选择
-     *
      * @param address
      * @param jFrame
      */
@@ -221,7 +220,6 @@ public class FileSearch {
 
     /**
      * 获取目录下有多少文件
-     *
      * @param FilePath
      * @param count
      * @return
@@ -243,7 +241,6 @@ public class FileSearch {
 
     /**
      * 占位扩展把内容顶到上面(使其不居中)
-     *
      * @param fileTableGBL
      * @param tableFilesGBC
      */
@@ -262,7 +259,6 @@ public class FileSearch {
 
     /**
      * 创建表格标题
-     *
      * @param filePath
      */
     public JPanel createRows(String filePath) {
@@ -326,4 +322,5 @@ public class FileSearch {
         centre.setVisible(false);
         centre.setVisible(true);
     }
+
 }

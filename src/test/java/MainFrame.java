@@ -1,14 +1,9 @@
-import java.awt.Color;
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.event.MouseInputListener;
 
 public class MainFrame extends JFrame {
     final JPanel panel1 = new JPanel();
@@ -47,9 +42,9 @@ public class MainFrame extends JFrame {
 
     class Drag implements MouseInputListener {
         int moving = 0;  //显示Panel是否处于移动过程中，否则只要单击便会调用press里面的方法
-        int xinit = 0;	 //鼠标按下时所处的X坐标
+        int xinit = 0;     //鼠标按下时所处的X坐标
         int yinit = 0;   //鼠标按下时所处的Y坐标
-        int x0 = 0;		//拖拽过程中鼠标的位置
+        int x0 = 0;        //拖拽过程中鼠标的位置
         int y0 = 0;
         Timer timer;
 

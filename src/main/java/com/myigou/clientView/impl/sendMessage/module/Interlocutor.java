@@ -34,7 +34,6 @@ public class Interlocutor {
 
     /**
      * 初始化新的用户*
-     *
      * @param sendMessage
      * @param mapObject
      */
@@ -46,7 +45,7 @@ public class Interlocutor {
             int number = random.nextInt(100);
             avatarUrl = number + ".jpeg";
         }
-        avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+        avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
         mapObject.put("avatarUrl", avatarUrl);
         name = mapObject.get("name");
         nameJLabel.setText(name + "");
@@ -112,8 +111,8 @@ public class Interlocutor {
         nameJLabel.setBackground(color);
         messageSimple.setBackground(color);
         nameJLabel.setText(name + "");
-        avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
-        alertCount.setIcon(ImageIconTool.gitImageIcon("/icons/alertCountShow.png", 20, 20));
+        avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
+        alertCount.setIcon(ImageIconTool.gitImageIcon("icons/alertCountShow.png", 20, 20));
     }
 
     /**
@@ -133,12 +132,11 @@ public class Interlocutor {
         g.dispose();
         BufferedImage bufferedImage = ImageIconTool.getGrayImage(bi);
         avatarIco.setIcon(new ImageIcon(bufferedImage));
-        alertCount.setIcon(ImageIconTool.gitImageIcon("/icons/alertCountHide.png", 20, 20));
+        alertCount.setIcon(ImageIconTool.gitImageIcon("icons/alertCountHide.png", 20, 20));
     }
 
     /**
      * 头像短消息*
-     *
      * @param messageSimple
      * @param messTime
      */

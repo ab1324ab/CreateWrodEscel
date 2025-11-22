@@ -150,7 +150,6 @@ public class FilesCollect {
 
     /**
      * 文件夹选择
-     *
      * @param address
      * @param jFrame
      */
@@ -171,7 +170,6 @@ public class FilesCollect {
 
     /**
      * 占位扩展把内容顶到上面(使其不居中)
-     *
      * @param fileTableGBL
      * @param tableFilesGBC
      */
@@ -191,7 +189,6 @@ public class FilesCollect {
 
     /**
      * 读取目录下所有文件
-     *
      * @param fileDirectory
      * @param file
      * @param barrel
@@ -225,7 +222,6 @@ public class FilesCollect {
 
     /**
      * 获取目录下有多少文件
-     *
      * @param FilePath
      * @param count
      * @return

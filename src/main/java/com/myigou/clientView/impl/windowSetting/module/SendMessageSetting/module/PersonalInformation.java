@@ -7,7 +7,8 @@ import com.myigou.tool.PropertiesTool;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PersonalInformation {
 
@@ -25,7 +26,7 @@ public class PersonalInformation {
 
     public PersonalInformation(SendMessageSetting sendMessageSetting, JDialog dialog, String myavatarUrl, String myname, String mysoloId) {
         jscrollpane.getVerticalScrollBar().setUnitIncrement(16);
-        avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + myavatarUrl, 100, 100));
+        avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + myavatarUrl, 100, 100));
         mynameJLabel.setText(myname);
         mysoloIdJLabel.setText(mysoloId);
         GridBagLayout avatarsListGBL = new GridBagLayout();
@@ -37,7 +38,7 @@ public class PersonalInformation {
             String iLength = i + "";
             if (iLength.length() == 1) iLength = "0" + iLength;
             String avatarimg = "avatar-" + iLength + ".jpeg";
-            ImageIcon imageIcon = ImageIconTool.gitImageIcon("/images/avatars/" + avatarimg, 70, 70);
+            ImageIcon imageIcon = ImageIconTool.gitImageIcon("images/avatars/" + avatarimg, 70, 70);
             JLabel jLabel = new JLabel();
             jLabel.setPreferredSize(new Dimension(70, 70));
             jLabel.setIcon(imageIcon);
@@ -51,7 +52,7 @@ public class PersonalInformation {
                     JLabel ava = ((JLabel) e.getComponent());
                     ava.setBorder(border);
                     avaurl[0] = ava.getName();
-                    avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + ava.getName(), 100, 100));
+                    avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + ava.getName(), 100, 100));
                 }
 
                 @Override
@@ -79,7 +80,7 @@ public class PersonalInformation {
         }
         saveJButton.addActionListener(e -> {
             String name = mynameJLabel.getText();
-            sendMessageSetting.avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avaurl[0], 70, 70));
+            sendMessageSetting.avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avaurl[0], 70, 70));
             sendMessageSetting.mynameJLabel.setText(name);
             sendMessageSetting.myavatarUrl = avaurl[0];
             PropertiesTool.writeSet(PropertiesTool.CONFIG_FILE, "message.avatarUrl", avaurl[0]);

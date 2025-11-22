@@ -19,7 +19,10 @@ import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 消息处理方法*
@@ -69,7 +72,6 @@ public class MessageDispose {
 
     /**
      * 发送用户消息
-     *
      * @param messageBody
      */
     public void sendTransmitMessage(MessageBody messageBody, Socket socketWriter) throws IOException, InterruptedException {
@@ -141,7 +143,6 @@ public class MessageDispose {
 
     /**
      * 接收用户消息
-     *
      * @param messageJson
      */
     public void dispatcherMessage(String messageJson, Interlocutor interlocutor) {
@@ -221,7 +222,6 @@ public class MessageDispose {
 
     /**
      * 发送单个消息面板
-     *
      * @param avatarUrl
      * @param name
      * @param messageBody
@@ -256,7 +256,6 @@ public class MessageDispose {
 
     /**
      * 接收单个消息面板
-     *
      * @param soloId
      * @param avatarUrl
      * @param name
@@ -286,7 +285,6 @@ public class MessageDispose {
 
     /**
      * 生成消息滚动面板数据
-     *
      * @param soloId
      */
     public void showMessageList(String soloId) {
@@ -333,7 +331,6 @@ public class MessageDispose {
 
     /**
      * 定位滚动条到行尾
-     *
      * @param index
      */
     public void endLineJScroll(int index) {

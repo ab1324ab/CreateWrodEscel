@@ -10,15 +10,15 @@ import com.tulskiy.keymaster.common.Provider;
 import org.apache.commons.lang.StringUtils;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.net.*;
-import java.util.Timer;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.net.*;
 import java.util.*;
 import java.util.List;
+import java.util.Timer;
 
 public class SendMessageSetting {
     private JPanel jpanel;
@@ -73,7 +73,6 @@ public class SendMessageSetting {
 
     /**
      * 账户个人信息*
-     *
      * @param jFrame
      */
     public void accountPersonalInformation(JFrame jFrame) {
@@ -96,7 +95,7 @@ public class SendMessageSetting {
         }
         String myname = contentMap.get("message.name");
         if (StringUtils.isEmpty(myname)) myname = "我的名称";
-        avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + myavatarUrl, 70, 70));
+        avatarUrlJLabel.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + myavatarUrl, 70, 70));
         mynameJLabel.setText(myname);
         button1.addActionListener(e -> {
             // 组装自定义 对话框
@@ -134,7 +133,8 @@ public class SendMessageSetting {
         passiveConnectRadioButton.addActionListener(e -> PropertiesTool.writeSet("config.properties", "message.setting.foundType", MessConstant.MESSAGE_SETTING_FOUNDTYPE_PASSIVE));
         String foundType = contentMap.get("message.setting.foundType");
         if (MessConstant.MESSAGE_SETTING_FOUNDTYPE_ACTIVE.equals(foundType)) activeScanRadioButton.setSelected(true);
-        else if (MessConstant.MESSAGE_SETTING_FOUNDTYPE_PASSIVE.equals(foundType)) passiveConnectRadioButton.setSelected(true);
+        else if (MessConstant.MESSAGE_SETTING_FOUNDTYPE_PASSIVE.equals(foundType))
+            passiveConnectRadioButton.setSelected(true);
     }
 
     /**
@@ -148,7 +148,8 @@ public class SendMessageSetting {
         ctrlEnterRadioButton.addActionListener(e -> PropertiesTool.writeSet("config.properties", "message.setting.shortcutKey", MessConstant.MESSAGE_SETTING_SHORTCUTKEY_CTRLEnter));
         String shortcutKey = contentMap.get("message.setting.shortcutKey");
         if (MessConstant.MESSAGE_SETTING_SHORTCUTKEY_ENTER.equals(shortcutKey)) enterRadioButton.setSelected(true);
-        else if (MessConstant.MESSAGE_SETTING_SHORTCUTKEY_CTRLEnter.equals(shortcutKey)) ctrlEnterRadioButton.setSelected(true);
+        else if (MessConstant.MESSAGE_SETTING_SHORTCUTKEY_CTRLEnter.equals(shortcutKey))
+            ctrlEnterRadioButton.setSelected(true);
         String percentageText[] = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F", "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"};
         List<String> strings = Arrays.asList(percentageText);
         strings.forEach(it -> keysComboBox.addItem(it));
@@ -183,7 +184,7 @@ public class SendMessageSetting {
         String noticeAudio = contentMap.get("message.setting.noticeAudio");
         audioComboBox.setSelectedItem(noticeAudio);
         audioComboBox.addActionListener(e -> PropertiesTool.writeSet("config.properties", "message.setting.noticeAudio", audioComboBox.getSelectedItem() + ""));
-        audioJlabelStart.setIcon(ImageIconTool.gitImageIcon("/icons/audio3.png", 20, 20));
+        audioJlabelStart.setIcon(ImageIconTool.gitImageIcon("icons/audio3.png", 20, 20));
         audioJlabelStart.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -207,7 +208,7 @@ public class SendMessageSetting {
             public void mouseClicked(MouseEvent e) {
                 audioJlabelStop.setVisible(false);
                 audioJlabelStart.setVisible(true);
-                AudioPlayerTool.playerStopAudioWav("/audio/" + audioComboBox.getSelectedItem());
+                AudioPlayerTool.playerStopAudioWav();
             }
         });
     }
@@ -277,7 +278,7 @@ public class SendMessageSetting {
     /**
      * 消息文件管理*
      */
-    public void messageFileManage(){
+    public void messageFileManage() {
         ButtonGroup messageFileGroup = new ButtonGroup();
         messageFileGroup.add(retainCheckBox);
         messageFileGroup.add(weekCheckBox);
@@ -288,7 +289,8 @@ public class SendMessageSetting {
         String messageFile = contentMap.get("message.setting.messageFile");
         if (MessConstant.MESSAGE_SETTING_MESSAGEFILE_PERPETUAL.equals(messageFile)) retainCheckBox.setSelected(true);
         else if (MessConstant.MESSAGE_SETTING_MESSAGEFILE_ONEWEEK.equals(messageFile)) weekCheckBox.setSelected(true);
-        else if (MessConstant.MESSAGE_SETTING_MESSAGEFILE_IMMEDIATE.equals(messageFile)) immediateCheckBox.setSelected(true);
+        else if (MessConstant.MESSAGE_SETTING_MESSAGEFILE_IMMEDIATE.equals(messageFile))
+            immediateCheckBox.setSelected(true);
         // 自动下载文件
         downloadedAuto.addActionListener(e -> {
             if (((JCheckBox) e.getSource()).isSelected())

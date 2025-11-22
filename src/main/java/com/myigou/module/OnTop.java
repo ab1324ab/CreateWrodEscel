@@ -1,19 +1,14 @@
 package com.myigou.module;
 
 
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import java.awt.*;
-import javax.swing.JPanel;
-import javax.swing.JFrame;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JLabel;
 
 /**
  * @author ab1324ab
- *         Created by ab1324ab on 2017/6/29.
+ * Created by ab1324ab on 2017/6/29.
  */
 public class OnTop extends JFrame {
 
@@ -26,7 +21,6 @@ public class OnTop extends JFrame {
 
     /**
      * This method initializes jPanel
-     *
      * @return javax.swing.JPanel
      */
     private JPanel getJPanel(int num, Map<String, Map<String, JPanel>> jPanelMap) {
@@ -45,7 +39,6 @@ public class OnTop extends JFrame {
 
     /**
      * This method initializes jButton
-     *
      * @return javax.swing.JButton
      */
     private JButton getJButton(Map<String, JPanel> parameMap) {
@@ -53,11 +46,11 @@ public class OnTop extends JFrame {
         jButton.setFocusPainted(false);
         // jButton.setBounds(new Rectangle(0, 0, 90, 30));
         // 设置尺寸
-        Dimension preferredSize = new Dimension(130,35);
+        Dimension preferredSize = new Dimension(130, 35);
         jButton.setPreferredSize(preferredSize);
         // jButton.setSize(100, 15);
         //jButton.setForeground(Color.red);
-        jButton.setFont(new Font("微软雅黑",Font.PLAIN,12));
+        jButton.setFont(new Font("微软雅黑", Font.PLAIN, 12));
         String mapKey = "";
         for (String key : parameMap.keySet()) {
             mapKey = key;
@@ -86,7 +79,6 @@ public class OnTop extends JFrame {
 
     /**
      * This method initializes jPanel1
-     *
      * @return javax.swing.JPanel
      */
     private JPanel getJPanel1(String keyName, JPanel panelc) {
@@ -99,7 +91,6 @@ public class OnTop extends JFrame {
 
     /**
      * This method initializes jContentPane
-     *
      * @return javax.swing.JPanel
      */
     public JPanel getJContentPane(int num, Map<String, Map<String, JPanel>> jPanelMap) {

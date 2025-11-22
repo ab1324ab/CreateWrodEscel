@@ -27,7 +27,6 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * * 截图工具
  * 2022年12月5日18点48分*
- *
  * @author hawk*
  */
 public class MyScreenshotx {
@@ -143,7 +142,6 @@ public class MyScreenshotx {
 
     /**
      * 框选选中面板*
-     *
      * @param jFrame
      * @return
      */
@@ -221,8 +219,10 @@ public class MyScreenshotx {
                 if (topMove && !leftMove) topLeft();
                 if (!topMove && leftMove) bottomLeft();
                 if (topMove && leftMove) topRight();
-                if (endX > startX) controlPanel.setBounds(endX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
-                else controlPanel.setBounds(startX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
+                if (endX > startX)
+                    controlPanel.setBounds(endX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
+                else
+                    controlPanel.setBounds(startX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
 //                System.out.println("提示测试 " + isShowTip);
                 if (isShowTip) {
                     int height = 30;
@@ -234,7 +234,8 @@ public class MyScreenshotx {
                     Graphics2D g2d = (Graphics2D) g;
                     g2d.drawRoundRect(showTipPoint.x + 10, showTipPoint.y + 25, 230, height, 15, 15);
                     g.drawString("按住鼠标左键选择截图区", showTipPoint.x + 15, showTipPoint.y + 47);
-                    if (isShowTipCount == 2) g.drawString("再按一次右键退出截图", showTipPoint.x + 15, showTipPoint.y + 67);
+                    if (isShowTipCount == 2)
+                        g.drawString("再按一次右键退出截图", showTipPoint.x + 15, showTipPoint.y + 67);
                 }
             }
         };
@@ -499,8 +500,10 @@ public class MyScreenshotx {
                     if (isBrush) brush.add(e.getPoint());
                 }
                 controlPanel.setVisible(true);
-                if (endX > startX) controlPanel.setBounds(endX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
-                else controlPanel.setBounds(startX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
+                if (endX > startX)
+                    controlPanel.setBounds(endX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
+                else
+                    controlPanel.setBounds(startX - controlPanel.getWidth(), 0, controlPanel.getWidth(), controlPanel.getHeight());
                 frameSelection.updateUI();
 //                frameSelection.repaint();
             }
@@ -590,7 +593,6 @@ public class MyScreenshotx {
 
     /**
      * 保存的画笔数据写出*
-     *
      * @param g
      */
     public void boxWrite(Graphics g) {
@@ -673,7 +675,6 @@ public class MyScreenshotx {
 
     /**
      * 保存图片到磁盘 *
-     *
      * @param jFrame
      */
     public void doSaveBufImage(JFrame jFrame) {
@@ -711,7 +712,6 @@ public class MyScreenshotx {
 
     /**
      * 复制图片到内存*
-     *
      * @param jFrame
      */
     public void doCopyBufImage(JFrame jFrame) {
@@ -747,42 +747,42 @@ public class MyScreenshotx {
      */
     public void addButtonGroup() {
         groupsize = new ButtonGroup();
-        mindian.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/圆点小1.png", 20, 20));
-        mindian.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/圆点小.png", 20, 20));
+        mindian.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/圆点小1.png", 20, 20));
+        mindian.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/圆点小.png", 20, 20));
         mindian.setActionCommand("2");
         groupsize.add(mindian);
-        defaultdian.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/圆点中1.png", 20, 20));
-        defaultdian.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/圆点中.png", 20, 20));
+        defaultdian.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/圆点中1.png", 20, 20));
+        defaultdian.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/圆点中.png", 20, 20));
         defaultdian.setActionCommand("4");
         groupsize.add(defaultdian);
-        maxdian.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/圆点大1.png", 20, 20));
-        maxdian.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/圆点大.png", 20, 20));
+        maxdian.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/圆点大1.png", 20, 20));
+        maxdian.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/圆点大.png", 20, 20));
         maxdian.setActionCommand("8");
         groupsize.add(maxdian);
 
         groupcolor = new ButtonGroup();
-        ashkuang.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/ash多选框.png", 20, 20));
-        ashkuang.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/ash多选框-选中.png", 20, 20));
+        ashkuang.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/ash多选框.png", 20, 20));
+        ashkuang.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/ash多选框-选中.png", 20, 20));
         ashkuang.setActionCommand("#707070");
         groupcolor.add(ashkuang);
-        bluekuang.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/blue多选框.png", 20, 20));
-        bluekuang.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/blue多选框-选中.png", 20, 20));
+        bluekuang.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/blue多选框.png", 20, 20));
+        bluekuang.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/blue多选框-选中.png", 20, 20));
         bluekuang.setActionCommand("#0000ff");
         groupcolor.add(bluekuang);
-        greenkuang.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/green多选框.png", 20, 20));
-        greenkuang.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/green多选框-选中.png", 20, 20));
+        greenkuang.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/green多选框.png", 20, 20));
+        greenkuang.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/green多选框-选中.png", 20, 20));
         greenkuang.setActionCommand("#2AA515");
         groupcolor.add(greenkuang);
-        redkuang.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/red多选框.png", 20, 20));
-        redkuang.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/red多选框-选中.png", 20, 20));
+        redkuang.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/red多选框.png", 20, 20));
+        redkuang.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/red多选框-选中.png", 20, 20));
         redkuang.setActionCommand("#ff0000");
         groupcolor.add(redkuang);
-        whitekuang.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/white多选框.png", 20, 20));
-        whitekuang.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/white多选框-选中.png", 20, 20));
+        whitekuang.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/white多选框.png", 20, 20));
+        whitekuang.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/white多选框-选中.png", 20, 20));
         whitekuang.setActionCommand("#FFFFFF");
         groupcolor.add(whitekuang);
-        yellowkuang.setIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/yellow多选框.png", 20, 20));
-        yellowkuang.setSelectedIcon(ImageIconTool.gitImageIcon("/icons/capterScreen/yellow多选框-选中.png", 20, 20));
+        yellowkuang.setIcon(ImageIconTool.gitImageIcon("icons/capterScreen/yellow多选框.png", 20, 20));
+        yellowkuang.setSelectedIcon(ImageIconTool.gitImageIcon("icons/capterScreen/yellow多选框-选中.png", 20, 20));
         yellowkuang.setActionCommand("#EFB336");
         groupcolor.add(yellowkuang);
     }
@@ -806,5 +806,6 @@ public class MyScreenshotx {
         jFrame.setVisible(true);
         WindowTool.winConter(jFrame);
     }
+
 }
 

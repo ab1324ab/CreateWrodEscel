@@ -29,22 +29,21 @@ public class TheirownFile {
 
     public TheirownFile(String avatarUrl, String name, MessageBody messageBody) {
         try {
-            avatarIco.setIcon(ImageIconTool.gitImageIcon("/images/avatars/" + avatarUrl, 70, 70));
+            avatarIco.setIcon(ImageIconTool.gitImageIcon("images/avatars/" + avatarUrl, 70, 70));
             nameJLabel.setText(name);
             File file = new File(messageBody.getMessage());
             if (!file.exists()) {
                 filepace.setVisible(true);
                 filepace.setText("文件已被清理!");
-                fileico.setIcon(ImageIconTool.gitImageIcon("/icons/LANMessage/close.png", 30, 30));
+                fileico.setIcon(ImageIconTool.gitImageIcon("icons/LANMessage/close.png", 30, 30));
             }
             if (file.exists()) {
-                ImageIcon imageIcon = new ImageIcon(sun.awt.shell.ShellFolder.getShellFolder(file).getIcon(true));
-                fileico.setIcon(imageIcon);
+                fileico.setIcon(ImageIconTool.gitImageIcon(file));
                 filelength.setText(BusinessTool.fileSizeCalculation(file.length()));
             }
             filename.setText(file.getName());
             contentjpanel.addMouseListener(new ContentMouseAdapter(messageBody.getMessage(), "FILE", contentjpanel, filepace));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

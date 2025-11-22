@@ -2,7 +2,10 @@ package com.myigou.tool;
 
 import org.apache.commons.lang.StringUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -27,7 +30,6 @@ public class PropertiesTool {
 
     /**
      * 读取配置文件
-     *
      * @param fileName
      * @return
      */
@@ -37,7 +39,6 @@ public class PropertiesTool {
 
     /**
      * 读取配置文件
-     *
      * @param fileName
      * @return
      */
@@ -61,7 +62,6 @@ public class PropertiesTool {
 
     /**
      * 写入配置文件
-     *
      * @param filename
      * @param key
      * @param value
@@ -72,7 +72,6 @@ public class PropertiesTool {
 
     /**
      * 写入配置文件
-     *
      * @param filename
      * @param key
      * @param value
@@ -91,7 +90,6 @@ public class PropertiesTool {
 
     /**
      * 删除配置文件相应KEY
-     *
      * @param filename
      * @param key
      */
@@ -101,7 +99,6 @@ public class PropertiesTool {
 
     /**
      * 删除配置文件相应KEY
-     *
      * @param filename
      * @param key
      */
